@@ -27,7 +27,8 @@ a[disabled] i, a[disabled] span {
 #logo{
   width:100%;
   max-width: 134px;
-  margin: calc(40px - 10%) auto 6% auto;
+  margin: auto;
+  margin-top: calc(40px - 10%);
 }
 .hidden {
   visibility: hidden;
@@ -202,25 +203,13 @@ nav .input-field label i{
     -webkit-text-fill-color: #2F9EE2;
  }
 input[type="range"]::-webkit-slider-thumb{
-  margin-top: -11px;
-  height: 26px;
-  width:26px;
-  background-image: url('/volume.png');
-  background-size: 100%
+  background-color: #2F9EE2
 }
 input[type="range"]::-ms-thumb{
-  margin-top: -11px;
-  height: 26px;
-  width:26px;
-  background-image: url('/volume.png');
-  background-size: 100%
+  background-color: #2F9EE2
 }
 input[type="range"]::-moz-range-thumb{
-  margin-top: -11px;
-  height: 26px;
-  width:26px;
-  background-image: url('/volume.png');
-  background-size: 100%
+  background-color: #2F9EE2
 }
 
 .tabs .tab a{

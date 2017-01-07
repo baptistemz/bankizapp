@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux';
-import counter from './counter';
+import {combineReducers} from 'redux';
+import MusicReducer from './music_reducer';
+import RoomReducer from './room_reducer';
 
 const rootReducer = combineReducers({
-  counter
+  room: RoomReducer,
+  music: MusicReducer
 });
 
 export default rootReducer;

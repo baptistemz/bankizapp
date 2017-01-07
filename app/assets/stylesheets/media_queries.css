@@ -1,0 +1,44 @@
+@media only screen and (min-width : 0px) and (max-width: 600px) {
+  .right-thumbnail{
+    right:5px;
+  }
+  .left-thumbnail{
+    left:5px
+  }
+}
+@media only screen and (min-width: 600px) and (max-width : 992px) {
+  .video-container{
+      width: calc(35.6% - 14px);
+  }
+  .right-thumbnail{
+    right:7.5%;
+  }
+  .left-thumbnail{
+    left:7.5%
+  }
+}
+@media only screen and (min-width: 992px) and (max-width : 1200px) {
+  .video-container{
+    width: calc(29.5% - 16px);
+  }
+  .right-thumbnail{
+    right:15%;
+  }
+  .left-thumbnail{
+    left:15%
+  }
+  #logo{
+    margin-top: calc(40px - 10%);
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .video-container{
+    width: calc(29.1% - 12px);
+  }
+  .right-thumbnail{
+    right:15%;
+  }
+  .left-thumbnail{
+    left:15%
+  }
+}
