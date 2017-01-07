@@ -123,7 +123,6 @@ export default class VideoPlayer extends React.Component {
         fs: 1
       }
     };
-    console.log("video props", this.props.video)
     return(
         <div className="video-container">
           <Youtube videoId={this.props.video.id.videoId}

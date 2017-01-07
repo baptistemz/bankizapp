@@ -4,5 +4,6 @@ class Room < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  validates :name, presence: true, uniqueness: true
+  validates_presence_of :name, :slug, :user_id
+  validates_uniqueness_of :slug, :name
 end

@@ -28,7 +28,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'react-rails'
-
+gem 'enumerize'
 gem 'browserify-rails'
 
 # Use ActiveModel has_secure_password

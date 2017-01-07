@@ -14,8 +14,18 @@ export default function(state = INITIAL_STATE, action){
     const extended_list = [...state.waiting_list, JSON.parse(action.payload.data.json_data)]
     return {...state, waiting_list: extended_list, draggingObject: {items: extended_list, draggingIndex: null}}
   case DELETE_FROM_WAITING_LIST:
-    const reduced_list = state.waiting_list.filter(function(x) { return x !== action.payload; })
-    return {...state, waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
+    const to_delete = JSON.parse(action.payload.data.json_data)
+    const reduced_list = state.waiting_list.filter(function(x) { return x.etag != to_delete.etag})
+    const next = (state.playing === 1) ? state.music_2 : state.music_1
+    if(to_delete.etag === next.etag){
+      if(state.next_player === 1){
+        return {...state, music_2: reduced_list[0], waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
+      }else{
+        return {...state, music_1: reduced_list[0], waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
+      }
+    }else{
+      return {...state, waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
+    }
   case CHANGE_BALANCE:
     return {...state, balance: action.payload}
   case PLAY_NEXT:
@@ -57,13 +67,11 @@ export default function(state = INITIAL_STATE, action){
     return {...state, draggingObject: action.payload}
   case CHANGE_LIST_ORDER:
     const music_list = action.payload.data.map(function(a) {return JSON.parse(a.json_data)});
-    music_list.splice(0,1)
-    const playing = state.next_player
-    const next_music = (playing === 1) ? state.music_2 : state.music_1
+    const next_music = (state.playing === 1) ? state.music_2 : state.music_1
     if(music_list[0] === next_music){
       return {...state, waiting_list: music_list}
     }else{
-      if(playing === 1){
+      if(state.next_player === 1){
         return {...state, music_2: music_list[0], waiting_list: music_list}
       }else{
         return {...state, music_1: music_list[0], waiting_list: music_list}

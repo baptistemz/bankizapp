@@ -2,6 +2,7 @@ import axios from 'axios';
 import YTSearch from 'youtube-api-search';
 import moment from 'moment';
 import { browserHistory } from 'react-router'
+import slugify from '../slugify'
 
 const API_KEY = 'AIzaSyDaosxESYbzNrFkJ1vEXL3H7XiNGGEwAUM';
 const ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
@@ -58,9 +59,11 @@ export function playMusic(player, music){
 }
 export function addToWaitingList(room_id, music){
   const post_url = `/api/v0/rooms/${room_id}/musics`
+  console.log(slugify(music.etag.substr(music.etag.length - 11)))
   const request = axios.post(post_url, {
     json_data: JSON.stringify(music),
-    state: "waiting"
+    state: "waiting",
+    slug: slugify(music.etag.substr(music.etag.length - 10))
   })
   return(dispatch) => {
     request.then(function(data){
@@ -68,14 +71,13 @@ export function addToWaitingList(room_id, music){
     })
   }
 }
-export function deleteFromWaitingList(music){
-  // const delete_url  =`api/v0/rooms/${room_id}/musics`
-  // const request = axios.delete(post_url, {
-  //   json_data: JSON.stringify(music),
-  //   state: "waiting"
-  // })
+export function deleteFromWaitingList(room_name, music){
+  const delete_url  =`/api/v0/rooms/${room_name}/musics/${slugify(music.etag.substr(music.etag.length - 10))}`
+  const request = axios.delete(delete_url)
   return(dispatch) => {
-    dispatch({type: DELETE_FROM_WAITING_LIST, payload: music})
+    request.then(function(data){
+      dispatch({type: DELETE_FROM_WAITING_LIST, payload: data})
+    })
   }
 }
 export function changeBalance(balance){

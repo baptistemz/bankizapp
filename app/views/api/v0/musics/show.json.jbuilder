@@ -1,1 +1,1 @@
-json.extract! @music, :id, :json_data, :room_id, :state
+json.extract! @music, :id, :json_data, :room_id, :state, :slug

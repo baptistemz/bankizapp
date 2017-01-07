@@ -95,7 +95,7 @@ class SoundMixer extends React.Component {
     this.props.printListOrder(name, list)
   }
   deleteFromWaitingList(music){
-    this.props.deleteFromWaitingList(music)
+    this.props.deleteFromWaitingList(this.props.room_name, music)
   }
   render(){
     return(

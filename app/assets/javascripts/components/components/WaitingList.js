@@ -21,7 +21,6 @@ export default class WaitingList extends Component{
     this.props.changeListOrder(obj);
   }
   render(){
-    console.log(this.props.list)
     const smallListItems = this.props.list.map((item) => {
       return(
         <li className="waiting-list-icon" key={item.etag}>
