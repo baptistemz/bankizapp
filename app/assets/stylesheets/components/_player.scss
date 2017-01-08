@@ -1,0 +1,84 @@
+.video-container{
+  padding: 97px 0;
+  top: 20px;
+  z-index: 1;
+  position: absolute;
+  & h5{
+    text-align: center;
+  }
+}
+.music-title{
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  bottom:0;
+  display: flex;
+  vertical-align: center
+}
+.music-title h5{
+  text-shadow: 1px 1px 3px #7f7c7c;
+  color: white;
+  width: 100%;
+  margin: auto 0;
+  font-size: 1.3em
+}
+.video-container iframe{
+  border: 1px solid rgb(150,150,150);
+  height:144px;
+}
+
+.player-background{
+  padding: 35px 0 52px 0;
+  text-align: center;
+  color: white;
+  border-radius: 1px;
+}
+
+.player-background .play-pause{
+  background-color: white;
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  margin: auto
+}
+
+.player-number{
+  width:100%;
+  position: relative;
+  z-index:2
+}
+.player-number img{
+  position: absolute;
+  right:5px;
+  top:-30px;
+  width:24px;
+}
+
+.left-background{
+  background: #bed2db;
+  background: -moz-linear-gradient(left, #bed2db 0%, #b1cddb 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #bed2db), color-stop(100%, #b1cddb));
+  background: -webkit-linear-gradient(left, #bed2db 0%, #b1cddb 100%);
+  background: -o-linear-gradient(left, #bed2db 0%, #b1cddb 100%);
+  background: -ms-linear-gradient(left, #bed2db 0%, #b1cddb 100%);
+  background: linear-gradient(to right, #bed2db 0%, #b1cddb 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e58d4a', endColorstr='#f0c495', GradientType=1 );
+}
+
+.right-background{
+  margin-right: 0;
+  margin-left: auto;
+  background: #b1cddb;
+  background: -moz-linear-gradient(left, #b1cddb 0%, #bed2db 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #b1cddb), color-stop(100%, #bed2db));
+  background: -webkit-linear-gradient(left, #b1cddb 0%, #bed2db 100%);
+  background: -o-linear-gradient(left, #b1cddb 0%, #bed2db 100%);
+  background: -ms-linear-gradient(left, #b1cddb 0%, #bed2db 100%);
+  background: linear-gradient(to right, #b1cddb 0%, #bed2db 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0c495', endColorstr='#e58d4a', GradientType=1 );
+}
+
+.play-pause img{
+  width: 36px;
+  margin-top: 16px
+}

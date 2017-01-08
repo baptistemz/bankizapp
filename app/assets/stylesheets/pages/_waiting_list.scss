@@ -1,0 +1,80 @@
+.list-container{
+  border: 1px solid #C2C0C2;
+  padding: 0 10px;
+  border-radius:3px;
+  margin-top: 20px;
+  position: relative;
+  height: 100px;
+  & h6 {
+    display: table;
+    margin-top: -22px;
+    margin-bottom: 16px;
+    background: rgb(250,247,245);
+  }
+}
+#list-detail-btn{
+  height: 68px;
+  width: 120px;
+  position: absolute;
+  bottom:3px;
+  right:3px;
+  background-color: white;
+  z-index: 4;
+  padding-top: 32px;
+  padding-left: 10px;
+  & .btn{
+    width: 110px
+  }
+}
+
+#list-detail-gradient{
+  position: absolute;
+  bottom:3px;
+  right:123px;
+  height: 68px;
+  width:20px;
+  z-index: 5;
+  background: -moz-linear-gradient(left, rgba(255,255,255,0.0) 0%, white 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,0.0)), color-stop(100%, white));
+  background: -webkit-linear-gradient(left, rgba(255,255,255,0.0) 0%, white 100%);
+  background: -o-linear-gradient(left, rgba(255,255,255,0.0) 0%, white 100%);
+  background: -ms-linear-gradient(left, rgba(255,255,255,0.0) 0%, white 100%);
+  background: linear-gradient(to right, rgba(255,255,255,0.0) 0%, white 100%);
+}
+
+.waiting-list-icon{
+  margin-top: 120px;
+  position: relative;
+}
+.hover-chip{
+  opacity:0;
+  position: absolute;
+  top: -60px;
+  max-width: 400px;
+  background-color: rgba(15,15,15,0.7);
+  color:white;
+  padding: 10px;
+  border-radius: 10px;
+}
+.waiting-list-icon:hover .hover-chip {
+  -o-transition: opacity 0.5s linear;
+  -moz-transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+  -ms-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+  opacity:1
+}
+.collection .collection-item{
+  padding: 12px 20px;
+}
+.collection .collection-item.avatar{
+  min-height:0;
+}
+
+.truncate-list {
+    position: absolute;
+    width: 100%;
+    bottom:0px;
+    height: 186px;
+    overflow-y: hidden;
+}

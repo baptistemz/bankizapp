@@ -1,0 +1,26 @@
+.btn-floating i{
+  color: #2F9EE2;
+  -o-transition: all 0.3s ease;
+ -moz-transition: all 0.3s ease;
+ -webkit-transition: all 0.3s ease;
+ -ms-transition: all 0.3s ease;
+ transition: all 0.3s ease;
+}
+.btn-floating{
+  background: none;
+  border: 1px solid #2F9EE2;
+}
+.btn-floating:hover{
+  background-color: #2F9EE2;
+  color: white
+}
+.btn-floating:hover i{
+  color: white
+}
+
+.btn{
+  background-color: #2F9EE2;
+}
+.btn:hover{
+  background-color: #0087d6;
+}

@@ -1,0 +1,23 @@
+nav{
+ background-color: rgb(245, 245, 245);
+}
+nav .input-field label i{
+  color: rgb(17, 158, 224)
+}
+.material-icons{
+  color: rgb(17, 158, 224)
+}
+.input-field input[type=search]:focus ~ .material-icons{
+  color: rgb(17, 158, 224)
+}
+.input-field input[type=search]:focus + label i{
+  color: rgb(17, 158, 224)
+}
+#search:-webkit-autofill{
+  -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
+   -webkit-text-fill-color: #2F9EE2;
+}
+#search:-webkit-autofill:focus{
+  -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
+   -webkit-text-fill-color: #2F9EE2;
+}

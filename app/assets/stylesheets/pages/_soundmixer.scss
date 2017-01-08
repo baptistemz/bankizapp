@@ -1,0 +1,45 @@
+#logo{
+  width:100%;
+  max-width: 134px;
+  margin: calc(40px - 10%) auto 6% auto;
+}
+
+#right-sound-link, #left-sound-link {
+  position: absolute;
+  height: 28.1px;
+  width: 3px;
+  background-color: #c2c0c2;
+}
+
+#right-sound-link{
+  top: 0;
+  right:0;
+}
+#left-sound-link{
+  bottom: 0;
+  left:0;
+}
+input[type="range"]{
+  border: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  margin-top: -11px;
+  height: 26px;
+  width:26px;
+  background-image: url('/volume.png');
+  background-size: 100%
+}
+input[type="range"]::-ms-thumb{
+  margin-top: -11px;
+  height: 26px;
+  width:26px;
+  background-image: url('/volume.png');
+  background-size: 100%
+}
+input[type="range"]::-moz-range-thumb{
+  margin-top: -11px;
+  height: 26px;
+  width:26px;
+  background-image: url('/volume.png');
+  background-size: 100%
+}

@@ -100,34 +100,36 @@ class SoundMixer extends React.Component {
   render(){
     return(
       <div className="row">
-        <div className="col s5">
-          <div className="player-background left-background z-depth-1">
-            {this.music(this.props.music_1, 1)}
-            {this.music(this.props.music_2, 2)}
+        {this.music(this.props.music_1, 1)}
+        {this.music(this.props.music_2, 2)}
+        <div className="col s12 m5 push-m7">
+          <div className="player-background right-background z-depth-1">
             <div className="player-number">
-              <img src="/number_2.png" alt=""/>
+              <img src="/number_1.png" alt=""/>
             </div>
-            <h5>track 2</h5>
+            <h5>track 1</h5>
             <div className="play-pause">
               <img src="/play_pause.png" alt="play/pause"/>
             </div>
           </div>
         </div>
-        <div className="col s2">
+        <div className="col s12 m2">
           <div id="logo-sound-group">
-            <img src="/logo1.png" id="logo" alt="penguin"/>
+            <div id="right-sound-link" className="hide-on-med-and-up"></div>
+            <div id="left-sound-link" className="hide-on-med-and-up"></div>
+            <img  className="hide-on-small-only" src="/logo1.png" id="logo" alt="penguin"/>
             <form action="#">
               <input type="range" value={this.props.balance} min="0" max="100"
                 onChange = {event => this.onBalanceChange(event.target.value)}/>
             </form>
           </div>
         </div>
-        <div className="col s5">
-          <div className="player-background right-background z-depth-1">
+        <div className="col s12 m5 pull-m7">
+          <div className="player-background left-background z-depth-1">
             <div className="player-number">
-              <img src="/number_1.png" alt=""/>
+              <img src="/number_2.png" alt=""/>
             </div>
-            <h5>track 1</h5>
+            <h5>track 2</h5>
             <div className="play-pause">
               <img src="/play_pause.png" alt="play/pause"/>
             </div>

@@ -1,9 +1,17 @@
 @media only screen and (min-width : 0px) and (max-width: 600px) {
+  .video-container{
+    width: 90%;
+  }
   .right-thumbnail{
-    right:5px;
+    left: 5%;
   }
   .left-thumbnail{
-    left:5px
+    left: 5%;
+    top: 266px;
+  }
+  #logo-sound-group{
+    padding: 10px 0;
+    position: relative
   }
 }
 @media only screen and (min-width: 600px) and (max-width : 992px) {

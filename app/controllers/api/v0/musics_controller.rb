@@ -29,7 +29,7 @@ module Api
         musics = @room.musics.where(state: "waiting")
         musics.destroy_all
         params[:list].each do |item|
-          @room.musics.create(state: "waiting", slug: JSON.parse(item.to_json)['etag'].tr('/\"', '').split(//).last(10).join, json_data: item.to_json)
+          @room.musics.create(state: "waiting", slug: JSON.parse(item.to_json)['etag'].tr('/\"', '').split(//).last(9).join, json_data: item.to_json)
         end
         @musics = @room.musics.where(state: "waiting")
         render :index
