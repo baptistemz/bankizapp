@@ -21,7 +21,7 @@ module Api
       private
 
       def room_params
-        params.permit(:name,:slug)
+        params.require(:room).permit(:name,:slug)
       end
 
       def render_error

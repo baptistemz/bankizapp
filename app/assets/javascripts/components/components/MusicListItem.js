@@ -14,7 +14,7 @@ const MusicListItem = (props) => {
           </div>
           <div className="card-action">
             <a href="#" rel="no-refresh" onClick= {props.onVideoSelect}><i className="material-icons">play_arrow</i>play next</a>
-            <a href="#" rel="no-refresh" onClick= {props.addVideoToList} disabled={props.add_list_disabled}><i className="material-icons">playlist_add</i>add to list</a>
+            <a href="#" rel="no-refresh" onClick= {props.addVideoToList}><i className="material-icons">playlist_add</i>add to list</a>
           </div>
         </div>
       </li>

@@ -25,11 +25,6 @@ class SoundMixer extends React.Component {
       this.setState({forceSecondPlayer: false});
     }
   }
-  nextVideo(player){
-    if(this.props.waiting_list.length > 0){
-      this.props.playNext(player)
-    }
-  }
   switchPlayers(old_player){
     if(this.props.music_1 && this.props.music_2){
       this.props.switchPlayers(old_player)
@@ -44,13 +39,13 @@ class SoundMixer extends React.Component {
   fade(){
     const balance = this.props.balance
     if (balance > -1 && balance < 101){
-      this.props.changeBalance(balance-5)
+      this.props.changeBalance(balance+5)
     }
   }
   videoPlayer(music, num){
     const isFirstMusic = !this.props.music_2
     const toSwitch = (this.state.to_switch===num)
-    const alignRight = (isFirstMusic||toSwitch)
+    const alignRight = (!isFirstMusic && !toSwitch)
     return <VideoPlayer video={music}
       balance={Number(this.props.balance)}
       number={num}
@@ -63,7 +58,7 @@ class SoundMixer extends React.Component {
       alignRight={alignRight}/>
   }
   onBalanceChange(balance){
-    if(balance === '0'){
+    if(balance === '100'){
       this.autoSwitch()
     }
     this.props.changeBalance(balance)
@@ -75,7 +70,7 @@ class SoundMixer extends React.Component {
     let callCount = 1;
     var waitAndSee =function () {
       if (callCount < 10) {
-        this.getBalance() === '0' ? callCount += 1 : clearInterval(waitAndSwitch)
+        this.getBalance() === '100' ? callCount += 1 : clearInterval(waitAndSwitch)
       } else {
         this.switchPlayers(this.state.to_switch)
         clearInterval(waitAndSwitch);
@@ -95,18 +90,15 @@ class SoundMixer extends React.Component {
     this.props.printListOrder(name, list)
   }
   deleteFromWaitingList(music){
-    this.props.deleteFromWaitingList(this.props.room_name, music)
+    this.props.deleteFromWaitingList(this.props.room_id, music)
   }
   render(){
     return(
       <div className="row">
         {this.music(this.props.music_1, 1)}
         {this.music(this.props.music_2, 2)}
-        <div className="col s12 m5 push-m7">
+        <div className="col s12 m5">
           <div className="player-background right-background z-depth-1">
-            <div className="player-number">
-              <img src="/number_1.png" alt=""/>
-            </div>
             <h5>track 1</h5>
             <div className="play-pause">
               <img src="/play_pause.png" alt="play/pause"/>
@@ -115,8 +107,8 @@ class SoundMixer extends React.Component {
         </div>
         <div className="col s12 m2">
           <div id="logo-sound-group">
-            <div id="right-sound-link" className="hide-on-med-and-up"></div>
             <div id="left-sound-link" className="hide-on-med-and-up"></div>
+            <div id="right-sound-link" className="hide-on-med-and-up"></div>
             <img  className="hide-on-small-only" src="/logo1.png" id="logo" alt="penguin"/>
             <form action="#">
               <input type="range" value={this.props.balance} min="0" max="100"
@@ -124,11 +116,8 @@ class SoundMixer extends React.Component {
             </form>
           </div>
         </div>
-        <div className="col s12 m5 pull-m7">
+        <div className="col s12 m5">
           <div className="player-background left-background z-depth-1">
-            <div className="player-number">
-              <img src="/number_2.png" alt=""/>
-            </div>
             <h5>track 2</h5>
             <div className="play-pause">
               <img src="/play_pause.png" alt="play/pause"/>
@@ -136,7 +125,7 @@ class SoundMixer extends React.Component {
           </div>
         </div>
         <div className="col s12">
-          <WaitingList deleteMusicFromList = {this.deleteFromWaitingList.bind(this)} changeListOrder={this.changeListOrder.bind(this)} list={this.props.waiting_list} roomName={this.props.room_name} draggingObject={this.props.draggingObject} printListOrder={this.printListOrder.bind(this)} />
+          <WaitingList deleteMusicFromList = {this.deleteFromWaitingList.bind(this)} changeListOrder={this.changeListOrder.bind(this)} list={this.props.waiting_list} roomId={this.props.room_id} draggingObject={this.props.draggingObject} printListOrder={this.printListOrder.bind(this)} />
         </div>
       </div>
     )
@@ -155,7 +144,7 @@ function mapStateToProps(state){
     music_2_playing: state.music.music_2_playing,
     waiting_list: state.music.waiting_list,
     draggingObject: state.music.draggingObject,
-    room_name: state.room.name
+    room_id: state.room.id
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SoundMixer)

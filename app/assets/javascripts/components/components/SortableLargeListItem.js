@@ -7,11 +7,11 @@ class LargeListItem extends React.Component{
     this.props.deleteMusicFromList(music)
   }
   onDrop(){
-    this.props.printListOrder(this.props.room_name, this.props.list)
+    this.props.printListOrder(this.props.room_id, this.props.list)
   }
   render() {
     const childProps = this.props.children
-    const {room_name, printListOrder, deleteMusicFromList, ...otherProps} = this.props;
+    const {room_id, printListOrder, deleteMusicFromList, ...otherProps} = this.props;
     return (
       <li {...otherProps} onDrop={this.onDrop.bind(this)} className="collection-item avatar" key={childProps.etag}>
         <img src="/youtube_icon.png" alt="" className="circle avatar-sizing"/>

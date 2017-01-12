@@ -45,6 +45,8 @@ gem 'browserify-rails'
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
+gem 'devise_token_auth' # Token based authentication for Rails JSON APIs
+gem 'omniauth' # required for devise_token_auth
 gem 'pundit'
 gem 'friendly_id', '~> 5.1.0'
 gem 'nested-hstore'

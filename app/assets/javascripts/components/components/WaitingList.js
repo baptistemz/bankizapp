@@ -31,7 +31,7 @@ export default class WaitingList extends Component{
         </li>
       )
     })
-    const childProps = {list: this.state.list, room_name: this.props.roomName, printListOrder: this.props.printListOrder, deleteMusicFromList: this.props.deleteMusicFromList}
+    const childProps = {list: this.state.list, room_id: this.props.roomId, printListOrder: this.props.printListOrder, deleteMusicFromList: this.props.deleteMusicFromList}
     const largeListItems = this.props.list.map(function(item, i) {
       return (
         <SortableLargeListItem

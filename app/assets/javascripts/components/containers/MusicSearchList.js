@@ -20,12 +20,13 @@ class MusicSearchList extends Component {
   addMusicToList(music){
     if(!this.props.music_1 || !this.props.music_2){
       this.playMusic(music)
+      this.props.addToWaitingList(this.props.room_id, music, "playing");
+    }else{
+      this.props.addToWaitingList(this.props.room_id, music, "waiting");
     }
-    this.props.addToWaitingList(this.props.room_id, music);
   }
   render(){
     const musics = this.props.musics;
-    const add_list_disabled = !this.props.music_1
     return(
       <div>
         <div className="row">
@@ -48,7 +49,6 @@ class MusicSearchList extends Component {
                         addVideoToList = {this.addMusicToList.bind(this, music)}
                         key={music.etag}
                         music={music}
-                        add_list_disabled = {add_list_disabled}
                         />
                     )
                   })}
@@ -79,7 +79,6 @@ function mapStateToProps(state){
   return {
     room_id: state.room.id,
     musics: state.music.all,
-    balance: state.music.balance,
     music_1: state.music.music_1,
     music_2: state.music.music_2,
     next_player: state.music.next_player,

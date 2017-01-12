@@ -9,7 +9,7 @@
     display: table;
     margin-top: -22px;
     margin-bottom: 16px;
-    background: rgb(250,247,245);
+    background: white;
   }
 }
 #list-detail-btn{
@@ -43,7 +43,7 @@
 }
 
 .waiting-list-icon{
-  margin-top: 120px;
+  margin-top: 60px;
   position: relative;
 }
 .hover-chip{
@@ -75,6 +75,6 @@
     position: absolute;
     width: 100%;
     bottom:0px;
-    height: 186px;
-    overflow-y: hidden;
+    height: 126px;
+    overflow: hidden;
 }

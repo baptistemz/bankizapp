@@ -7,7 +7,7 @@ import slugify from '../slugify'
 class Prehome extends Component {
   goToRoom(event) {
     event.preventDefault()
-    this.props.createRoom(slugify(this.roomInput.value))
+    this.props.createRoom(this.roomInput.value, slugify(this.roomInput.value))
     // this.context.router.push(`/room/${this.roomInput.value}`)
   }
 

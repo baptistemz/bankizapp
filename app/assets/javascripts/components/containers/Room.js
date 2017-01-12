@@ -15,11 +15,11 @@ class Room extends Component {
   render() {
     return (
       <div className="container">
-        <div className="margin-top-20">
+
           <SoundMixer/>
           <SearchBar />
           <MusicSearchList/>
-        </div>
+
       </div>
     );
   }

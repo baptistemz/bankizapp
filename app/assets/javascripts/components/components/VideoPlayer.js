@@ -18,8 +18,8 @@ export default class VideoPlayer extends React.Component {
     this.props.alignRight ? this.align('right') : this.align('left')
   }
   componentDidUpdate(oldProps){
-    if(!oldProps.alignRight && this.props.alignRight){
-      this.align('right')
+    if(oldProps.alignRight && !this.props.alignRight){
+      this.align('left')
     }
   }
   align(side){

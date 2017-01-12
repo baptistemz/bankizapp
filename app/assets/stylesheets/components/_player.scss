@@ -1,6 +1,6 @@
 .video-container{
   padding: 97px 0;
-  top: 20px;
+  top: 39px;
   z-index: 1;
   position: absolute;
   & h5{
@@ -40,18 +40,6 @@
   width: 60px;
   height: 60px;
   margin: auto
-}
-
-.player-number{
-  width:100%;
-  position: relative;
-  z-index:2
-}
-.player-number img{
-  position: absolute;
-  right:5px;
-  top:-30px;
-  width:24px;
 }
 
 .left-background{

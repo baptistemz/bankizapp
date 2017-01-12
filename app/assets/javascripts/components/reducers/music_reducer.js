@@ -1,6 +1,6 @@
 import {FETCH_MUSICS, PLAY_MUSIC_ON_PLAYER_1, PLAY_MUSIC_ON_PLAYER_2, PLAY_NEXT, STOP_PLAYER, ADD_TO_WAITING_LIST, DELETE_FROM_WAITING_LIST, SWITCH_PLAYERS, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER} from '../actions/index'
 
-const INITIAL_STATE = { search_term: '', youtube_auto_complete:[], all:[], music_1: null, music_2: null, balance:100, next_player: 1, mute_player:2, waiting_list:[], draggingObject: {}};
+const INITIAL_STATE = { search_term: '', youtube_auto_complete:[], all:[], music_1: null, music_2: null, balance:0, next_player: 1, mute_player:2, waiting_list:[], draggingObject: {}};
 
 export default function(state = INITIAL_STATE, action){
   switch (action.type) {
@@ -47,9 +47,9 @@ export default function(state = INITIAL_STATE, action){
     }
   case SWITCH_PLAYERS:
     if (action.payload.old_player === 1){
-      return {...state, music_1: null, next_player:2, balance: 100, mute_player:1}
+      return {...state, music_1: null, next_player:2, balance: 0, mute_player:1}
     }else{
-      return {...state, music_2: null, next_player:1, balance: 100, mute_player:2}
+      return {...state, music_2: null, next_player:1, balance: 0, mute_player:2}
     }
   case GOT_ROOM:
     if(action.payload.data.musics.length > 0){

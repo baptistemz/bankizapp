@@ -38,7 +38,7 @@ module Api
       private
 
       def music_params
-        params.permit(:state, :json_data, :slug)
+        params.require(:music).permit(:state, :json_data, :slug)
       end
     end
   end

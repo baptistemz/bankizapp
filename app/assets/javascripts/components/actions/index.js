@@ -21,6 +21,16 @@ export const GOT_ROOM ='GOT_ROOM'
 export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
 export const CHANGE_LIST_ORDER ='CHANGE_LIST_ORDER'
 
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
+
 
 export function fetchMusics(term){
   var params = {
@@ -57,12 +67,11 @@ export function playMusic(player, music){
     }
   }
 }
-export function addToWaitingList(room_id, music){
+export function addToWaitingList(room_id, music, state){
   const post_url = `/api/v0/rooms/${room_id}/musics`
-  console.log(slugify(music.etag.substr(music.etag.length - 11)))
   const request = axios.post(post_url, {
     json_data: JSON.stringify(music),
-    state: "waiting",
+    state: state,
     slug: slugify(music.etag.substr(music.etag.length - 10))
   })
   return(dispatch) => {
@@ -71,8 +80,8 @@ export function addToWaitingList(room_id, music){
     })
   }
 }
-export function deleteFromWaitingList(room_name, music){
-  const delete_url  =`/api/v0/rooms/${room_name}/musics/${slugify(music.etag.substr(music.etag.length - 10))}`
+export function deleteFromWaitingList(room_id, music){
+  const delete_url  =`/api/v0/rooms/${room_id}/musics/${slugify(music.etag.substr(music.etag.length - 10))}`
   const request = axios.delete(delete_url)
   return(dispatch) => {
     request.then(function(data){
@@ -105,16 +114,16 @@ export function switchPlayers(old_player){
     dispatch({type: SWITCH_PLAYERS, payload:{old_player:old_player}})
   }
 }
-export function createRoom(name){
+export function createRoom(name, slug){
   const post_url = '/api/v0/rooms'
   const request = axios.post(post_url, {
     name: name,
-    slug: name
+    slug: slug
   })
   return(dispatch) => {
     request.then(function(data){
       dispatch({type: GOT_ROOM, payload:data})
-      browserHistory.push(`/rooms/${name}`)
+      browserHistory.push(`/rooms/${slug}`)
     })
   }
 }
@@ -141,5 +150,144 @@ export function printListOrder(name, list){
     request.then(function(data){
       dispatch({type: CHANGE_LIST_ORDER, payload:data})
     })
+  }
+}
+
+// AUTH
+
+// Auth different states
+
+function requestLogin(creds) {
+  return {
+    type: LOGIN_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
+    creds
+  }
+}
+
+function receiveLogin(user) {
+  return {
+    type: LOGIN_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
+  }
+}
+
+function loginError(message) {
+  return {
+    type: LOGIN_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
+  }
+}
+
+function requestSignup(creds) {
+  return {
+    type: SIGNUP_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
+    creds
+  }
+}
+
+function receiveSignup(user) {
+  return {
+    type: SIGNUP_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
+  }
+}
+
+function signupError(message) {
+  return {
+    type: SIGNUP_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
+  }
+}
+
+function requestLogout() {
+  return {
+    type: LOGOUT_REQUEST,
+    isFetching: true,
+    isAuthenticated: true
+  }
+}
+
+function receiveLogout() {
+  return {
+    type: LOGOUT_SUCCESS,
+    isFetching: false,
+    isAuthenticated: false
+  }
+}
+
+// Auth different actions
+
+export function loginUser(creds) {
+  let config = {
+    method: 'POST',
+    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    body: `email=${creds.email}&password=${creds.password}`
+  }
+  return dispatch => {
+    // We dispatch requestLogin to kickoff the call to the API
+    dispatch(requestLogin(creds))
+    return fetch('/api/v0/auth/sign_in', config)
+      .then(response =>
+        response.json().then(user => ({ user, response }))
+            ).then(({ user, response }) =>  {
+        if (!response.ok) {
+          // If there was a problem, we want to
+          // dispatch the error condition
+          dispatch(loginError(user.message))
+          return Promise.reject(user)
+        } else {
+          // If login was successful, set the token in local storage
+          localStorage.setItem('id_token', user.id_token)
+          // Dispatch the success action
+          dispatch(receiveLogin(user))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}
+export function signupUser(creds) {
+  let config = {
+    method: 'POST',
+    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    body: `username=${creds.username}&email=${creds.email}&password=${creds.password}&password_confirmation=${creds.password_confirmation}`
+  }
+  return dispatch => {
+    // We dispatch requestLogin to kickoff the call to the API
+    dispatch(requestSignup(creds))
+    return fetch('/api/v0/auth', config)
+      .then(response =>
+        response.json().then(user => ({ user, response }))
+            ).then(({ user, response }) =>  {
+        if (!response.ok) {
+          // If there was a problem, we want to
+          // dispatch the error condition
+          dispatch(SignupError(user.message))
+          return Promise.reject(user)
+        } else {
+          // If login was successful, set the token in local storage
+          localStorage.setItem('id_token', user.id_token)
+          // Dispatch the success action
+          dispatch(receiveSignup(user))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}
+
+export function logoutUser() {
+  return dispatch => {
+    dispatch(requestLogout())
+    localStorage.removeItem('id_token')
+    dispatch(receiveLogout())
   }
 }

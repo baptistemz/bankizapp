@@ -1,6 +1,7 @@
 #logo{
+  display: block;
   width:100%;
-  max-width: 134px;
+  max-width: 100px;
   margin: calc(40px - 10%) auto 6% auto;
 }
 
@@ -12,11 +13,11 @@
 }
 
 #right-sound-link{
-  top: 0;
+  bottom: 0;
   right:0;
 }
 #left-sound-link{
-  bottom: 0;
+  top: 0;
   left:0;
 }
 input[type="range"]{
