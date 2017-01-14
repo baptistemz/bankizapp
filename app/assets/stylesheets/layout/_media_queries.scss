@@ -13,6 +13,9 @@
     padding: 10px 0;
     position: relative
   }
+  .sidenav-background{
+    height:162px
+  }
 }
 @media only screen and (min-width: 600px) and (max-width : 992px) {
   .video-container{
@@ -23,6 +26,9 @@
   }
   .left-thumbnail{
     left:7.5%
+  }
+  .sidenav-background{
+    height:162px
   }
 }
 @media only screen and (min-width: 992px) and (max-width : 1200px) {
@@ -38,6 +44,9 @@
   #logo{
     margin-top: calc(40px - 10%);
   }
+  .sidenav-background{
+    height:178px
+  }
 }
 @media only screen and (min-width: 1200px) {
   .video-container{
@@ -48,5 +57,8 @@
   }
   .left-thumbnail{
     left:15%
+  }
+  .sidenav-background{
+    height:178px
   }
 }

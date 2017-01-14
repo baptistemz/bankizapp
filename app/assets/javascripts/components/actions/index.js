@@ -171,7 +171,7 @@ function receiveLogin(user) {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    user: user
   }
 }
 
@@ -229,7 +229,7 @@ function receiveLogout() {
 
 // Auth different actions
 
-export function loginUser(creds) {
+export function loginUser(creds, current_room) {
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -242,6 +242,8 @@ export function loginUser(creds) {
       .then(response =>
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
+              console.log("user", user);
+              console.log("response", response);
         if (!response.ok) {
           // If there was a problem, we want to
           // dispatch the error condition
@@ -252,6 +254,7 @@ export function loginUser(creds) {
           localStorage.setItem('id_token', user.id_token)
           // Dispatch the success action
           dispatch(receiveLogin(user))
+          current_room ? browserHistory.push(`/rooms/${current_room}`) : browserHistory.push('/')
         }
       }).catch(err => console.log("Error: ", err))
   }

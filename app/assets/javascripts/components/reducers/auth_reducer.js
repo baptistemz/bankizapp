@@ -11,12 +11,15 @@ export default function(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
-        user: action.creds
+        user: action.creds.email
       })
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
+        user: action.user.data,
+        username: action.user.data.username,
+        email: action.user.data.email,
         errorMessage: ''
       })
     case LOGIN_FAILURE:

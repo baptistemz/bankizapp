@@ -14,8 +14,8 @@ class Prehome extends Component {
   render() {
     return (
       <form className="connect" onSubmit={this.goToRoom.bind(this)}>
-        <label htmlFor="">Room Name</label>
-        <input type="text" required placeholder="room" ref={(input) => {this.roomInput = input}} />
+        <label htmlFor="room_input">Room Name</label>
+        <input id="room_input" type="text" required placeholder="room" ref={(input) => {this.roomInput = input}} />
         <button type="submit">Connect</button>
       </form>
     )

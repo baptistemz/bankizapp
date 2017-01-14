@@ -17,7 +17,9 @@
 .btn-floating:hover i{
   color: white
 }
-
+.btn:focus, .btn-large:focus, .btn-floating:focus{
+  background-color: #2F9EE2;
+}
 .btn{
   background-color: #2F9EE2;
 }

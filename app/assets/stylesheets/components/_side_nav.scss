@@ -3,3 +3,21 @@
   margin-left: 1%;
   margin-top: 3px;
 }
+
+.sidenav-background{
+  width: 100%;
+  position : relative;
+
+}
+.side-nav .userView .name, .side-nav .userView .email{
+  padding: 0;
+  margin: 0;
+}
+.sidenav-background img{
+  position: absolute;
+  left: -20px
+}
+
+.profile-btn-group{
+  margin: 10px 0
+}

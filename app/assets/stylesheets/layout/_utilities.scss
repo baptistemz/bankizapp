@@ -61,6 +61,34 @@ a[disabled] i, a[disabled] span {
   margin-left: 10px
 }
 
+.full-width{
+  width: 100%;
+}
+
+.space-around{
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-small {
+    height: 28px;
+    line-height: 24px;
+    font-size: 12px;
+    padding: 0.2rem 0.8rem;
+}
+
+.nice-container{
+  border: 1px solid #C2C0C2;
+  padding: 10px 10%;
+  border-radius:3px;
+  background-color: white
+}
+
+.vertical-align-container{
+  height: calc(100vh - 144px);
+  display: flex;
+  align-items: center;
+}
 
 // DEBUG MATERIALIZE
 span.value{
