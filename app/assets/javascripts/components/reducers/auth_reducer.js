@@ -17,7 +17,6 @@ export default function(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        user: action.user.data,
         username: action.user.data.username,
         email: action.user.data.email,
         errorMessage: ''
@@ -32,12 +31,15 @@ export default function(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
-        user: action.creds
+        user: action.creds.email
       })
     case SIGNUP_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
+        errorMessage: '',
+        username: action.user.data.username,
+        email: action.user.data.email,
         errorMessage: ''
       })
     case SIGNUP_FAILURE:

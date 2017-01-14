@@ -198,7 +198,7 @@ function receiveSignup(user) {
     type: SIGNUP_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    user: user
   }
 }
 
@@ -260,11 +260,13 @@ export function loginUser(creds, current_room) {
   }
 }
 export function signupUser(creds) {
+  console.log(19, (creds.username))
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `username=${creds.username}&email=${creds.email}&password=${creds.password}&password_confirmation=${creds.password_confirmation}`
   }
+  console.log(20, config)
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestSignup(creds))
@@ -278,6 +280,7 @@ export function signupUser(creds) {
           dispatch(SignupError(user.message))
           return Promise.reject(user)
         } else {
+          console.log(22, user)
           // If login was successful, set the token in local storage
           localStorage.setItem('id_token', user.id_token)
           // Dispatch the success action

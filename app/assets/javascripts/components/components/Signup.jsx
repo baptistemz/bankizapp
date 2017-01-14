@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {signupUser} from '../actions/index';
 import {Link} from 'react-router';
 
-export default class Signup extends Component {
+class Signup extends Component {
   onFormSubmit(event){
     event.preventDefault()
-
+    const username = this.refs.username
+    const email = this.refs.email
+    const password = this.refs.password
+    const password_confirmation = this.refs.password_confirmation
+    const creds = { username: username.value.trim(),
+                    email: email.value.trim(),
+                    password: password.value.trim(),
+                    password_confirmation: password_confirmation.value.trim() }
+    this.props.signupUser(creds)
   }
   render() {
     const { errorMessage } = this.props
@@ -40,7 +51,7 @@ export default class Signup extends Component {
                           <label htmlFor="icon_password_confirmation">Password confirmation</label>
                         </div>
                       </div>
-                      <button type="submit" className="btn full-width">Submit</button>
+                      <button type="submit" className="btn full-width margin-top-20">Submit</button>
                     </form>
                     {errorMessage &&
                       <p>{errorMessage}</p>
@@ -57,11 +68,10 @@ export default class Signup extends Component {
       </div>
     )
   }
-
-  handleClick(event) {
-    const username = this.refs.username
-    const password = this.refs.password
-    const creds = { username: username.value.trim(), password: password.value.trim() }
-    this.props.onLoginClick(creds)
-  }
 }
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({signupUser}, dispatch);
+}
+
+export default connect(null,mapDispatchToProps)(Signup)

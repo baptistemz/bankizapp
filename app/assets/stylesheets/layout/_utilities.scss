@@ -73,8 +73,9 @@ a[disabled] i, a[disabled] span {
 .btn-small {
     height: 28px;
     line-height: 24px;
-    font-size: 12px;
-    padding: 0.2rem 0.8rem;
+    font-size: 11px;
+    padding: 3px 4px;
+    min-width: 104px;
 }
 
 .nice-container{

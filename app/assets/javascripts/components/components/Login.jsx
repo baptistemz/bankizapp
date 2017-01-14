@@ -34,7 +34,7 @@ class Login extends Component {
                       <input id="icon_password" ref="password" type="password" className="validate"/>
                       <label htmlFor="icon_password">Password</label>
                     </div>
-                    <button type="submit" className="btn full-width">Submit</button>
+                    <button type="submit" className="btn full-width margin-top-20">Submit</button>
                   </form>
                   {errorMessage &&
                     <p>{errorMessage}</p>

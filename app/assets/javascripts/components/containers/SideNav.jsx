@@ -93,7 +93,7 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state){
   return {
     isAuthenticated: state.user.isAuthenticated,
-    user: state.user.username,
+    username: state.user.username,
     email: state.user.email
   }
 }
