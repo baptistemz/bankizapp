@@ -3,6 +3,7 @@ import YTSearch from 'youtube-api-search';
 import moment from 'moment';
 import { browserHistory } from 'react-router'
 import slugify from '../slugify'
+import {toastr} from 'react-redux-toastr'
 
 const API_KEY = 'AIzaSyDaosxESYbzNrFkJ1vEXL3H7XiNGGEwAUM';
 const ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
@@ -115,10 +116,18 @@ export function switchPlayers(old_player){
   }
 }
 export function createRoom(name, slug){
+  const token = localStorage.getItem('auth_token')
   const post_url = '/api/v0/rooms'
   const request = axios.post(post_url, {
-    name: name,
-    slug: slug
+   room:{
+     name: name,
+     slug: slug
+   }
+  },{
+    headers: {
+      "Authorization": "Bearer "+ token,
+      "Content-Type": "application/json"
+   }
   })
   return(dispatch) => {
     request.then(function(data){
@@ -128,8 +137,14 @@ export function createRoom(name, slug){
   }
 }
 export function fetchRoom(name){
+  const token = localStorage.getItem('auth_token')
   const get_url = `/api/v0/rooms/${name}`
-  const request = axios.get(get_url)
+  const request = axios.get(get_url,{
+    headers: {
+      "Authorization": "Bearer "+ token,
+      "Content-Type": "application/json"
+   }
+  })
   return(dispatch) => {
     request.then(function(data){
       dispatch({type: GOT_ROOM, payload:data})
@@ -230,70 +245,72 @@ function receiveLogout() {
 // Auth different actions
 
 export function loginUser(creds, current_room) {
+  console.log(1, 'in login', creds, current_room)
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `email=${creds.email}&password=${creds.password}`
   }
   return dispatch => {
+    console.log(2, 'in dispatch')
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
-    return fetch('/api/v0/auth/sign_in', config)
+    return fetch('/api/v0/auth_user', config)
       .then(response =>
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
-              console.log("user", user);
-              console.log("response", response);
         if (!response.ok) {
+          console.log(3, 'in response, not ok')
           // If there was a problem, we want to
           // dispatch the error condition
           dispatch(loginError(user.message))
           return Promise.reject(user)
         } else {
+          console.log(3, "in response, it's ok")
           // If login was successful, set the token in local storage
-          localStorage.setItem('id_token', user.id_token)
+          localStorage.setItem('auth_token', user.auth_token)
+          localStorage.setItem('email', user.user.email)
+          localStorage.setItem('username', user.user.username)
           // Dispatch the success action
           dispatch(receiveLogin(user))
+          toastr.success('Logged in with success', `as ${user.user.username}`)
           current_room ? browserHistory.push(`/rooms/${current_room}`) : browserHistory.push('/')
         }
-      }).catch(err => console.log("Error: ", err))
+      }).catch(err => toastr.error('could not connect you' , `${err.errors[0]}`))
   }
 }
-export function signupUser(creds) {
-  console.log(19, (creds.username))
-  let config = {
-    method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `username=${creds.username}&email=${creds.email}&password=${creds.password}&password_confirmation=${creds.password_confirmation}`
-  }
-  console.log(20, config)
+export function signupUser(creds, current_room) {
+  const post_url = '/api/v0/users'
+  const params = {user:{
+    username: creds.username,
+    email: creds.email,
+    password: creds.password,
+    password_confirmation: creds.password_confirmation
+  }}
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestSignup(creds))
-    return fetch('/api/v0/auth', config)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
-        if (!response.ok) {
+    return axios.post(post_url, params)
+      .then(response => {
+        if (response.errors) {
           // If there was a problem, we want to
           // dispatch the error condition
-          dispatch(SignupError(user.message))
+          dispatch(signupError(user.message))
           return Promise.reject(user)
         } else {
-          console.log(22, user)
-          // If login was successful, set the token in local storage
-          localStorage.setItem('id_token', user.id_token)
-          // Dispatch the success action
-          dispatch(receiveSignup(user))
+          dispatch(loginUser({ email: creds.email, password: creds.password }, current_room))
         }
-      }).catch(err => console.log("Error: ", err))
+      }).catch(err => toastr.error(`Couldn't create your account`), {timeOut: 30000})
   }
-}
+      //
+};
 
 export function logoutUser() {
   return dispatch => {
     dispatch(requestLogout())
-    localStorage.removeItem('id_token')
+    localStorage.removeItem('auth_token')
+    localStorage.removeItem('email')
+    localStorage.removeItem('username')
     dispatch(receiveLogout())
+    toastr.success('Logged out successfully', 'Hope to see you soon !')
   }
 }

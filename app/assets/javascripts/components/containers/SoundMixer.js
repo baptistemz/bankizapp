@@ -95,6 +95,9 @@ class SoundMixer extends React.Component {
   render(){
     return(
       <div className="row">
+        <div className="col-xs-12">
+          <h1>o</h1>
+        </div>
         {this.music(this.props.music_1, 1)}
         {this.music(this.props.music_2, 2)}
         <div className="col s12 m5">
@@ -144,7 +147,9 @@ function mapStateToProps(state){
     music_2_playing: state.music.music_2_playing,
     waiting_list: state.music.waiting_list,
     draggingObject: state.music.draggingObject,
-    room_id: state.room.id
+    room_id: state.room.id,
+    room_name: state.room.name,
+    dj_name: state.room.dj.username
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SoundMixer)

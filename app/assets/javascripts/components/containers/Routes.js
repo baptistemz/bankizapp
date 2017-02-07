@@ -8,7 +8,7 @@ import Login from '../components/Login.jsx';
 
 export default(
   <div>
-    <Route path="/" component={SideNav}>
+    <Route path="/" component={SideNav} >
       <IndexRoute component={Prehome}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={Login}/>

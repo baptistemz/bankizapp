@@ -1,6 +1,6 @@
 module Api
   module V0
-    class MusicsController < ActionController::Base
+    class MusicsController < ApplicationController
       def index
         @room = Room.friendly.find(params[:room_id])
         @musics = @room.musics.all

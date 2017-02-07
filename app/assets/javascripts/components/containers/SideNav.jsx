@@ -16,7 +16,6 @@ class SideNav extends Component {
     this.props.logoutUser()
   }
   profile(){
-    console.log(this.props.user)
     return(
       <div>
         <table>

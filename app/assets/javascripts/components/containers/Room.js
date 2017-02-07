@@ -15,11 +15,9 @@ class Room extends Component {
   render() {
     return (
       <div className="container">
-
           <SoundMixer/>
           <SearchBar />
           <MusicSearchList/>
-
       </div>
     );
   }
@@ -28,4 +26,5 @@ class Room extends Component {
 function mapDispatchToProps(dispatch){
   return bindActionCreators({fetchRoom}, dispatch);
 }
+
 export default connect(null,mapDispatchToProps)(Room)

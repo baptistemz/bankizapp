@@ -1,32 +1,42 @@
-class Api::V1::BaseController < ActionController::Base
-  include Pundit
+module Api
+  module V0
+    class BaseController
+      before_action :configure_permitted_parameters, if: :devise_controller?
+      before_filter :authenticate_request!
 
-  before_action :authenticate_user!
-  after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: :index
+      attr_reader :current_user
 
-  rescue_from StandardError,                with: :internal_server_error
-  rescue_from Pundit::NotAuthorizedError,   with: :user_not_authorized
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+      protected
 
-  private
+      def authenticate_request!
+        unless user_id_in_token?
+          render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+          return
+        end
+        @current_user = User.find(auth_token[:user_id])
+      rescue JWT::VerificationError, JWT::DecodeError
+        render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+      end
 
-  def user_not_authorized(exception)
-    render json: {
-      error: "Unauthorized #{exception.policy.class.to_s.underscore.camelize}.#{exception.query}"
-    }, status: :unauthorized
-  end
+      private
 
-  def not_found(exception)
-    render json: { error: exception.message }, status: :not_found
-  end
+      def http_token
+          @http_token ||= if request.headers['Authorization'].present?
+            request.headers['Authorization'].split(' ').last
+          end
+      end
 
-  def internal_server_error(exception)
-    if Rails.env.development?
-      response = { type: exception.class.to_s, error: exception.message }
-    else
-      response = { error: "Internal Server Error" }
+      def auth_token
+        @auth_token ||= JsonWebToken.decode(http_token)
+      end
+
+      def user_id_in_token?
+        http_token && auth_token && auth_token[:user_id].to_i
+      end
+
+      def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+      end
     end
-    render json: response, status: :internal_server_error
   end
 end

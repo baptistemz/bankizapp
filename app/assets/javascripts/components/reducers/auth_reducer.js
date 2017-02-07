@@ -2,7 +2,9 @@ import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCC
 
 const INITIAL_STATE = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem('id_token') ? true : false
+    isAuthenticated: localStorage.getItem('auth_token') ? true : false,
+    username: localStorage.getItem("username"),
+    email: localStorage.getItem("email")
   };
 
 export default function(state = INITIAL_STATE, action) {
@@ -17,8 +19,8 @@ export default function(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        username: action.user.data.username,
-        email: action.user.data.email,
+        username: action.user.user.username,
+        email: action.user.user.email,
         errorMessage: ''
       })
     case LOGIN_FAILURE:
@@ -38,8 +40,8 @@ export default function(state = INITIAL_STATE, action) {
         isFetching: false,
         isAuthenticated: true,
         errorMessage: '',
-        username: action.user.data.username,
-        email: action.user.data.email,
+        username: action.user.user.username,
+        email: action.user.user.email,
         errorMessage: ''
       })
     case SIGNUP_FAILURE:
