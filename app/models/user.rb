@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :validatable
   validates :username, presence: true
   validates :email, presence: true
-  has_many :rooms
+  has_many :rooms, dependent: :destroy
 
 end

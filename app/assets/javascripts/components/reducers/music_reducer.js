@@ -11,8 +11,14 @@ export default function(state = INITIAL_STATE, action){
   case PLAY_MUSIC_ON_PLAYER_2:
     return {...state, music_2: action.payload.music, next_player: 1}
   case ADD_TO_WAITING_LIST:
-    const extended_list = [...state.waiting_list, JSON.parse(action.payload.data.json_data)]
-    return {...state, waiting_list: extended_list, draggingObject: {items: extended_list, draggingIndex: null}}
+    const new_music = JSON.parse(action.payload.json_data)
+    if(state.waiting_list[state.waiting_list.length - 1].etag === JSON.parse(action.payload.json_data).etag){
+      return state
+    }else{
+      const extended_list = [...state.waiting_list, JSON.parse(action.payload.json_data)]
+      console.log("from reducer")
+      return {...state, waiting_list: extended_list, draggingObject: {items: extended_list, draggingIndex: null}}
+    }
   case DELETE_FROM_WAITING_LIST:
     const to_delete = JSON.parse(action.payload.data.json_data)
     const reduced_list = state.waiting_list.filter(function(x) { return x.etag != to_delete.etag})

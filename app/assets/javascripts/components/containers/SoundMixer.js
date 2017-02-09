@@ -93,11 +93,9 @@ class SoundMixer extends React.Component {
     this.props.deleteFromWaitingList(this.props.room_id, music)
   }
   render(){
+    console.log("from soundmixer")
     return(
       <div className="row">
-        <div className="col-xs-12">
-          <h1>o</h1>
-        </div>
         {this.music(this.props.music_1, 1)}
         {this.music(this.props.music_2, 2)}
         <div className="col s12 m5">
@@ -128,7 +126,12 @@ class SoundMixer extends React.Component {
           </div>
         </div>
         <div className="col s12">
-          <WaitingList deleteMusicFromList = {this.deleteFromWaitingList.bind(this)} changeListOrder={this.changeListOrder.bind(this)} list={this.props.waiting_list} roomId={this.props.room_id} draggingObject={this.props.draggingObject} printListOrder={this.printListOrder.bind(this)} />
+          <WaitingList deleteMusicFromList = {this.deleteFromWaitingList.bind(this)}
+            changeListOrder={this.changeListOrder.bind(this)}
+            list={this.props.waiting_list}
+            roomId={this.props.room_id}
+            draggingObject={this.props.draggingObject}
+            printListOrder={this.printListOrder.bind(this)} />
         </div>
       </div>
     )

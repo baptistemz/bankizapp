@@ -77,8 +77,13 @@ export function addToWaitingList(room_id, music, state){
   })
   return(dispatch) => {
     request.then(function(data){
-      dispatch({type: ADD_TO_WAITING_LIST, payload:data})
+      dispatch({type: ADD_TO_WAITING_LIST, payload:data.data})
     })
+  }
+}
+export function receiveAddedMusic(data){
+  return(dispatch) => {
+    dispatch({type: ADD_TO_WAITING_LIST, payload:data.music})
   }
 }
 export function deleteFromWaitingList(room_id, music){
