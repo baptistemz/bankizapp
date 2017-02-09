@@ -1,7 +1,8 @@
 class Music < ApplicationRecord
   extend FriendlyId
   extend Enumerize
-  after_create_commit { broadcast_music(self) }
+  after_create_commit { broadcast_music(self, "added") }
+  after_destroy_commit { broadcast_music(self, "deleted") }
   default_scope { order("created_at ASC") }
 
   belongs_to :room
@@ -12,8 +13,8 @@ class Music < ApplicationRecord
   validates_uniqueness_of :slug, scope: :room_id
   validates_presence_of :slug, :json_data, :state
 
-  def broadcast_music(music)
-    ActionCable.server.broadcast(music.room.slug, music: ActiveSupport::JSON.decode(render_music(music)))
+  def broadcast_music(music, action)
+    ActionCable.server.broadcast(music.room.slug, {action: action, music: ActiveSupport::JSON.decode(render_music(music))})
   end
 
   private

@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchRoom, receiveAddedMusic} from '../actions/index'
+import {fetchRoom, receiveAddedMusic, receiveDeletedMusic} from '../actions/index'
 import SearchBar from './SearchBar';
 import SoundMixer from './SoundMixer';
 import MusicSearchList from './MusicSearchList';
@@ -16,8 +16,18 @@ class Room extends Component {
         {channel: "RoomChannel", room_slug: this.props.params.roomId}, {
         connected: function() {console.log("connected")},
         disconnected: function() {console.log("disconnected")},
-        received: ((data) => this.props.receiveAddedMusic(data))
+        received: ((data) => this.receiveRoomData(data))
       });
+    }
+  }
+  receiveRoomData(data){
+    switch(data.action) {
+      case "added":
+        this.props.receiveAddedMusic(data)
+        break;
+      case "deleted":
+        this.props.receiveDeletedMusic(data)
+        break;
     }
   }
   render() {
@@ -32,7 +42,7 @@ class Room extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchRoom, receiveAddedMusic}, dispatch);
+  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveDeletedMusic}, dispatch);
 }
 
 export default connect(null,mapDispatchToProps)(Room)

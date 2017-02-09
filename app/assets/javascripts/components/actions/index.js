@@ -91,8 +91,13 @@ export function deleteFromWaitingList(room_id, music){
   const request = axios.delete(delete_url)
   return(dispatch) => {
     request.then(function(data){
-      dispatch({type: DELETE_FROM_WAITING_LIST, payload: data})
+      dispatch({type: DELETE_FROM_WAITING_LIST, payload: data.data})
     })
+  }
+}
+export function receiveDeletedMusic(data){
+  return(dispatch) => {
+    dispatch({type: DELETE_FROM_WAITING_LIST, payload:data.music})
   }
 }
 export function changeBalance(balance){

@@ -20,7 +20,7 @@ export default function(state = INITIAL_STATE, action){
       return {...state, waiting_list: extended_list, draggingObject: {items: extended_list, draggingIndex: null}}
     }
   case DELETE_FROM_WAITING_LIST:
-    const to_delete = JSON.parse(action.payload.data.json_data)
+    const to_delete = JSON.parse(action.payload.json_data)
     const reduced_list = state.waiting_list.filter(function(x) { return x.etag != to_delete.etag})
     const next = (state.next_player === 1) ? state.music_2 : state.music_1
     if(to_delete.etag === next.etag){
