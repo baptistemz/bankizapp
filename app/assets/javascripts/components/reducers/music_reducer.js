@@ -12,18 +12,17 @@ export default function(state = INITIAL_STATE, action){
     return {...state, music_2: action.payload.music, next_player: 1}
   case ADD_TO_WAITING_LIST:
     const new_music = JSON.parse(action.payload.json_data)
-    if(state.waiting_list[state.waiting_list.length - 1].etag === JSON.parse(action.payload.json_data).etag){
+    if(state.waiting_list.length > 0 && state.waiting_list[state.waiting_list.length - 1].etag === new_music.etag){
       return state
     }else{
       const extended_list = [...state.waiting_list, JSON.parse(action.payload.json_data)]
-      console.log("from reducer")
       return {...state, waiting_list: extended_list, draggingObject: {items: extended_list, draggingIndex: null}}
     }
   case DELETE_FROM_WAITING_LIST:
     const to_delete = JSON.parse(action.payload.json_data)
     const reduced_list = state.waiting_list.filter(function(x) { return x.etag != to_delete.etag})
     const next = (state.next_player === 1) ? state.music_2 : state.music_1
-    if(to_delete.etag === next.etag){
+    if(next && to_delete.etag === next.etag){
       if(state.next_player === 1){
         return {...state, music_2: reduced_list[0], waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
       }else{
@@ -59,7 +58,8 @@ export default function(state = INITIAL_STATE, action){
     }
   case GOT_ROOM:
     if(action.payload.data.musics.length > 0){
-      const playing = JSON.parse($.grep(action.payload.data.musics, function(e){ return e.state == "playing"; })[0].json_data);
+      const playing_data = $.grep(action.payload.data.musics, function(e){ return e.state == "playing"; });
+      const playing = playing_data.length > 0 ? JSON.parse(playing_data[0].json_data) : JSON.parse(action.payload.data.musics[0].json_data)
       const waiting = $.grep(action.payload.data.musics, function(e){ return e.state == "waiting"; }).map(function(a) {return JSON.parse(a.json_data);});
       if(state.mute_player === 2){
         return {...state, waiting_list: waiting, music_1: playing, music_2: waiting[0], draggingObject: {items: waiting, draggingIndex: null}}
@@ -72,15 +72,21 @@ export default function(state = INITIAL_STATE, action){
   case CHANGE_DRAG_ORDER:
     return {...state, draggingObject: action.payload}
   case CHANGE_LIST_ORDER:
-    const music_list = action.payload.data.map(function(a) {return JSON.parse(a.json_data)});
-    const next_music = (state.playing === 1) ? state.music_2 : state.music_1
-    if(music_list[0] === next_music){
-      return {...state, waiting_list: music_list}
+    const music_list = action.payload.map(function(a) {return JSON.parse(a.json_data)});
+    console.log("music_list", music_list)
+    console.log("state", state.waiting_list)
+    if(music_list == state.waiting_list){
+      return state
     }else{
-      if(state.next_player === 1){
-        return {...state, music_2: music_list[0], waiting_list: music_list}
+      const next_music = (state.playing === 1) ? state.music_2 : state.music_1
+      if(music_list[0] === next_music){
+        return {...state, waiting_list: music_list}
       }else{
-        return {...state, music_1: music_list[0], waiting_list: music_list}
+        if(state.next_player === 1){
+          return {...state, music_2: music_list[0], waiting_list: music_list}
+        }else{
+          return {...state, music_1: music_list[0], waiting_list: music_list}
+        }
       }
     }
   default:

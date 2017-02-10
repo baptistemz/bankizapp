@@ -96,6 +96,11 @@ class SoundMixer extends React.Component {
     console.log("from soundmixer")
     return(
       <div className="row">
+        <div className="room-presentation">
+          <h1 className="text-center">{this.props.room_name}</h1>
+          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
+        </div>
+        <br/>
         {this.music(this.props.music_1, 1)}
         {this.music(this.props.music_2, 2)}
         <div className="col s12 m5">

@@ -2,10 +2,9 @@ import React from 'react';
 import {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchRoom, receiveAddedMusic, receiveDeletedMusic} from '../actions/index'
-import SearchBar from './SearchBar';
+import {fetchRoom, receiveAddedMusic, receiveDeletedMusic, receiveSortedMusics} from '../actions/index'
+import SearchGroup from './SearchGroup';
 import SoundMixer from './SoundMixer';
-import MusicSearchList from './MusicSearchList';
 
 class Room extends Component {
   componentWillMount(){
@@ -28,21 +27,23 @@ class Room extends Component {
       case "deleted":
         this.props.receiveDeletedMusic(data)
         break;
+      case "sorted":
+        this.props.receiveSortedMusics(data)
+        break;
     }
   }
   render() {
     return (
       <div className="container">
         <SoundMixer/>
-        <SearchBar />
-        <MusicSearchList/>
+        <SearchGroup/>
       </div>
     );
   }
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveDeletedMusic}, dispatch);
+  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveDeletedMusic, receiveSortedMusics}, dispatch);
 }
 
 export default connect(null,mapDispatchToProps)(Room)

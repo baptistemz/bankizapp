@@ -173,8 +173,13 @@ export function printListOrder(name, list){
   })
   return(dispatch) => {
     request.then(function(data){
-      dispatch({type: CHANGE_LIST_ORDER, payload:data})
+      dispatch({type: CHANGE_LIST_ORDER, payload:data.data})
     })
+  }
+}
+export function receiveSortedMusics(data){
+  return(dispatch) => {
+    dispatch({type: CHANGE_LIST_ORDER, payload:data.musics})
   }
 }
 

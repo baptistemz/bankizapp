@@ -27,11 +27,16 @@ module Api
       def modify_waiting_list
         @room = Room.friendly.find(params[:room_id])
         musics = @room.musics.where(state: "waiting")
+        Music.skip_callback(:destroy, :after, :broadcast_deleted_music)
         musics.destroy_all
+        Music.set_callback(:destroy, :after, :broadcast_deleted_music)
+        Music.skip_callback(:create, :after, :broadcast_added_music)
         params[:list].each do |item|
           @room.musics.create(state: "waiting", slug: JSON.parse(item.to_json)['etag'].tr('/\"', '').split(//).last(9).join, json_data: item.to_json)
         end
+        Music.set_callback(:create, :after, :broadcast_added_music)
         @musics = @room.musics.where(state: "waiting")
+        @room.broadcast_modified_list(@musics)
         render :index
       end
 
