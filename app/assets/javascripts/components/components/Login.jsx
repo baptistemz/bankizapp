@@ -41,7 +41,7 @@ class Login extends Component {
                   }
                 </div>
               </div>
-              <div className="text-center margin-top-20">
+              <div className="text-center margin-top-20 text-20">
                 <Link to={'/signup'}>No account yet ? Create one !</Link>
               </div>
             </div>

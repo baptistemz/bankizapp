@@ -35,6 +35,11 @@
     margin-top: -70px;
     margin-bottom: -20px
   }
+  #fake-soundmixer{
+    width: 90%;
+    left: 5%;
+    top: 58%
+  }
 }
 @media only screen and (min-width: 600px) and (max-width : 992px) {
   h1{
@@ -67,6 +72,11 @@
   .room-presentation{
     margin-top: -20px;
     margin-bottom: 40px
+  }
+  #fake-soundmixer{
+    width: 80%;
+    left: 10%;
+    top: 52%;
   }
 }
 @media only screen and (min-width: 992px) and (max-width : 1200px) {

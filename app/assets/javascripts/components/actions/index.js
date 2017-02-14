@@ -138,13 +138,17 @@ export function createRoom(name, slug){
       "Authorization": "Bearer "+ token,
       "Content-Type": "application/json"
    }
-  })
-  return(dispatch) => {
-    request.then(function(data){
-      dispatch({type: GOT_ROOM, payload:data})
-      browserHistory.push(`/rooms/${slug}`)
-    })
-  }
+ });
+ return(dispatch) => {
+   request.then(function(response){
+     console.log(response)
+     dispatch({type: GOT_ROOM, payload:response})
+     browserHistory.push(`/rooms/${slug}`)
+   }).catch(function (error) {
+     toastr.error(`${error.response.data.errors[0]}`, 'please log in or create an account', {timeOut: 8000});
+     browserHistory.push('/login');
+   });
+ }
 }
 export function fetchRoom(name){
   const token = localStorage.getItem('auth_token')

@@ -59,7 +59,7 @@ class SideNav extends Component {
   }
   render() {
     return (
-      <div>
+      <div className= "transparent-navbar">
         <ul id="slide-out" className="side-nav">
           <li>
             <div className="userView">
@@ -78,7 +78,7 @@ class SideNav extends Component {
         <li><a className="subheader">Subheader</a></li>
         <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
         </ul>
-        <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
+        <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons" id="burger-menu">menu</i></a>
         {this.props.children}
       </div>
     )

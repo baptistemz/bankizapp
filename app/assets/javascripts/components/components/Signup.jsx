@@ -59,7 +59,7 @@ class Signup extends Component {
                   </div>
                 </div>
               </div>
-              <div className="text-center margin-top-20">
+              <div className="text-center margin-top-20 text-20">
                 <Link to={'/login'}>Already have an account ? Log in !</Link>
               </div>
             </div>

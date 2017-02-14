@@ -8,20 +8,20 @@ class ApplicationController < ActionController::Base
 
   def authenticate_request!
     unless user_id_in_token?
-      render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+      render json: { errors: ['You must be logged in to do this action'] }, status: :unauthorized
       return
     end
     @current_user = User.find(auth_token[:user_id])
   rescue JWT::VerificationError, JWT::DecodeError
-    render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+    render json: { errors: ['You must be logged in to do this action'] }, status: :unauthorized
   end
 
   private
 
   def http_token
-      @http_token ||= if request.headers['Authorization'].present?
-        request.headers['Authorization'].split(' ').last
-      end
+    @http_token ||= if request.headers['Authorization'].present?
+      request.headers['Authorization'].split(' ').last
+    end
   end
 
   def auth_token

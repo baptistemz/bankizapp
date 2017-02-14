@@ -5,7 +5,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat'
 }
-// 
+//
 // h4{
 //   margin-top: 50px
 // }
@@ -22,11 +22,32 @@ a[disabled] i, a[disabled] span {
   color: rgb(144,144,144)
 }
 
+.block-500{
+  display: block;
+  height: 500px;
+  width: 100%;
+}
+.block-10{
+  display: block;
+  height: 10px;
+  width: 100%;
+}
+.button-collapse{
+  z-index: 30;
+  position: fixed;
+  top: 5px;
+  left: 15px
+}
+
 .hidden {
   visibility: hidden;
 }
 .visible{
   visibility: visible;
+}
+
+.fixed{
+  position: fixed;
 }
 
 .text-center{
@@ -60,6 +81,10 @@ a[disabled] i, a[disabled] span {
   margin-left: 10px
 }
 
+.text-20{
+  font-size: 20px
+}
+
 .full-width{
   width: 100%;
 }
@@ -67,6 +92,11 @@ a[disabled] i, a[disabled] span {
 .space-around{
   display: flex;
   justify-content: space-around;
+}
+
+.align-items{
+  display: flex;
+  align-items: center;
 }
 
 .btn-small {
@@ -85,7 +115,7 @@ a[disabled] i, a[disabled] span {
 }
 
 .vertical-align-container{
-  height: calc(100vh - 144px);
+  height: 100vh;
   display: flex;
   align-items: center;
 }

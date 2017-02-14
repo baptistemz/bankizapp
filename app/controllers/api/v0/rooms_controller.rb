@@ -1,10 +1,9 @@
 module Api
   module V0
     class RoomsController < ApplicationController
-      before_filter :authenticate_request!
+      before_action :authenticate_request!
 
       def create
-
         @room = current_user.rooms.create(room_params)
         if @room.save
           render :show, status: :created
