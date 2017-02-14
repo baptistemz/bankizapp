@@ -13,8 +13,8 @@ class Room extends Component {
     if (typeof App !== 'undefined'){
       App.room = App.cable.subscriptions.create(
         {channel: "RoomChannel", room_slug: this.props.params.roomId}, {
-        connected: function() {},
-        disconnected: function() {},
+        connected: function() {console.log("channel connected")},
+        disconnected: function() {console.log("channel disconnected")},
         received: ((data) => this.receiveRoomData(data))
       });
     }
@@ -22,12 +22,15 @@ class Room extends Component {
   receiveRoomData(data){
     switch(data.action) {
       case "added":
+        console.log("received added", data)
         this.props.receiveAddedMusic(data)
         break;
       case "deleted":
+        console.log("received deleted", data)
         this.props.receiveDeletedMusic(data)
         break;
       case "sorted":
+        console.log("received sorted", data)
         this.props.receiveSortedMusics(data)
         break;
     }
