@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.3'
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.0.1'
 # Use sqlite3 as the database for Active Record
@@ -15,6 +16,7 @@ gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 gem 'redis', '~>3.2'
+gem 'puma', '~> 3.0'
 # gem 'sidekiq'
 # gem 'sidekiq-failures'
 # Use jquery as the JavaScript library
@@ -45,7 +47,6 @@ gem 'nested-hstore'
 
 
 group :development, :test do
-  gem 'puma'
   gem 'binding_of_caller'
   gem 'better_errors'
   gem 'rspec-rails', '~> 3.5'
