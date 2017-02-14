@@ -3,10 +3,9 @@ import {Component} from 'react';
 import SearchBar from './SearchBar';
 import MusicSearchList from './MusicSearchList';
 
-export default class Room extends Component {
+export default class SearchGroup extends Component {
   componentWillMount(){
     $('.modal').modal();
-
   }
 
   render() {

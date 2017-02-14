@@ -73,8 +73,6 @@ export default function(state = INITIAL_STATE, action){
     return {...state, draggingObject: action.payload}
   case CHANGE_LIST_ORDER:
     const music_list = action.payload.map(function(a) {return JSON.parse(a.json_data)});
-    console.log("music_list", music_list)
-    console.log("state", state.waiting_list)
     if(music_list == state.waiting_list){
       return state
     }else{

@@ -93,7 +93,6 @@ class SoundMixer extends React.Component {
     this.props.deleteFromWaitingList(this.props.room_id, music)
   }
   render(){
-    console.log("from soundmixer")
     return(
       <div className="row">
         <div className="room-presentation">

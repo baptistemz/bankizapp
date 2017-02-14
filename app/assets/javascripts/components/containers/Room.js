@@ -13,8 +13,8 @@ class Room extends Component {
     if (typeof App !== 'undefined'){
       App.room = App.cable.subscriptions.create(
         {channel: "RoomChannel", room_slug: this.props.params.roomId}, {
-        connected: function() {console.log("connected")},
-        disconnected: function() {console.log("disconnected")},
+        connected: function() {},
+        disconnected: function() {},
         received: ((data) => this.receiveRoomData(data))
       });
     }

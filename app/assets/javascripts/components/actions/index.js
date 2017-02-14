@@ -141,7 +141,6 @@ export function createRoom(name, slug){
  });
  return(dispatch) => {
    request.then(function(response){
-     console.log(response)
      dispatch({type: GOT_ROOM, payload:response})
      browserHistory.push(`/rooms/${slug}`)
    }).catch(function (error) {
@@ -264,14 +263,12 @@ function receiveLogout() {
 // Auth different actions
 
 export function loginUser(creds, current_room) {
-  console.log(1, 'in login', creds, current_room)
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
     body: `email=${creds.email}&password=${creds.password}`
   }
   return dispatch => {
-    console.log(2, 'in dispatch')
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
     return fetch('/api/v0/auth_user', config)
@@ -279,13 +276,11 @@ export function loginUser(creds, current_room) {
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
         if (!response.ok) {
-          console.log(3, 'in response, not ok')
           // If there was a problem, we want to
           // dispatch the error condition
           dispatch(loginError(user.message))
           return Promise.reject(user)
         } else {
-          console.log(3, "in response, it's ok")
           // If login was successful, set the token in local storage
           localStorage.setItem('auth_token', user.auth_token)
           localStorage.setItem('email', user.user.email)
