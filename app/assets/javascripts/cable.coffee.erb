@@ -9,4 +9,4 @@
 #
 @App ||= {}
 
-App.cable = ActionCable.createConsumer("<%= Rails.application.config.action_cable.url %>", {transports: ['websocket']})
+App.cable = ActionCable.createConsumer("<%= ENV['REDISTOGO_URL'] %>", {transports: ['websocket']})
