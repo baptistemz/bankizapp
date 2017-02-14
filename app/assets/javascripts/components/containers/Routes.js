@@ -2,7 +2,7 @@ import React from 'react';
 import {IndexRoute, Route, indexRoute} from 'react-router';
 import Room from './Room';
 import Prehome from '../components/Prehome';
-import SideNav from '../containers/SideNav.jsx';
+import SideNav from '../containers/SideNav';
 import Signup from '../components/Signup.jsx';
 import Login from '../components/Login.jsx';
 
