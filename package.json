@@ -1,6 +1,9 @@
 {
   "name": "Bankiz",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.2.2"
+  },
   "description": "bankiz player",
   "main": "index.js",
   "repository": "git@github.com:baptistemz/Bankiz.git",
