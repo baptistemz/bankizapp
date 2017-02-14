@@ -83,5 +83,6 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
   # Do not dump schema after migrations.
+  config.browserify_rails.node_env = "production"
   config.active_record.dump_schema_after_migration = false
 end
