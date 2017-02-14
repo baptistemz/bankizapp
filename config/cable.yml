@@ -2,6 +2,5 @@ production: &production
   adapter: redis
   url: redis://redistogo:fd03de410d1e03ecdc226faaf1ded92e@porgy.redistogo.com:10312/
 development: &development
-  adapter: redis
-  url: redis://localhost:6379
+  adapter: async
 test: *development

@@ -5,8 +5,8 @@ import { browserHistory } from 'react-router'
 import slugify from '../slugify'
 import {toastr} from 'react-redux-toastr'
 
-const API_KEY = 'AIzaSyDaosxESYbzNrFkJ1vEXL3H7XiNGGEwAUM';
-const ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
+const API_KEY = ENV['YT_API_KEY'];
+const ROOT_URL = ENV['YT_API_ROOT_URL'];
 
 export const FETCH_MUSICS = "FETCH_MUSICS";
 export const PLAY_MUSIC_ON_PLAYER_1 = "PLAY_MUSIC_ON_PLAYER_1";

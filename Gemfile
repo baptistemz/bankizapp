@@ -46,7 +46,7 @@ gem 'materialize-sass'
 
 gem 'friendly_id', '~> 5.1.0'
 gem 'nested-hstore'
-
+gem 'figaro'
 
 group :development, :test do
   gem 'binding_of_caller'

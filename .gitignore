@@ -46,3 +46,6 @@ bower.json
 Session.vim
 .netrwhist
 *~
+
+# Ignore application configuration
+/config/application.yml
