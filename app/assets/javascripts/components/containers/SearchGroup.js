@@ -12,7 +12,7 @@ export default class SearchGroup extends Component {
     return (
       <div className="text-center">
         <div id="search-btn">
-          <div className="btn waves-effect waves-light modal-trigger" data-target="modal2">Hello</div>
+          <div className="btn waves-effect waves-light modal-trigger" data-target="modal2">Search Musics</div>
         </div>
         <div id="modal2" className="modal">
           <div className="modal-content">
