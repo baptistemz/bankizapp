@@ -38,7 +38,7 @@ gem 'browserify-rails'
 
 gem 'devise'
 gem 'jwt'
-
+gem 'active_model_serializers', '~> 0.10.4'
 
 gem 'pundit'
 
@@ -55,4 +55,8 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
