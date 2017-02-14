@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
   mount ActionCable.server => '/cable'
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v0 do
       post 'auth_user' => 'authentication#authenticate_user'
       resources :users, only: :create

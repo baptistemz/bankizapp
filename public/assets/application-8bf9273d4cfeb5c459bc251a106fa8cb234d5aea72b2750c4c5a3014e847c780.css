@@ -1,4 +1,4 @@
-@import url(./materialize/materialize.css);
+@import url(./materialize/materialize.scss);
 /* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/components/_player.scss */
 .video-container {
   padding: 97px 0;
