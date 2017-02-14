@@ -27,11 +27,11 @@
   background-color: #0087d6;
 }
 
-.search-btn{
+#search-btn{
   height: 68px;
   width: 180px;
-  text-align: center;
-  margin-top: 6vh;
+  position: absolute;
+  top: 20px;
 }
 
 .white-btn{
