@@ -42,6 +42,8 @@ gem 'active_model_serializers', '~> 0.10.4'
 
 gem 'pundit'
 
+gem 'materialize-sass'
+
 gem 'friendly_id', '~> 5.1.0'
 gem 'nested-hstore'
 
