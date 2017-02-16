@@ -9,8 +9,8 @@
   color: rgb(100,100,100);
 }
 .tabs .tab a:hover, .tabs .tab a.active{
-  color: #2F9EE2;
+  color: $primary-color;
 }
 .tabs .indicator{
-  background-color: #2F9EE2;
+  background-color: $primary-color;
 }

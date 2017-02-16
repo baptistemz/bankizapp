@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import MusicSearchList from './MusicSearchList';
 
 export default class SearchGroup extends Component {
-  componentWillMount(){
+  componentDidMount(){
     $('.modal').modal();
   }
 
@@ -12,7 +12,7 @@ export default class SearchGroup extends Component {
     return (
       <div className="text-center">
         <div id="search-btn">
-          <div className="btn waves-effect waves-light modal-trigger" data-target="modal2">Search Musics</div>
+          <div className="btn-floating waves-effect waves-light modal-trigger" data-target="modal2"><i className="material-icons">search</i></div>
         </div>
         <div id="modal2" className="modal">
           <div className="modal-content">

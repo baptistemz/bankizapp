@@ -14,12 +14,12 @@
     font-size: 1.5em;
   }
   .video-container{
-    top: 97px;
+    top: 101px;
     width: 90%;
   }
   .right-thumbnail{
     left: 5%;
-    top: 342px;
+    top: 346px;
   }
   .left-thumbnail{
     left: 5%;
@@ -39,6 +39,10 @@
     width: 90%;
     left: 5%;
     top: 58%
+  }
+  #search-btn{
+    top: 12px;
+    right: 5%;
   }
 }
 @media only screen and (min-width: 600px) and (max-width : 992px) {
@@ -78,6 +82,10 @@
     left: 10%;
     top: 52%;
   }
+  #search-btn{
+    top: 12px;
+    right: 8%;
+  }
 }
 @media only screen and (min-width: 992px) and (max-width : 1200px) {
   h1{
@@ -112,6 +120,18 @@
     margin-top: 57px;
     margin-bottom: 60px
   }
+  #search-btn{
+    top: 20px;
+    right: 5%;
+    .btn-floating{
+      width: 55px;
+      height: 55px;
+      .material-icons{
+        line-height: 55px;
+        font-size: 31px
+      }
+    }
+  }
 }
 @media only screen and (min-width: 1200px) {
   h1{
@@ -142,5 +162,17 @@
   .room-presentation{
     margin-top: 48px;
     margin-bottom: 50px
+  }
+  #search-btn{
+    top: 20px;
+    right: 5%;
+    .btn-floating{
+      width: 55px;
+      height: 55px;
+      .material-icons{
+        line-height: 55px;
+        font-size: 31px
+      }
+    }
   }
 }

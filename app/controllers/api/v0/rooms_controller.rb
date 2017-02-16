@@ -2,6 +2,7 @@ module Api
   module V0
     class RoomsController < ApplicationController
       before_action :authenticate_request!
+      skip_before_action :authenticate_request!, :only => [:show]
 
       def create
         @room = current_user.rooms.create(room_params)

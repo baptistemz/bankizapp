@@ -9,14 +9,14 @@ const API_KEY = 'AIzaSyDaosxESYbzNrFkJ1vEXL3H7XiNGGEwAUM';
 const ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 export const FETCH_MUSICS = "FETCH_MUSICS";
-export const PLAY_MUSIC_ON_PLAYER_1 = "PLAY_MUSIC_ON_PLAYER_1";
-export const PLAY_MUSIC_ON_PLAYER_2 = "PLAY_MUSIC_ON_PLAYER_2";
 export const CHANGE_BALANCE = "CHANGE_BALANCE";
 export const PLAY_NEXT = "PLAY_NEXT";
 export const START_PLAYER = "START_PLAYER";
 export const STOP_PLAYER = "STOP_PLAYER";
-export const ADD_TO_WAITING_LIST = "ADD_TO_WAITING_LIST";
+export const ADD_MUSIC = "ADD_MUSIC";
 export const DELETE_FROM_WAITING_LIST = "DELETE_FROM_WAITING_LIST";
+export const UPDATE_MUSIC = "UPDATE_MUSIC";
+export const DELETE_MUSIC = "DELETE_MUSIC";
 export const SWITCH_PLAYERS = "SWITCH_PLAYERS";
 export const GOT_ROOM ='GOT_ROOM'
 export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
@@ -58,46 +58,51 @@ export function fetchMusics(term){
     });
   }
 }
-
 export function playMusic(player, music){
   return(dispatch) => {
-    if (player===1) {
-      dispatch({type: PLAY_MUSIC_ON_PLAYER_1, payload: {player:player, music:music}})
-    }else{
-      dispatch({type: PLAY_MUSIC_ON_PLAYER_2, payload: {player:player, music:music}})
-    }
+    dispatch({type: PLAY_MUSIC_ON_PLAYER_1, payload: {player:player, music:music}})
   }
 }
-export function addToWaitingList(room_id, music, state){
+export function addMusic(room_id, music, state){
   const post_url = `/api/v0/rooms/${room_id}/musics`
   const request = axios.post(post_url, {
     json_data: JSON.stringify(music),
     state: state,
     slug: slugify(music.etag.substr(music.etag.length - 10))
   })
+  console.log("in action request to be done")
   return(dispatch) => {
     request.then(function(data){
-      dispatch({type: ADD_TO_WAITING_LIST, payload:data.data})
+      console.log("in action request done", data.data)
+      dispatch({type: ADD_MUSIC, payload:data.data})
     })
   }
 }
 export function receiveAddedMusic(data){
+  console.log("in receive added music action", data.music)
   return(dispatch) => {
-    dispatch({type: ADD_TO_WAITING_LIST, payload:data.music})
+    dispatch({type: ADD_MUSIC, payload:data.music})
   }
 }
-export function deleteFromWaitingList(room_id, music){
+export function deleteMusic(music, room_id){
   const delete_url  =`/api/v0/rooms/${room_id}/musics/${slugify(music.etag.substr(music.etag.length - 10))}`
   const request = axios.delete(delete_url)
   return(dispatch) => {
     request.then(function(data){
-      dispatch({type: DELETE_FROM_WAITING_LIST, payload: data.data})
+      dispatch({type: DELETE_MUSIC, payload: data.data})
     })
+  }
+}
+export function receiveUpdatedMusic(data){
+  return(dispatch) => {
+    console.log("receive updated", data.music)
+    dispatch({type: UPDATE_MUSIC, payload:data.music})
   }
 }
 export function receiveDeletedMusic(data){
   return(dispatch) => {
-    dispatch({type: DELETE_FROM_WAITING_LIST, payload:data.music})
+    console.log("receive deleted", data.music)
+    dispatch({type: DELETE_MUSIC, payload:data.music})
   }
 }
 export function changeBalance(balance){
@@ -120,9 +125,13 @@ export function stopPlayer(player){
     dispatch({type: STOP_PLAYER, payload: player})
   }
 }
-export function switchPlayers(old_player){
+export function switchPlayers(old_music, next_music, room_id){
+  const delete_url = `/api/v0/rooms/${room_id}/musics/${slugify(old_music.etag.substr(music.etag.length - 10))}`
+  const request = axios.delete(delete_url)
   return(dispatch) => {
-    dispatch({type: SWITCH_PLAYERS, payload:{old_player:old_player}})
+    request.then(function(data){
+      dispatch({type: DELETE_MUSIC, payload: data.data})
+    })
   }
 }
 export function createRoom(name, slug){
@@ -150,14 +159,9 @@ export function createRoom(name, slug){
  }
 }
 export function fetchRoom(name){
-  const token = localStorage.getItem('auth_token')
+  // const token = localStorage.getItem('auth_token')
   const get_url = `/api/v0/rooms/${name}`
-  const request = axios.get(get_url,{
-    headers: {
-      "Authorization": "Bearer "+ token,
-      "Content-Type": "application/json"
-   }
-  })
+  const request = axios.get(get_url)
   return(dispatch) => {
     request.then(function(data){
       dispatch({type: GOT_ROOM, payload:data})

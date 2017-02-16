@@ -37,8 +37,8 @@ input[type=search].valid,
 input[type=search]:focus.valid,
 textarea.materialize-textarea.valid,
 textarea.materialize-textarea:focus.valid {
-    border-bottom: 1px solid #2F9EE2;
-    box-shadow: 0 1px 0 0 #2F9EE2;
+    border-bottom: 1px solid $primary-color;
+    box-shadow: 0 1px 0 0 $primary-color;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
@@ -58,9 +58,9 @@ input[type=tel]:focus:not([readonly]) + label,
 input[type=number]:focus:not([readonly]) + label,
 input[type=search]:focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #2F9EE2;
+  color: $primary-color;
 }
 
 .input-field .prefix.active{
-  color: #2F9EE2;
+  color: $primary-color;
 }

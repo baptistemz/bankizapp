@@ -5,10 +5,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat'
 }
-//
-// h4{
-//   margin-top: 50px
-// }
+
+.modal h4{
+  margin-top: 5px
+}
 
 .avatar-sizing{
   width: 56px;
@@ -49,7 +49,9 @@ a[disabled] i, a[disabled] span {
 .fixed{
   position: fixed;
 }
-
+.absolute{
+  position: absolute
+}
 .text-center{
   text-align: center
 }
@@ -79,6 +81,10 @@ a[disabled] i, a[disabled] span {
 
 .margin-left-10{
   margin-left: 10px
+}
+
+.no-padding{
+  padding: 0
 }
 
 .text-20{

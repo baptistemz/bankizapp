@@ -1,5 +1,5 @@
 .btn-floating i{
-  color: #2F9EE2;
+  color: $primary-color;
   -o-transition: all 0.3s ease;
  -moz-transition: all 0.3s ease;
  -webkit-transition: all 0.3s ease;
@@ -8,30 +8,35 @@
 }
 .btn-floating{
   background: none;
-  border: 1px solid #2F9EE2;
+  border: 1px solid $primary-color;
 }
 .btn-floating:hover{
-  background-color: #2F9EE2;
+  background-color: $primary-color;
   color: white
 }
 .btn-floating:hover i{
   color: white
 }
 .btn:focus, .btn-large:focus, .btn-floating:focus{
-  background-color: #2F9EE2;
+  background-color: $primary-color;
 }
 .btn{
-  background-color: #2F9EE2;
+  background-color: $primary-color;
 }
 .btn:hover{
   background-color: #0087d6;
 }
 
 #search-btn{
-  height: 68px;
-  width: 180px;
   position: absolute;
-  top: 20px;
+  .btn-floating{
+    width: 50px;
+    height: 50px;
+    .material-icons{
+      line-height: 50px;
+      font-size: 28px
+    }
+  }
 }
 
 .white-btn{

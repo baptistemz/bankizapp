@@ -13,7 +13,7 @@ class LargeListItem extends React.Component{
     const childProps = this.props.children
     const {room_id, printListOrder, deleteMusicFromList, ...otherProps} = this.props;
     return (
-      <li {...otherProps} onDrop={this.onDrop.bind(this)} className="collection-item avatar" key={childProps.etag}>
+      <li {...otherProps} onDrop={this.onDrop.bind(this)} className="collection-item movable avatar" key={childProps.etag}>
         <img src="/youtube_icon.png" alt="" className="circle avatar-sizing"/>
         <span className="title">{childProps.snippet.title}</span>
         <p>youtube</p>

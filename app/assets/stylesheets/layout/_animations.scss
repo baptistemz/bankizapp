@@ -23,6 +23,15 @@
   transition: all 500ms ease-out;
 }
 
+.fade-right-enter{
+  left: -500px;
+  opacity:0;
+}
+.fade-right-enter-active{
+  left: 0;
+  opacity:1;
+  transition: all 500ms ease-out;
+}
 .fade-in-out-enter{
   opacity: 0.01;
   transition: opacity 1s ease-in-out;
@@ -36,4 +45,53 @@
 }
 .fade-in-out-leave-active{
   opacity: 0.01;
+}
+
+
+#blink {
+  -moz-animation-duration: 1000ms;
+  -moz-animation-name: blink;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: alternate;
+
+  -webkit-animation-duration: 1000ms;
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+
+  animation-duration: 1000ms;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@-moz-keyframes blink {
+  from {
+    color: $primary-color;
+    border-color: $primary-color;
+  }
+  to {
+    color: white;
+    border-color: white;
+  }
+}
+@-webkit-keyframes blink {
+  from {
+    color: $primary-color;
+    border-color: $primary-color;
+  }
+  to {
+    color: white;
+    border-color: white;
+  }
+}
+@keyframes blink {
+  from {
+    color: $primary-color;
+    border-color: $primary-color;
+  }
+  to {
+    color: white;
+    border-color: white;
+  }
 }

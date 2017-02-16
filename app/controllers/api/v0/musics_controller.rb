@@ -9,12 +9,18 @@ module Api
 
       def create
         @room = Room.friendly.find(params[:room_id])
+        if params[:state] == "next"
+          music = @room.musics.where(state: "next").first
+          music.destroy if music
+        end
         @music = @room.musics.create(music_params)
         render :show
       end
 
       def update
-
+        @room = Room.friendly.find(params[:room_id])
+        @music = @room.musics.friendly.find(params[:id])
+        @music.update(params)
       end
 
       def destroy

@@ -51,7 +51,7 @@ export default class WaitingList extends Component{
           <h6 className= 'margin-left-10'>Waiting list</h6>
           <div id="list-detail-gradient"></div>
           <div id="list-detail-btn">
-            <div className="btn waves-effect waves-light modal-trigger" data-target="modal1">details</div>
+            <div className="btn waves-effect waves-light modal-trigger" data-target="modal1"><i className="material-icons">queue_music</i> details</div>
           </div>
           <div className="truncate-list">
             <ReactCSSTransitionGroup transitionName="fade-up" transitionEnterTimeout= {500} transitionLeaveTimeout= {500}>

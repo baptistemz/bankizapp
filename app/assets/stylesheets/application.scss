@@ -1,4 +1,7 @@
-@import "materialize";
+@import "materialize/components/color";
+$primary-color: #2F9EE2 !default;
+$secondary-color: #C2C0C2 !default;
+@import 'materialize';
 @import './components/index';
 @import './pages/index';
 @import './layout/index';

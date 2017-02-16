@@ -1,5 +1,5 @@
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating){
-   color: #2F9EE2;
+   color: $primary-color;
    margin: 0;
 }
 
@@ -26,9 +26,9 @@
   vertical-align: center;
   justify-content: center;
   border: 1px solid transparent;
-  -moz-border-image: -moz-linear-gradient(left, #a5deff 0%, #2F9EE2 100%);
-  -webkit-border-image: -webkit-linear-gradient(left, #a5deff 0%, #2F9EE2 100%);
-  border-image: linear-gradient(to right, #a5deff 0%, #2F9EE2 100%);
+  -moz-border-image: -moz-linear-gradient(left, #a5deff 0%, $primary-color 100%);
+  -webkit-border-image: -webkit-linear-gradient(left, #a5deff 0%, $primary-color 100%);
+  border-image: linear-gradient(to right, #a5deff 0%, $primary-color 100%);
   border-image-slice: 1;
   background-color: white;
   box-shadow: none;

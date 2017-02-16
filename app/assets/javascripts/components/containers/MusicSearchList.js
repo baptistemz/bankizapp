@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import slugify from '../slugify'
-import {playMusic, stopPlayer, addToWaitingList} from '../actions/index';
+import {addMusic} from '../actions/index';
 import MusicListItem from '../components/MusicListItem';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -15,21 +15,15 @@ class MusicSearchList extends Component {
     $('ul.tabs').tabs();
   }
   playMusic(music){
-    const player = !this.props.music_1 && !this.props.music_2 ? 1 : this.props.mute_player
-    this.props.playMusic(player, music);
+    $('#modal2').modal('close');
+    const status = !this.props.music_1 && !this.props.music_2 ? "playing" : "next"
+    this.props.addMusic(this.props.room_id, music, status);
   }
   addMusicToList(music){
-    // const json_data = JSON.stringify(music);
-    // const state = this.props.music_1 ? "waiting": "playing";
-    // const slug = slugify(music.etag.substr(music.etag.length - 10));
-    // const room_id = this.props.room_id;
-    // App.room.add_to_waiting_list(room_id, json_data, state, slug);
-    if (!this.props.music_2){
-      this.playMusic(music)
-      this.props.addToWaitingList(this.props.room_id, music, "waiting");
-    }else{
-      this.props.addToWaitingList(this.props.room_id, music, "waiting");
-    }
+    $('#modal2').modal('close');
+    let status = !this.props.music_1 && !this.props.music_2 ? "playing" : "next"
+    status = !this.props.music_1 || !this.props.music_2 ? status : "waiting"
+    this.props.addMusic(this.props.room_id, music, status);
   }
   render(){
     const musics = this.props.musics;
@@ -79,16 +73,14 @@ class MusicSearchList extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({playMusic, stopPlayer, addToWaitingList}, dispatch);
+  return bindActionCreators({addMusic}, dispatch);
 }
 function mapStateToProps(state){
   return {
     room_id: state.room.id,
     musics: state.music.all,
     music_1: state.music.music_1,
-    music_2: state.music.music_2,
-    next_player: state.music.next_player,
-    mute_player: state.music.mute_player
+    music_2: state.music.music_2
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(MusicSearchList)
