@@ -4,7 +4,7 @@ import {changeBalance, playNext, startPlayer, stopPlayer, deleteMusic, changeDra
 import React from 'react'
 import VideoPlayer from '../components/VideoPlayer'
 import WaitingList from '../components/WaitingList'
-import VisitorUI from '../components/VisitorUI.jsx'
+import VisitorUI from '../components/VisitorUI'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 

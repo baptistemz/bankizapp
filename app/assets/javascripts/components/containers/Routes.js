@@ -3,8 +3,8 @@ import {IndexRoute, Route, indexRoute} from 'react-router';
 import Room from './Room';
 import Prehome from '../components/Prehome';
 import SideNav from '../containers/SideNav';
-import Signup from '../components/Signup.jsx';
-import Login from '../components/Login.jsx';
+import Signup from '../components/Signup';
+import Login from '../components/Login';
 
 export default(
   <div>
