@@ -70,7 +70,6 @@ export function addMusic(room_id, music, state){
     state: state,
     slug: slugify(music.etag.substr(music.etag.length - 10))
   })
-  console.log("in action request to be done")
   return(dispatch) => {
     request.then(function(data){
       console.log("in action request done", data.data)

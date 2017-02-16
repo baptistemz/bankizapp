@@ -77,6 +77,10 @@ export default function(state = INITIAL_STATE, action){
       }else{
         return {...state, music_1: updated_music_data, waiting_list: light_list}
       }
+    }else if(updated_music.state === "waiting"){
+      const augmented_list = state.waiting_list
+      augmented_list.unshift(updated_music_data)
+      return {...state, music_2: updated_music_data, waiting_list: augmented_list}
     }else{
       return state
     }

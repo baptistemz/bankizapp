@@ -11,7 +11,7 @@ module Api
         @room = Room.friendly.find(params[:room_id])
         if params[:state] == "next"
           music = @room.musics.where(state: "next").first
-          music.destroy if music
+          music.update(state: "waiting") if music
         end
         @music = @room.musics.create(music_params)
         render :show
