@@ -71,7 +71,7 @@ class SideNav extends Component {
           </li>
         <li><div className="divider"></div></li>
         <li><Link to={'/'}><i className="material-icons">home</i>Home</Link></li>
-        <li><Link to={'/'}><i className="material-icons">list</i>My rooms</Link></li>
+        <li><Link to={'/rooms'}><i className="material-icons">list</i>My rooms</Link></li>
         <li><Link to={'/'}><i className="material-icons">playlist_add</i>New Room</Link></li>
         <li><a href="#!">Link</a></li>
         <li><div className="divider"></div></li>

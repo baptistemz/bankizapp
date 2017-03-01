@@ -39,7 +39,7 @@ export default function(state = INITIAL_STATE, action){
     console.log("deleted reducer")
     const music_to_delete = action.payload
     const music_to_delete_data = JSON.parse(action.payload.json_data)
-    if(state.music_1.etag != music_to_delete_data.etag && (state.music_2 && state.music_2.etag != music_to_delete_data.etag) && state.waiting_list.indexOf(music_to_delete_data) === -1){
+    if( state.music_1 && state.music_1.etag != music_to_delete_data.etag && (state.music_2 && state.music_2.etag != music_to_delete_data.etag) && state.waiting_list.indexOf(music_to_delete_data) === -1){
       console.log("in delete reducer, already done")
       return state
     }else if(music_to_delete.state === "playing"){

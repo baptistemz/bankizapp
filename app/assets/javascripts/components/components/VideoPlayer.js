@@ -10,7 +10,8 @@ export default class VideoPlayer extends React.Component {
       videoId : props.video.id.videoId,
       thumbnail: this.props.alignRight ? 'right' : 'left',
       player: null,
-      ended: false
+      ended: false,
+      countdown: 20
     }
     this.onReady = this.onReady.bind(this)
   }
@@ -49,10 +50,11 @@ export default class VideoPlayer extends React.Component {
       let videotime = 0;
       let timeupdater = null;
       let oldTime = videotime;
-      const transitionTime = player.getDuration()-20;
       if(this.state.ended||player.getCurrentTime()===player.getDuration()|| etag != player.etag){
+        console.log("clearInterval")
         clearInterval(fadeLoop);
       }else{
+        const transitionTime = player.getDuration()-20;
         if(player && player.getCurrentTime()) {
           videotime = player.getCurrentTime();
         }
@@ -64,10 +66,17 @@ export default class VideoPlayer extends React.Component {
     const fadeLoop = setInterval(updateTime.bind(this, player), 1000);
   }
   onProgress(currentTime, transitionTime){
-    // 20 seconds before the end of the video, this will be called.
     if(currentTime >= transitionTime ) {
-      this.props.forceOtherPlayer(this.props.number)
-      this.props.fadeOut(this.props.number)
+      // 20 seconds before the end of the video, this will be called.
+      if(this.state.countdown === 0){
+        this.state.player.stopVideo()
+        this.setState({ended:true})
+        this.props.onVideoEnd(this.props.number)
+      }else{
+        this.setState({countdown: this.state.countdown - 1})
+        this.props.forceOtherPlayer(this.props.number)
+        this.props.fadeOut(this.props.number)
+      }
     }
   }
   onStateChange(event) {

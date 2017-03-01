@@ -13,6 +13,11 @@ module Api
         end
       end
 
+      def index
+        @rooms = current_user.rooms
+        render :index
+      end
+
       def show
         @room = Room.friendly.find(params[:id])
         render :show

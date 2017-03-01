@@ -19,6 +19,7 @@ export const UPDATE_MUSIC = "UPDATE_MUSIC";
 export const DELETE_MUSIC = "DELETE_MUSIC";
 export const SWITCH_PLAYERS = "SWITCH_PLAYERS";
 export const GOT_ROOM ='GOT_ROOM'
+export const GOT_ROOM_LIST ='GOT_ROOM_LIST'
 export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
 export const CHANGE_LIST_ORDER ='CHANGE_LIST_ORDER'
 
@@ -78,7 +79,6 @@ export function addMusic(room_id, music, state){
   }
 }
 export function receiveAddedMusic(data){
-  console.log("in receive added music action", data.music)
   return(dispatch) => {
     dispatch({type: ADD_MUSIC, payload:data.music})
   }
@@ -136,34 +136,47 @@ export function switchPlayers(old_music, next_music, room_id){
 export function createRoom(name, slug){
   const token = localStorage.getItem('auth_token')
   const post_url = '/api/v0/rooms'
-  const request = axios.post(post_url, {
-   room:{
+  const data = {room:{
      name: name,
      slug: slug
-   }
-  },{
-    headers: {
+  }}
+  const config = {headers: {
       "Authorization": "Bearer "+ token,
       "Content-Type": "application/json"
-   }
- });
+  }}
+  const request = axios.post(post_url, data, config);
  return(dispatch) => {
    request.then(function(response){
      dispatch({type: GOT_ROOM, payload:response})
      browserHistory.push(`/rooms/${slug}`)
    }).catch(function (error) {
-     toastr.error(`${error.response.data.errors[0]}`, 'please log in or create an account', {timeOut: 8000});
-     browserHistory.push('/login');
+     toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
+     if(error.response.status === 401){
+       browserHistory.push('/login');
+     }
    });
  }
 }
 export function fetchRoom(name){
-  // const token = localStorage.getItem('auth_token')
   const get_url = `/api/v0/rooms/${name}`
   const request = axios.get(get_url)
   return(dispatch) => {
     request.then(function(data){
       dispatch({type: GOT_ROOM, payload:data})
+    })
+  }
+}
+export function fetchRoomList(){
+  const token = localStorage.getItem('auth_token')
+  const get_url = 'api/v0/rooms'
+  const config = {headers: {
+      "Authorization": "Bearer "+ token,
+      "Content-Type": "application/json"
+   }}
+  const request = axios.get(get_url, config)
+  return(dispatch) => {
+    request.then(function(data){
+      dispatch({type: GOT_ROOM_LIST, payload:data})
     })
   }
 }
@@ -266,6 +279,7 @@ function receiveLogout() {
 // Auth different actions
 
 export function loginUser(creds, current_room) {
+  const post_url = '/api/v0/auth_user'
   let config = {
     method: 'POST',
     headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -274,7 +288,7 @@ export function loginUser(creds, current_room) {
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
-    return fetch('/api/v0/auth_user', config)
+    return fetch( post_url, config)
       .then(response =>
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
@@ -316,9 +330,12 @@ export function signupUser(creds, current_room) {
         } else {
           dispatch(loginUser({ email: creds.email, password: creds.password }, current_room))
         }
-      }).catch(err => toastr.error(`Couldn't create your account`), {timeOut: 30000})
-  }
-      //
+      }).catch(function (error) {
+        error.response.data.errors.forEach(function(e){
+          toastr.error(`${e}`, {timeOut: 10000});
+        });
+      });
+  };
 };
 
 export function logoutUser() {

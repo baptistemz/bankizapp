@@ -37,8 +37,12 @@ class SoundMixer extends React.Component {
   }
   fade(){
     const balance = this.props.balance
-    if (balance > -1 && balance < 101){
+    if (balance > -1 && balance < 100){
       this.props.changeBalance(balance+5)
+      if (balance === 95){
+        const old_player = this.props.mute_player === 1 ? 0 : 1
+        this.switchPlayers(old_player)
+      }
     }
   }
   videoPlayer(music, num){

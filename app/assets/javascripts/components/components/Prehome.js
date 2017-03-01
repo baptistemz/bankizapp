@@ -283,7 +283,26 @@ class Prehome extends Component {
             <h4><p>They can now search musics and enqueue them to the waiting list</p></h4>
           </div>
         </div>
-        <div id="footer">THIS IS THE Footer</div>
+        <div className="footbar" style={{height: '100px'}}></div>
+        <div className="footbar" style={{height: '200px', left: '5%'}}></div>
+        <div className="footbar" style={{height: '130px', left:'10%'}}></div>
+        <div className="footbar" style={{height: '180px', left: '15%'}}></div>
+        <div className="footbar" style={{height: '230px', left: '20%'}}></div>
+        <div className="footbar" style={{height: '90px', left: '25%'}}></div>
+        <div className="footbar" style={{height: '120px', left: '30%'}}></div>
+        <div className="footbar" style={{height: '180px', left: '35%'}}></div>
+        <div className="footbar" style={{height: '200px', left: '40%'}}></div>
+        <div className="footbar" style={{height: '150px', left: '45%'}}></div>
+        <div className="footbar" style={{height: '130px', left: '50%'}}></div>
+        <div className="footbar" style={{height: '140px', left: '55%'}}></div>
+        <div className="footbar" style={{height: '120px', left:'60%'}}></div>
+        <div className="footbar" style={{height: '100px', left: '65%'}}></div>
+        <div className="footbar" style={{height: '120px', left: '70%'}}></div>
+        <div className="footbar" style={{height: '150px', left: '75%'}}></div>
+        <div className="footbar" style={{height: '190px', left: '80%'}}></div>
+        <div className="footbar" style={{height: '210px', left: '85%'}}></div>
+        <div className="footbar" style={{height: '150px', left: '90%'}}></div>
+        <div className="footbar" style={{height: '130px', left: '95%'}}></div>
       </div>
     )
   }
