@@ -16,4 +16,4 @@
 //= require react_ujs
 //= require materialize
 //= require cable
-//= require components
+//= require components.js
