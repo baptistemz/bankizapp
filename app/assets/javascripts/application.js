@@ -17,3 +17,4 @@
 //= require materialize
 //= require cable
 //= require components.js
+console.log("application.js")
