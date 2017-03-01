@@ -16,5 +16,5 @@
 //= require react_ujs
 //= require materialize
 //= require cable
-//= require components.js
-console.log("application.js")
+//= require components
+console.log("application.js", Root)
