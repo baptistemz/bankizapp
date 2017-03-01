@@ -17,4 +17,4 @@
 //= require materialize
 //= require cable
 //= require components
-console.log("application.js", Root)
+console.log("application.js", global.Root)
