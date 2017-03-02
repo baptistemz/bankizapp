@@ -59,11 +59,6 @@ export function fetchMusics(term){
     });
   }
 }
-export function playMusic(player, music){
-  return(dispatch) => {
-    dispatch({type: PLAY_MUSIC_ON_PLAYER_1, payload: {player:player, music:music}})
-  }
-}
 export function addMusic(room_id, music, state){
   const post_url = `/api/v0/rooms/${room_id}/musics`
   const request = axios.post(post_url, {
@@ -73,7 +68,6 @@ export function addMusic(room_id, music, state){
   })
   return(dispatch) => {
     request.then(function(data){
-      console.log("in action request done", data.data)
       dispatch({type: ADD_MUSIC, payload:data.data})
     })
   }

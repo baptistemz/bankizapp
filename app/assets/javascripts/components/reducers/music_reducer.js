@@ -36,28 +36,29 @@ export default function(state = INITIAL_STATE, action){
         return state
     }
   case DELETE_MUSIC:
-    console.log("deleted reducer")
     const music_to_delete = action.payload
     const music_to_delete_data = JSON.parse(action.payload.json_data)
-    if( state.music_1 && state.music_1.etag != music_to_delete_data.etag && (state.music_2 && state.music_2.etag != music_to_delete_data.etag) && state.waiting_list.indexOf(music_to_delete_data) === -1){
-      console.log("in delete reducer, already done")
-      return state
-    }else if(music_to_delete.state === "playing"){
-      if (state.mute_player === 2){
-        return {...state, music_1: null}
+    if( (state.music_1 && state.music_1.etag === music_to_delete_data.etag)
+    || (state.music_2 && state.music_2.etag === music_to_delete_data.etag)
+    || (state.waiting_list.indexOf(music_to_delete_data) != -1)){
+      if(music_to_delete.state === "playing"){
+        if (state.mute_player === 2){
+          return {...state, music_1: null}
+        }else{
+          return {...state, music_2: null}
+        }
+      }else if(music_to_delete.state === "next"){
+        if (state.mute_player === 2){
+          return {...state, music_1: null}
+        }else{
+          return {...state, music_2: null}
+        }
+      }else if (music_to_delete.state === "waiting"){
+        const reduced_list = state.waiting_list.filter(function(x) { return x.etag != music_to_delete_data.etag})
+        return {...state, waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
       }else{
-        return {...state, music_2: null}
+        return state
       }
-    }else if(music_to_delete.state === "next"){
-      console.log("music to delete is next")
-      if (state.mute_player === 2){
-        return {...state, music_1: null}
-      }else{
-        return {...state, music_2: null}
-      }
-    }else if (music_to_delete.state === "waiting"){
-      const reduced_list = state.waiting_list.filter(function(x) { return x.etag != music_to_delete_data.etag})
-      return {...state, waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
     }else{
       return state
     }

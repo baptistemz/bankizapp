@@ -27,8 +27,11 @@
   text-shadow: 1px 1px 3px #565454
 }
 
+.userView td{
+  padding: 30px 5px 0 0;
+}
 .userView td:first-child{
-  padding: 9px 9px 9px 0;
+  padding: 25px 9px 0 0;
   width: 1.8%;
   line-height:24px;
 }
@@ -45,11 +48,17 @@
     padding: 10px 16px;
     height: 70px
   }
+  .side-nav .userView {
+    padding: 30px 16px 0px;
+  }
 }
 @media only screen and (max-width: 992px){
   .side-nav a {
     padding: 10px 16px;
     height: 70px
+  }
+  .side-nav .userView {
+    padding: 30px 16px 0px;
   }
 }
 .side-nav a {
