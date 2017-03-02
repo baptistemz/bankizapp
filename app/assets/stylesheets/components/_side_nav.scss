@@ -14,15 +14,45 @@
   margin: 0;
 }
 
-.userView{
+.userView .material-icons{
   color: $primary-color;
-  font-size: 2em
+  font-size: 40px;
 }
 
 .userView table{
   margin-left: 20px
 }
 
+.userView .white-text{
+  text-shadow: 1px 1px 3px #565454
+}
+
+.userView td:first-child{
+  padding: 9px 9px 9px 0;
+  width: 1.8%;
+  line-height:24px;
+}
+.userView .material-icons{
+  margin-top: 6px;
+}
+
 .profile-btn-group{
   margin: 10px 0
+}
+
+@media only screen and (max-width: 992px){
+  .side-nav a {
+    padding: 10px 16px;
+    height: 70px
+  }
+}
+@media only screen and (max-width: 992px){
+  .side-nav a {
+    padding: 10px 16px;
+    height: 70px
+  }
+}
+.side-nav a {
+  padding: 10px 16px;
+  height: 70px
 }
