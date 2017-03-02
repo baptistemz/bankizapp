@@ -6,15 +6,21 @@
 .sidenav-background{
   width: 100%;
   position : relative;
-
+  background-image: url("/equalizer.jpg");
+  background-size: cover;
 }
 .side-nav .userView .name, .side-nav .userView .email{
   padding: 0;
   margin: 0;
 }
-.sidenav-background img{
-  position: absolute;
-  left: -20px
+
+.userView{
+  color: $primary-color;
+  font-size: 2em
+}
+
+.userView table{
+  margin-left: 20px
 }
 
 .profile-btn-group{

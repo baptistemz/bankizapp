@@ -8,9 +8,10 @@ class SideNav extends Component {
   componentDidMount(){
 
     $('.button-collapse').sideNav({
-        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-      }
-    );
+      // menuWidth: 400, // Default is 300
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true
+    });
   }
   logout(){
     this.props.logoutUser()
@@ -63,9 +64,7 @@ class SideNav extends Component {
         <ul id="slide-out" className="side-nav">
           <li>
             <div className="userView">
-              <div className="background sidenav-background">
-                <img src="/equalizer.jpg" alt="equalizer"/>
-              </div>
+              <div className="background sidenav-background"></div>
               {this.props.isAuthenticated ? this.profile() : this.connect()}
             </div>
           </li>
@@ -78,7 +77,7 @@ class SideNav extends Component {
         <li><a className="subheader">Subheader</a></li>
         <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
         </ul>
-        <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons" id="burger-menu">menu</i></a>
+        <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="material-icons" id="burger-menu">menu</i></a>
         {this.props.children}
       </div>
     )
