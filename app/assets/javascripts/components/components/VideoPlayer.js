@@ -43,7 +43,6 @@ export default class VideoPlayer extends React.Component {
     }
     this.detectEnd(player)
   }
-
   detectEnd(player){
     const etag = player.etag
     const updateTime = function(player){
@@ -51,7 +50,6 @@ export default class VideoPlayer extends React.Component {
       let timeupdater = null;
       let oldTime = videotime;
       if(this.state.ended||player.getCurrentTime()===player.getDuration()|| etag != player.etag){
-        console.log("clearInterval")
         clearInterval(fadeLoop);
       }else{
         const transitionTime = player.getDuration()-20;
@@ -59,7 +57,10 @@ export default class VideoPlayer extends React.Component {
           videotime = player.getCurrentTime();
         }
         if(videotime !== oldTime) {
-          this.onProgress(Math.trunc(videotime), Math.trunc(transitionTime));
+          const progress = this.onProgress(Math.trunc(videotime), Math.trunc(transitionTime));
+          if(!progress){
+            clearInterval(fadeLoop)
+          }
         }
       }
     }
@@ -69,14 +70,15 @@ export default class VideoPlayer extends React.Component {
     if(currentTime >= transitionTime ) {
       // 20 seconds before the end of the video, this will be called.
       if(this.state.countdown === 0){
-        this.state.player.stopVideo()
-        this.setState({ended:true})
-        this.props.onVideoEnd(this.props.number)
+        return false
       }else{
         this.setState({countdown: this.state.countdown - 1})
         this.props.forceOtherPlayer(this.props.number)
         this.props.fadeOut(this.props.number)
+        return true
       }
+    }else{
+      return true
     }
   }
   onStateChange(event) {
@@ -138,9 +140,7 @@ export default class VideoPlayer extends React.Component {
           onReady={this.onReady.bind(this)}
           opts={opts}
           onStateChange={this.onStateChange.bind(this)}/>
-          <div className="music-title">
-            <h5>{this.props.video.snippet.title}</h5>
-          </div>
+          <h5 className="music-title">{this.props.video.snippet.title}</h5>
         </div>
     );
   }

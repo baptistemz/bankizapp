@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       resources :rooms, only: [ :show, :index, :create, :destroy ] do
         resources :musics, only: [:index, :create, :update, :destroy]
         post 'modify_waiting_list', to: 'musics#modify_waiting_list'
+        resources :invitations, only: [:index, :create, :update]
+        post 'increment_strangers_number', to: 'rooms#increment_strangers_number'
+        post 'decrement_strangers_number', to: 'rooms#decrement_strangers_number'
       end
     end
   end

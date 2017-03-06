@@ -14,15 +14,15 @@
     font-size: 1.5em;
   }
   .video-container{
-    top: 101px;
     width: 90%;
   }
   .right-thumbnail{
     left: 5%;
-    top: 346px;
+    top: 369px;
   }
   .left-thumbnail{
     left: 5%;
+    top:144px;
   }
   #logo-sound-group{
     padding: 10px 0;
@@ -32,8 +32,10 @@
     height:198px
   }
   .room-presentation{
-    margin-top: -10px;
     margin-bottom: -20px
+  }
+  .users-group{
+    margin-bottom: 10px
   }
   #fake-soundmixer{
     width: 90%;
@@ -43,6 +45,10 @@
   #search-btn{
     top: 12px;
     right: 5%;
+  }
+  #logged-in-chip {
+    top:0px;
+    left: calc(110px + 5%);
   }
 }
 @media only screen and (min-width: 600px) and (max-width : 992px) {
@@ -61,7 +67,7 @@
     font-size: 1.65em;
   }
   .video-container{
-    top: 204px;
+    top: 259px;
     width: calc(35.6% - 14px);
   }
   .right-thumbnail{
@@ -75,7 +81,10 @@
   }
   .room-presentation{
     margin-top: 65px;
-    margin-bottom: 40px
+    margin-bottom: 20px
+  }
+  .users-group{
+    margin-bottom: 20px
   }
   #fake-soundmixer{
     width: 80%;
@@ -85,6 +94,11 @@
   #search-btn{
     top: 12px;
     right: 8%;
+  }
+  #logged-in-chip {
+    bottom:486px;
+    top:auto;
+    left: 7%;
   }
 }
 @media only screen and (min-width: 992px) and (max-width : 1200px) {
@@ -101,8 +115,8 @@
     font-size: 1.95em;
   }
   .video-container{
-    top: 237px;
-    width: calc(29.5% - 16px);
+    top: 265px;
+    width: calc(29.4% - 16px);
   }
   .right-thumbnail{
     right:15%;
@@ -118,7 +132,10 @@
   }
   .room-presentation{
     margin-top: 57px;
-    margin-bottom: 60px
+    margin-bottom: 10px
+  }
+  .users-group{
+    margin-bottom: 30px
   }
   #search-btn{
     top: 20px;
@@ -131,6 +148,11 @@
         font-size: 31px
       }
     }
+  }
+  #logged-in-chip {
+    bottom:486px;
+    top:auto;
+    left: 15%;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -147,7 +169,7 @@
     font-size: 2.1em;
   }
   .video-container{
-    top: 233px;
+    top: 285px;
     width: calc(29.1% - 12px);
   }
   .right-thumbnail{
@@ -161,7 +183,10 @@
   }
   .room-presentation{
     margin-top: 48px;
-    margin-bottom: 50px
+    margin-bottom: 15px
+  }
+  .users-group{
+    margin-bottom: 35px
   }
   #search-btn{
     top: 20px;
@@ -174,5 +199,10 @@
         font-size: 31px
       }
     }
+  }
+  #logged-in-chip {
+    bottom:474px;
+    top:auto;
+    left: 15%;
   }
 }

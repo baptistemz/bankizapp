@@ -6,12 +6,20 @@
     <link href="https://diegoddox.github.io/react-redux-toastr/4.4/react-redux-toastr.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Asap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all', :debug => false %>
     <%= action_cable_meta_tag %>
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <!-- <div id="fb-root"></div> -->
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <%= yield %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', :debug => false %>
   </body>
 </html>

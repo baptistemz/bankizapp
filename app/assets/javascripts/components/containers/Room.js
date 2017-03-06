@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics} from '../actions/index'
+import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom} from '../actions/index'
 import SearchGroup from './SearchGroup';
 import SoundMixer from './SoundMixer';
 
@@ -18,6 +18,16 @@ class Room extends Component {
         received: ((data) => this.receiveRoomData(data))
       });
     }
+  }
+  componentDidMount(){
+    this.props.connectToRoom(this.props.routeParams.roomId)
+  }
+  componentWillUnmount(){
+    const username = this.props.username
+    const invitation = this.props.room_users.filter(function(u) {
+      return u.username === username ;
+    });
+    this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id)
   }
   receiveRoomData(data){
     switch(data.action) {
@@ -35,6 +45,12 @@ class Room extends Component {
       case "sorted":
         this.props.receiveSortedMusics(data)
         break;
+      case "new invitation":
+        this.props.receiveNewInvitation(data)
+        break;
+      case "invitation deleted":
+        this.props.receiveDeletedInvitation(data)
+        break;
     }
   }
   render() {
@@ -48,7 +64,14 @@ class Room extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics}, dispatch);
+  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom}, dispatch);
 }
 
-export default connect(null,mapDispatchToProps)(Room)
+function mapStateToProps(state){
+  return {
+    room_users: state.room.users,
+    username: state.user.username
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Room)

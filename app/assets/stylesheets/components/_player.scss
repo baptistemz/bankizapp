@@ -1,6 +1,5 @@
 .video-container{
-  padding: 97px 0;
-  top: 56px;
+  padding: 88px 0;
   z-index: 1;
   position: absolute;
   & h5{
@@ -8,26 +7,25 @@
   }
 }
 .music-title{
-  height: 50px;
   width: 100%;
   position: absolute;
+  white-space: nowrap;
   bottom:0;
-  display: flex;
-  vertical-align: center
-}
-.music-title h5{
-  text-shadow: 1px 1px 3px #7f7c7c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.1em;
   color: white;
-  width: 100%;
-  margin: auto 0;
-  font-size: 1.3em
 }
+// .music-title h5{
+//   width: 100%;
+//   margin: auto 0;
+// }
 .video-container iframe{
   height:144px;
 }
 
 .player-background{
-  padding: 35px 0 52px 0;
+  padding: 24px 0 42px 0;
   text-align: center;
   color: white;
   border-radius: 1px;

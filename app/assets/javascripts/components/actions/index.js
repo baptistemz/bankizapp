@@ -22,6 +22,8 @@ export const GOT_ROOM ='GOT_ROOM'
 export const GOT_ROOM_LIST ='GOT_ROOM_LIST'
 export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
 export const CHANGE_LIST_ORDER ='CHANGE_LIST_ORDER'
+export const CREATE_INVITATION ='CREATE_INVITATION'
+export const DELETE_INVITATION ='DELETE_INVITATION'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -132,24 +134,25 @@ export function createRoom(name, slug){
   const post_url = '/api/v0/rooms'
   const data = {room:{
      name: name,
-     slug: slug
+     slug: slug,
+     strangers_number:0
   }}
   const config = {headers: {
       "Authorization": "Bearer "+ token,
       "Content-Type": "application/json"
   }}
   const request = axios.post(post_url, data, config);
- return(dispatch) => {
-   request.then(function(response){
-     dispatch({type: GOT_ROOM, payload:response})
-     browserHistory.push(`/rooms/${slug}`)
-   }).catch(function (error) {
-     toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
-     if(error.response.status === 401){
-       browserHistory.push('/login');
-     }
-   });
- }
+  return(dispatch) => {
+    request.then(function(response){
+      dispatch({type: GOT_ROOM, payload:response})
+      browserHistory.push(`/rooms/${slug}`)
+    }).catch(function (error) {
+      toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
+      if(error.response.status === 401){
+        browserHistory.push('/login');
+      }
+    });
+  }
 }
 export function fetchRoom(name){
   const get_url = `/api/v0/rooms/${name}`
@@ -171,6 +174,11 @@ export function fetchRoomList(){
   return(dispatch) => {
     request.then(function(data){
       dispatch({type: GOT_ROOM_LIST, payload:data})
+    }).catch(function (error) {
+      toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
+      if(error.response.status === 401){
+        browserHistory.push('/login');
+      }
     })
   }
 }
@@ -193,6 +201,57 @@ export function printListOrder(name, list){
 export function receiveSortedMusics(data){
   return(dispatch) => {
     dispatch({type: CHANGE_LIST_ORDER, payload:data.musics})
+  }
+}
+export function connectToRoom(room_slug){
+  const token = localStorage.getItem('auth_token')
+  if (token){
+    const post_url = `/api/v0/rooms/${room_slug}/invitations`
+    const config = {headers: {
+      "Authorization": "Bearer "+ token,
+      "Content-Type": "application/json"
+    }}
+    const request = axios.post(post_url, {invitation:{active: true}}, config)
+    return(dispatch) => {
+      request.then(function(data){
+        dispatch({type: CREATE_INVITATION, payload:data.data})
+      })
+    }
+  }else{
+    const request = axios.post(`/api/v0/rooms/${room_slug}/increment_strangers_number`)
+    return(dispatch) => {
+      request.then(function(data){
+        dispatch({type: CREATE_INVITATION, payload:data.data})
+      })
+    }
+  }
+}
+export function receiveNewInvitation(data){
+  return(dispatch) => {
+    console.log("in actions... received new", data)
+    dispatch({type: CREATE_INVITATION, payload:data.invitation})
+  }
+}
+
+export function disconnectFromRoom(room_slug, invitation_id){
+  const put_url = `/api/v0/rooms/${room_slug}/invitations/${invitation_id}`
+  const token = localStorage.getItem('auth_token')
+  const config = {headers: {
+      "Authorization": "Bearer "+ token,
+      "Content-Type": "application/json"
+   }}
+  const request = axios.put(put_url, {invitation:{active: false}}, config)
+  return(dispatch) => {
+    request.then(function(data){
+      console.log("disconnect action", data.data)
+      dispatch({type: DELETE_INVITATION, payload:data.data})
+    })
+  }
+}
+export function receiveDeletedInvitation(data){
+  return(dispatch) => {
+    console.log("in actions... received deleted", data)
+    dispatch({type: DELETE_INVITATION, payload:data.invitation})
   }
 }
 

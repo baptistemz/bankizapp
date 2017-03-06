@@ -14,7 +14,12 @@ module Api
       end
 
       def index
-        @rooms = current_user.rooms
+        invited_rooms = []
+        current_user.invitations.where('user_id != ?', current_user.id).each do |i| 
+          invited_rooms.push(Room.find(i.room_id))
+        end
+        @rooms = current_user.rooms + invited_rooms
+        # @rooms = current_user.rooms
         render :index
       end
 
@@ -24,6 +29,18 @@ module Api
       end
 
       def delete
+      end
+
+      def increment_strangers_number
+        @room = Room.friendly.find(params[:id])
+        @room.update(strangers_number: @room.strangers_number + 1)
+        render json: { strangers_number: @room.strangers_number }
+      end
+
+      def decrement_strangers_number
+        @room = Room.friendly.find(params[:id])
+        @room.update(strangers_number: @room.strangers_number - 1)
+        render json: { strangers_number: @room.strangers_number }
       end
 
       private

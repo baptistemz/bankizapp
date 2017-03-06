@@ -6,6 +6,7 @@ import VideoPlayer from '../components/VideoPlayer'
 import WaitingList from '../components/WaitingList'
 import VisitorUI from '../components/VisitorUI'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {toastr} from 'react-redux-toastr'
 
 
 class SoundMixer extends React.Component {
@@ -17,6 +18,7 @@ class SoundMixer extends React.Component {
       forceSecondPlayer: false
     }
   }
+
   forcePlayer(origin_player){
     if (origin_player===2){
       this.setState({forceFirstPlayer: true});
@@ -87,6 +89,15 @@ class SoundMixer extends React.Component {
       return this.videoPlayer(music, num)
     }
   }
+  copyLink(){
+    var aux = document.createElement("input");
+    aux.setAttribute("value", `http://www.bankizapp.com/rooms/${this.props.room_slug}`);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand("copy");
+    document.body.removeChild(aux);
+    toastr.success('The room link has been copied to your clipboard', 'you can now share it with friends !')
+  }
   changeListOrder(obj){
     this.props.changeDragOrder(obj)
   }
@@ -94,69 +105,102 @@ class SoundMixer extends React.Component {
     this.props.printListOrder(name, list)
   }
   deleteFromWaitingList(music){
-    this.props.deleteFromWaitingList(this.props.room_id, music)
+    this.props.deleteMusic(music, this.props.room_id)
+  }
+  djUi(){
+    return(
+      <div className="row">
+        <div className="room-presentation">
+          <h1 className="text-center">{this.props.room_name}</h1>
+          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
+        </div>
+        <br/>
+        {this.music(this.props.music_1, 1)}
+        {this.music(this.props.music_2, 2)}
+        <div className="users-group col s12">
+          <div className= "logged-in-state">
+            <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big> users connected</p>
+            <div className="hover-chip" id="logged-in-chip">
+              {this.props.room_users.map(function(u, i){
+                return(
+                  <div key={i}>
+                    {u.username}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          <div className="space-around">
+            <h6>Share you room with friends : </h6>
+            <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
+          </div>
+        </div>
+        <div className="col s12 m5">
+          <div className="player-background right-background z-depth-1">
+            <h5>track 1</h5>
+            <div className="play-pause">
+              <img src="/play_pause.png" alt="play/pause"/>
+            </div>
+          </div>
+        </div>
+        <div className="col s12 m2">
+          <div id="logo-sound-group">
+            <div id="left-sound-link" className="hide-on-med-and-up"></div>
+            <div id="right-sound-link" className="hide-on-med-and-up"></div>
+            <img  className="hide-on-small-only" src="/logo1.png" id="logo" alt="penguin"/>
+            <form action="#">
+              <input type="range" value={this.props.balance} min="0" max="100"
+                onChange = {event => this.onBalanceChange(event.target.value)}/>
+            </form>
+          </div>
+        </div>
+        <div className="col s12 m5">
+          <div className="player-background left-background z-depth-1">
+            <h5>track 2</h5>
+            <div className="play-pause">
+              <img src="/play_pause.png" alt="play/pause"/>
+            </div>
+          </div>
+        </div>
+        <div className="col s12">
+          <WaitingList deleteMusicFromList = {this.deleteFromWaitingList.bind(this)}
+            changeListOrder={this.changeListOrder.bind(this)}
+            list={this.props.waiting_list}
+            roomId={this.props.room_id}
+            draggingObject={this.props.draggingObject}
+            printListOrder={this.printListOrder.bind(this)} />
+        </div>
+      </div>
+    )
+  }
+  visitorUi(){
+    return(
+      <div className="row">
+        <div className="room-presentation">
+          <h1 className="text-center">{this.props.room_name}</h1>
+          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
+        </div>
+        <VisitorUI waitingList= {this.props.waiting_list}
+          reverted = {this.props.mute_player === 1}
+          music1= {this.props.music_1}
+          music2= {this.props.music_2} />
+     </div>
+   )
   }
   render(){
     if (this.props.current_username === this.props.dj_name){
       return(
-        <div className="row">
-          <div className="room-presentation">
-            <h1 className="text-center">{this.props.room_name}</h1>
-            <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
-          </div>
-          <br/>
-          {this.music(this.props.music_1, 1)}
-          {this.music(this.props.music_2, 2)}
-          <div className="col s12 m5">
-            <div className="player-background right-background z-depth-1">
-              <h5>track 1</h5>
-              <div className="play-pause">
-                <img src="/play_pause.png" alt="play/pause"/>
-              </div>
-            </div>
-          </div>
-          <div className="col s12 m2">
-            <div id="logo-sound-group">
-              <div id="left-sound-link" className="hide-on-med-and-up"></div>
-              <div id="right-sound-link" className="hide-on-med-and-up"></div>
-              <img  className="hide-on-small-only" src="/logo1.png" id="logo" alt="penguin"/>
-              <form action="#">
-                <input type="range" value={this.props.balance} min="0" max="100"
-                  onChange = {event => this.onBalanceChange(event.target.value)}/>
-              </form>
-            </div>
-          </div>
-          <div className="col s12 m5">
-            <div className="player-background left-background z-depth-1">
-              <h5>track 2</h5>
-              <div className="play-pause">
-                <img src="/play_pause.png" alt="play/pause"/>
-              </div>
-            </div>
-          </div>
-          <div className="col s12">
-            <WaitingList deleteMusicFromList = {this.deleteFromWaitingList.bind(this)}
-              changeListOrder={this.changeListOrder.bind(this)}
-              list={this.props.waiting_list}
-              roomId={this.props.room_id}
-              draggingObject={this.props.draggingObject}
-              printListOrder={this.printListOrder.bind(this)} />
-          </div>
+        <div>
+          {this.djUi()}
         </div>
       )
+
     }else{
       return(
-        <div className="row">
-          <div className="room-presentation">
-            <h1 className="text-center">{this.props.room_name}</h1>
-            <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
-          </div>
-          <VisitorUI waitingList= {this.props.waiting_list}
-            reverted = {this.props.mute_player === 1}
-            music1= {this.props.music_1}
-            music2= {this.props.music_2} />
-       </div>
-     )
+        <div>
+          {this.visitorUi()}
+        </div>
+      )
     }
   }
 }
@@ -174,7 +218,10 @@ function mapStateToProps(state){
     draggingObject: state.music.draggingObject,
     room_id: state.room.id,
     room_name: state.room.name,
+    room_slug: state.room.slug,
     dj_name: state.room.dj.username,
+    room_users: state.room.users,
+    strangers_number: state.room.strangers_number,
     current_username : state.user.username
   }
 }

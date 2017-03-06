@@ -12393,7 +12393,7 @@ global.Root = _Root2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LOGOUT_FAILURE = exports.LOGOUT_SUCCESS = exports.LOGOUT_REQUEST = exports.SIGNUP_FAILURE = exports.SIGNUP_SUCCESS = exports.SIGNUP_REQUEST = exports.LOGIN_FAILURE = exports.LOGIN_SUCCESS = exports.LOGIN_REQUEST = exports.CHANGE_LIST_ORDER = exports.CHANGE_DRAG_ORDER = exports.GOT_ROOM_LIST = exports.GOT_ROOM = exports.SWITCH_PLAYERS = exports.DELETE_MUSIC = exports.UPDATE_MUSIC = exports.DELETE_FROM_WAITING_LIST = exports.ADD_MUSIC = exports.STOP_PLAYER = exports.START_PLAYER = exports.PLAY_NEXT = exports.CHANGE_BALANCE = exports.FETCH_MUSICS = undefined;
+exports.LOGOUT_FAILURE = exports.LOGOUT_SUCCESS = exports.LOGOUT_REQUEST = exports.SIGNUP_FAILURE = exports.SIGNUP_SUCCESS = exports.SIGNUP_REQUEST = exports.LOGIN_FAILURE = exports.LOGIN_SUCCESS = exports.LOGIN_REQUEST = exports.DELETE_INVITATION = exports.CREATE_INVITATION = exports.CHANGE_LIST_ORDER = exports.CHANGE_DRAG_ORDER = exports.GOT_ROOM_LIST = exports.GOT_ROOM = exports.SWITCH_PLAYERS = exports.DELETE_MUSIC = exports.UPDATE_MUSIC = exports.DELETE_FROM_WAITING_LIST = exports.ADD_MUSIC = exports.STOP_PLAYER = exports.START_PLAYER = exports.PLAY_NEXT = exports.CHANGE_BALANCE = exports.FETCH_MUSICS = undefined;
 exports.fetchMusics = fetchMusics;
 exports.addMusic = addMusic;
 exports.receiveAddedMusic = receiveAddedMusic;
@@ -12411,6 +12411,10 @@ exports.fetchRoomList = fetchRoomList;
 exports.changeDragOrder = changeDragOrder;
 exports.printListOrder = printListOrder;
 exports.receiveSortedMusics = receiveSortedMusics;
+exports.connectToRoom = connectToRoom;
+exports.receiveNewInvitation = receiveNewInvitation;
+exports.disconnectFromRoom = disconnectFromRoom;
+exports.receiveDeletedInvitation = receiveDeletedInvitation;
 exports.loginUser = loginUser;
 exports.signupUser = signupUser;
 exports.logoutUser = logoutUser;
@@ -12454,6 +12458,8 @@ var GOT_ROOM = exports.GOT_ROOM = 'GOT_ROOM';
 var GOT_ROOM_LIST = exports.GOT_ROOM_LIST = 'GOT_ROOM_LIST';
 var CHANGE_DRAG_ORDER = exports.CHANGE_DRAG_ORDER = 'CHANGE_DRAG_ORDER';
 var CHANGE_LIST_ORDER = exports.CHANGE_LIST_ORDER = 'CHANGE_LIST_ORDER';
+var CREATE_INVITATION = exports.CREATE_INVITATION = 'CREATE_INVITATION';
+var DELETE_INVITATION = exports.DELETE_INVITATION = 'DELETE_INVITATION';
 
 var LOGIN_REQUEST = exports.LOGIN_REQUEST = 'LOGIN_REQUEST';
 var LOGIN_SUCCESS = exports.LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -12565,7 +12571,8 @@ function createRoom(name, slug) {
   var post_url = '/api/v0/rooms';
   var data = { room: {
       name: name,
-      slug: slug
+      slug: slug,
+      strangers_number: 0
     } };
   var config = { headers: {
       "Authorization": "Bearer " + token,
@@ -12604,6 +12611,11 @@ function fetchRoomList() {
   return function (dispatch) {
     request.then(function (data) {
       dispatch({ type: GOT_ROOM_LIST, payload: data });
+    }).catch(function (error) {
+      _reactReduxToastr.toastr.error('' + error.response.data.errors[0], { timeOut: 8000 });
+      if (error.response.status === 401) {
+        _reactRouter.browserHistory.push('/login');
+      }
     });
   };
 }
@@ -12626,6 +12638,57 @@ function printListOrder(name, list) {
 function receiveSortedMusics(data) {
   return function (dispatch) {
     dispatch({ type: CHANGE_LIST_ORDER, payload: data.musics });
+  };
+}
+function connectToRoom(room_slug) {
+  var token = localStorage.getItem('auth_token');
+  if (token) {
+    var post_url = '/api/v0/rooms/' + room_slug + '/invitations';
+    var config = { headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      } };
+    var request = _axios2.default.post(post_url, { invitation: { active: true } }, config);
+    return function (dispatch) {
+      request.then(function (data) {
+        dispatch({ type: CREATE_INVITATION, payload: data.data });
+      });
+    };
+  } else {
+    var _request = _axios2.default.post('/api/v0/rooms/' + room_slug + '/increment_strangers_number');
+    return function (dispatch) {
+      _request.then(function (data) {
+        dispatch({ type: CREATE_INVITATION, payload: data.data });
+      });
+    };
+  }
+}
+function receiveNewInvitation(data) {
+  return function (dispatch) {
+    console.log("in actions... received new", data);
+    dispatch({ type: CREATE_INVITATION, payload: data.invitation });
+  };
+}
+
+function disconnectFromRoom(room_slug, invitation_id) {
+  var put_url = '/api/v0/rooms/' + room_slug + '/invitations/' + invitation_id;
+  var token = localStorage.getItem('auth_token');
+  var config = { headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    } };
+  var request = _axios2.default.put(put_url, { invitation: { active: false } }, config);
+  return function (dispatch) {
+    request.then(function (data) {
+      console.log("disconnect action", data.data);
+      dispatch({ type: DELETE_INVITATION, payload: data.data });
+    });
+  };
+}
+function receiveDeletedInvitation(data) {
+  return function (dispatch) {
+    console.log("in actions... received deleted", data);
+    dispatch({ type: DELETE_INVITATION, payload: data.invitation });
   };
 }
 
@@ -13887,7 +13950,6 @@ var VideoPlayer = function (_React$Component) {
         var timeupdater = null;
         var oldTime = videotime;
         if (this.state.ended || player.getCurrentTime() === player.getDuration() || etag != player.etag) {
-          console.log("clearInterval");
           clearInterval(fadeLoop);
         } else {
           var transitionTime = player.getDuration() - 20;
@@ -13895,7 +13957,10 @@ var VideoPlayer = function (_React$Component) {
             videotime = player.getCurrentTime();
           }
           if (videotime !== oldTime) {
-            this.onProgress(Math.trunc(videotime), Math.trunc(transitionTime));
+            var progress = this.onProgress(Math.trunc(videotime), Math.trunc(transitionTime));
+            if (!progress) {
+              clearInterval(fadeLoop);
+            }
           }
         }
       };
@@ -13907,14 +13972,15 @@ var VideoPlayer = function (_React$Component) {
       if (currentTime >= transitionTime) {
         // 20 seconds before the end of the video, this will be called.
         if (this.state.countdown === 0) {
-          this.state.player.stopVideo();
-          this.setState({ ended: true });
-          this.props.onVideoEnd(this.props.number);
+          return false;
         } else {
           this.setState({ countdown: this.state.countdown - 1 });
           this.props.forceOtherPlayer(this.props.number);
           this.props.fadeOut(this.props.number);
+          return true;
         }
+      } else {
+        return true;
       }
     }
   }, {
@@ -13982,13 +14048,9 @@ var VideoPlayer = function (_React$Component) {
           opts: opts,
           onStateChange: this.onStateChange.bind(this) }),
         _react2.default.createElement(
-          'div',
+          'h5',
           { className: 'music-title' },
-          _react2.default.createElement(
-            'h5',
-            null,
-            this.props.video.snippet.title
-          )
+          this.props.video.snippet.title
         )
       );
     }
@@ -14591,6 +14653,20 @@ var Room = function (_Component) {
       }
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.connectToRoom(this.props.routeParams.roomId);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      var username = this.props.username;
+      var invitation = this.props.room_users.filter(function (u) {
+        return u.username === username;
+      });
+      this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id);
+    }
+  }, {
     key: 'receiveRoomData',
     value: function receiveRoomData(data) {
       switch (data.action) {
@@ -14607,6 +14683,12 @@ var Room = function (_Component) {
           break;
         case "sorted":
           this.props.receiveSortedMusics(data);
+          break;
+        case "new invitation":
+          this.props.receiveNewInvitation(data);
+          break;
+        case "invitation deleted":
+          this.props.receiveDeletedInvitation(data);
           break;
       }
     }
@@ -14626,10 +14708,17 @@ var Room = function (_Component) {
 }(_react.Component);
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ fetchRoom: _index.fetchRoom, receiveAddedMusic: _index.receiveAddedMusic, receiveUpdatedMusic: _index.receiveUpdatedMusic, receiveDeletedMusic: _index.receiveDeletedMusic, receiveSortedMusics: _index.receiveSortedMusics }, dispatch);
+  return (0, _redux.bindActionCreators)({ fetchRoom: _index.fetchRoom, receiveAddedMusic: _index.receiveAddedMusic, receiveUpdatedMusic: _index.receiveUpdatedMusic, receiveDeletedMusic: _index.receiveDeletedMusic, receiveSortedMusics: _index.receiveSortedMusics, receiveNewInvitation: _index.receiveNewInvitation, receiveDeletedInvitation: _index.receiveDeletedInvitation, connectToRoom: _index.connectToRoom, disconnectFromRoom: _index.disconnectFromRoom }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Room);
+function mapStateToProps(state) {
+  return {
+    room_users: state.room.users,
+    username: state.user.username
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Room);
 
 },{"../actions/index":2,"./SearchGroup":17,"./SoundMixer":19,"react":349,"react-redux":261,"redux":356}],14:[function(require,module,exports){
 'use strict';
@@ -15298,6 +15387,8 @@ var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group'
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
+var _reactReduxToastr = require('react-redux-toastr');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15411,6 +15502,17 @@ var SoundMixer = function (_React$Component) {
       }
     }
   }, {
+    key: 'copyLink',
+    value: function copyLink() {
+      var aux = document.createElement("input");
+      aux.setAttribute("value", 'http://www.bankizapp.com/rooms/' + this.props.room_slug);
+      document.body.appendChild(aux);
+      aux.select();
+      document.execCommand("copy");
+      document.body.removeChild(aux);
+      _reactReduxToastr.toastr.success('The room link has been copied to your clipboard', 'you can now share it with friends !');
+    }
+  }, {
     key: 'changeListOrder',
     value: function changeListOrder(obj) {
       this.props.changeDragOrder(obj);
@@ -15423,124 +15525,185 @@ var SoundMixer = function (_React$Component) {
   }, {
     key: 'deleteFromWaitingList',
     value: function deleteFromWaitingList(music) {
-      this.props.deleteFromWaitingList(this.props.room_id, music);
+      this.props.deleteMusic(music, this.props.room_id);
+    }
+  }, {
+    key: 'djUi',
+    value: function djUi() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'room-presentation' },
+          _react2.default.createElement(
+            'h1',
+            { className: 'text-center' },
+            this.props.room_name
+          ),
+          _react2.default.createElement(
+            'h3',
+            { className: 'text-center grey-text' },
+            ' by @',
+            this.props.dj_name
+          )
+        ),
+        _react2.default.createElement('br', null),
+        this.music(this.props.music_1, 1),
+        this.music(this.props.music_2, 2),
+        _react2.default.createElement(
+          'div',
+          { className: 'users-group col s12' },
+          _react2.default.createElement(
+            'div',
+            { className: 'logged-in-state' },
+            _react2.default.createElement(
+              'p',
+              { className: 'underline' },
+              _react2.default.createElement(
+                'big',
+                null,
+                this.props.room_users.length + this.props.strangers_number
+              ),
+              ' users connected'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'hover-chip', id: 'logged-in-chip' },
+              this.props.room_users.map(function (u, i) {
+                return _react2.default.createElement(
+                  'div',
+                  { key: i },
+                  u.username
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'space-around' },
+            _react2.default.createElement(
+              'h6',
+              null,
+              'Share you room with friends : '
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'btn', onClick: this.copyLink.bind(this) },
+              'Copy Link'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 m5' },
+          _react2.default.createElement(
+            'div',
+            { className: 'player-background right-background z-depth-1' },
+            _react2.default.createElement(
+              'h5',
+              null,
+              'track 1'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'play-pause' },
+              _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 m2' },
+          _react2.default.createElement(
+            'div',
+            { id: 'logo-sound-group' },
+            _react2.default.createElement('div', { id: 'left-sound-link', className: 'hide-on-med-and-up' }),
+            _react2.default.createElement('div', { id: 'right-sound-link', className: 'hide-on-med-and-up' }),
+            _react2.default.createElement('img', { className: 'hide-on-small-only', src: '/logo1.png', id: 'logo', alt: 'penguin' }),
+            _react2.default.createElement(
+              'form',
+              { action: '#' },
+              _react2.default.createElement('input', { type: 'range', value: this.props.balance, min: '0', max: '100',
+                onChange: function onChange(event) {
+                  return _this2.onBalanceChange(event.target.value);
+                } })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 m5' },
+          _react2.default.createElement(
+            'div',
+            { className: 'player-background left-background z-depth-1' },
+            _react2.default.createElement(
+              'h5',
+              null,
+              'track 2'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'play-pause' },
+              _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12' },
+          _react2.default.createElement(_WaitingList2.default, { deleteMusicFromList: this.deleteFromWaitingList.bind(this),
+            changeListOrder: this.changeListOrder.bind(this),
+            list: this.props.waiting_list,
+            roomId: this.props.room_id,
+            draggingObject: this.props.draggingObject,
+            printListOrder: this.printListOrder.bind(this) })
+        )
+      );
+    }
+  }, {
+    key: 'visitorUi',
+    value: function visitorUi() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'room-presentation' },
+          _react2.default.createElement(
+            'h1',
+            { className: 'text-center' },
+            this.props.room_name
+          ),
+          _react2.default.createElement(
+            'h3',
+            { className: 'text-center grey-text' },
+            ' by @',
+            this.props.dj_name
+          )
+        ),
+        _react2.default.createElement(_VisitorUI2.default, { waitingList: this.props.waiting_list,
+          reverted: this.props.mute_player === 1,
+          music1: this.props.music_1,
+          music2: this.props.music_2 })
+      );
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       if (this.props.current_username === this.props.dj_name) {
         return _react2.default.createElement(
           'div',
-          { className: 'row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'room-presentation' },
-            _react2.default.createElement(
-              'h1',
-              { className: 'text-center' },
-              this.props.room_name
-            ),
-            _react2.default.createElement(
-              'h3',
-              { className: 'text-center grey-text' },
-              ' by @',
-              this.props.dj_name
-            )
-          ),
-          _react2.default.createElement('br', null),
-          this.music(this.props.music_1, 1),
-          this.music(this.props.music_2, 2),
-          _react2.default.createElement(
-            'div',
-            { className: 'col s12 m5' },
-            _react2.default.createElement(
-              'div',
-              { className: 'player-background right-background z-depth-1' },
-              _react2.default.createElement(
-                'h5',
-                null,
-                'track 1'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'play-pause' },
-                _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col s12 m2' },
-            _react2.default.createElement(
-              'div',
-              { id: 'logo-sound-group' },
-              _react2.default.createElement('div', { id: 'left-sound-link', className: 'hide-on-med-and-up' }),
-              _react2.default.createElement('div', { id: 'right-sound-link', className: 'hide-on-med-and-up' }),
-              _react2.default.createElement('img', { className: 'hide-on-small-only', src: '/logo1.png', id: 'logo', alt: 'penguin' }),
-              _react2.default.createElement(
-                'form',
-                { action: '#' },
-                _react2.default.createElement('input', { type: 'range', value: this.props.balance, min: '0', max: '100',
-                  onChange: function onChange(event) {
-                    return _this2.onBalanceChange(event.target.value);
-                  } })
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col s12 m5' },
-            _react2.default.createElement(
-              'div',
-              { className: 'player-background left-background z-depth-1' },
-              _react2.default.createElement(
-                'h5',
-                null,
-                'track 2'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'play-pause' },
-                _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col s12' },
-            _react2.default.createElement(_WaitingList2.default, { deleteMusicFromList: this.deleteFromWaitingList.bind(this),
-              changeListOrder: this.changeListOrder.bind(this),
-              list: this.props.waiting_list,
-              roomId: this.props.room_id,
-              draggingObject: this.props.draggingObject,
-              printListOrder: this.printListOrder.bind(this) })
-          )
+          null,
+          this.djUi()
         );
       } else {
         return _react2.default.createElement(
           'div',
-          { className: 'row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'room-presentation' },
-            _react2.default.createElement(
-              'h1',
-              { className: 'text-center' },
-              this.props.room_name
-            ),
-            _react2.default.createElement(
-              'h3',
-              { className: 'text-center grey-text' },
-              ' by @',
-              this.props.dj_name
-            )
-          ),
-          _react2.default.createElement(_VisitorUI2.default, { waitingList: this.props.waiting_list,
-            reverted: this.props.mute_player === 1,
-            music1: this.props.music_1,
-            music2: this.props.music_2 })
+          null,
+          this.visitorUi()
         );
       }
     }
@@ -15562,13 +15725,16 @@ function mapStateToProps(state) {
     draggingObject: state.music.draggingObject,
     room_id: state.room.id,
     room_name: state.room.name,
+    room_slug: state.room.slug,
     dj_name: state.room.dj.username,
+    room_users: state.room.users,
+    strangers_number: state.room.strangers_number,
     current_username: state.user.username
   };
 }
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SoundMixer);
 
-},{"../actions/index":2,"../components/VideoPlayer":9,"../components/VisitorUI":10,"../components/WaitingList":11,"react":349,"react-addons-css-transition-group":106,"react-redux":261,"redux":356}],20:[function(require,module,exports){
+},{"../actions/index":2,"../components/VideoPlayer":9,"../components/VisitorUI":10,"../components/WaitingList":11,"react":349,"react-addons-css-transition-group":106,"react-redux":261,"react-redux-toastr":248,"redux":356}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15818,7 +15984,7 @@ exports.default = function () {
           return _extends({}, state, { waiting_list: waiting, music_2: playing ? JSON.parse(playing.json_data) : null, music_1: next ? JSON.parse(next.json_data) : null, draggingObject: { items: waiting, draggingIndex: null } });
         }
       } else {
-        return INITIAL_STATE;
+        return state;
       }
     case _index.CHANGE_DRAG_ORDER:
       return _extends({}, state, { draggingObject: action.payload });
@@ -15866,9 +16032,27 @@ exports.default = function () {
 
   switch (action.type) {
     case _index.GOT_ROOM:
-      return _extends({}, state, { id: action.payload.data.id, name: action.payload.data.name, slug: action.payload.data.slug, dj: action.payload.data.dj });
+      return _extends({}, state, { id: action.payload.data.id, name: action.payload.data.name, slug: action.payload.data.slug, dj: action.payload.data.dj, users: action.payload.data.users });
     case _index.GOT_ROOM_LIST:
       return _extends({}, state, { room_list: action.payload.data });
+    case _index.CREATE_INVITATION:
+      if (state.users.some(function (u) {
+        return u.id === action.payload.id;
+      })) {
+        return state;
+      } else {
+        return _extends({}, state, { users: [].concat(_toConsumableArray(state.users), [action.payload]) });
+      }
+    case _index.DELETE_INVITATION:
+      if (state.users.some(function (u) {
+        return u.id === action.payload.id;
+      })) {
+        return _extends({}, state, { users: state.users.filter(function (i) {
+            return i.id !== action.payload.id;
+          }) });
+      } else {
+        return state;
+      }
     default:
       return state;
   }
@@ -15876,7 +16060,9 @@ exports.default = function () {
 
 var _index = require('../actions/index');
 
-var INITIAL_STATE = { room_list: [], id: '', name: '', slug: '', dj: {}, users: [] };
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var INITIAL_STATE = { room_list: [], id: '', name: '', slug: '', dj: {}, users: [], strangers_number: 0 };
 
 },{"../actions/index":2}],24:[function(require,module,exports){
 'use strict';

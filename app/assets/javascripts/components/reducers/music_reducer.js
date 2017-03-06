@@ -123,7 +123,7 @@ export default function(state = INITIAL_STATE, action){
         return {...state, waiting_list: waiting, music_2: playing ? JSON.parse(playing.json_data) : null, music_1: next ? JSON.parse(next.json_data) : null, draggingObject: {items: waiting, draggingIndex: null}}
       }
     }else{
-      return INITIAL_STATE
+      return state
     }
   case CHANGE_DRAG_ORDER:
     return {...state, draggingObject: action.payload}

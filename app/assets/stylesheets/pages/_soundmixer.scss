@@ -44,5 +44,37 @@ input[type="range"]::-moz-range-thumb{
   background-image: url('/volume.png');
   background-size: 100%
 }
+.room-presentation{
+  text-align: center
+}
+.users-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  & h6 {
+    margin: 0 10px 0 0;
+    line-height: 18px;
+    width: 120px;
+    text-align: right
+  }
+}
+.logged-in-state{
+  cursor: pointer
+}
+.logged-in-state big{
+  font-size: 30px;
+  color: $primary-color
+}
+#logged-in-chip{
+  z-index: 30;
+}
+.logged-in-state .underline:hover + #logged-in-chip {
+  -o-transition: opacity 0.5s linear;
+  -moz-transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+  -ms-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+  opacity:1
+}
 
 .modal { width: 90% !important ; min-height: 90% !important ; top: 5% !important; }
