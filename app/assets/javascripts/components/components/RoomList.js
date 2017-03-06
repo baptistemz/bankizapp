@@ -12,17 +12,44 @@ class RoomList extends Component {
   render(){
     const roomListItems = this.props.room_list.map((item) => {
       return(
-        <li className="waiting-list-icon" key={item.id}>
-          <Link to={`/rooms/${item.slug}`}>{item.name}</Link>
+        <li className="collection-item movable avatar" key={item.id}>
+          <Link to={`/rooms/${item.slug}`}>
+            <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
+            <span className="title">{item.name}</span>
+            <p>by @{item.dj}</p>
+            <a href="#" className="secondary-content"><i className="material-icons">delete</i></a>
+          </Link>
+        </li>
+      )
+    })
+    const contributionListItems = this.props.contribution_list.map((item) => {
+      return(
+        <li className="collection-item movable avatar" key={item.id}>
+          <Link to={`/rooms/${item.slug}`}>
+            <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
+            <span className="title">{item.name}</span>
+            <p>by @{item.dj}</p>
+          </Link>
         </li>
       )
     })
     return(
-      <div>
-        <div>Room list</div>
-        <ul>
-          {roomListItems}
-        </ul>
+      <div className="room-list-page">
+        <div className="header">
+          <h1>Rooms</h1>
+        </div>
+        <div className="container">
+          <h2>The rooms you created</h2>
+          <ul className="collection">
+            {roomListItems}
+          </ul>
+        </div>
+        <div className="container">
+          <h2>The rooms you visited/contributed to</h2>
+          <ul className="collection">
+            {contributionListItems}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -34,7 +61,8 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state){
   return {
-    room_list: state.room.room_list
+    room_list: state.room.room_list,
+    contribution_list: state.room.contribution_list
   }
 }
 

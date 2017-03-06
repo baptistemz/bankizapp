@@ -165,6 +165,7 @@ export function fetchRoom(name){
 }
 export function fetchRoomList(){
   const token = localStorage.getItem('auth_token')
+  console.log(token)
   const get_url = 'api/v0/rooms'
   const config = {headers: {
       "Authorization": "Bearer "+ token,
@@ -175,9 +176,13 @@ export function fetchRoomList(){
     request.then(function(data){
       dispatch({type: GOT_ROOM_LIST, payload:data})
     }).catch(function (error) {
-      toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
-      if(error.response.status === 401){
-        browserHistory.push('/login');
+      console.log('error', error)
+      const error_message = error.response ?`${error.response.data.errors[0]}`:'error';
+      toastr.error(error_message, {timeOut: 8000});
+      if(error.response){
+        if(error.response.status === 401){
+          browserHistory.push('/login');
+        }
       }
     })
   }

@@ -14010,3 +14010,21 @@ input[type="range"]::-moz-range-thumb {
   width: 100%;
   height: 30px;
 }
+
+/* line 2, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_room_list.scss */
+.room-list-page .header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* line 6, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_room_list.scss */
+.room-list-page h2 {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 1.78rem 0 1.424rem 0;
+  margin: 0;
+}
+/* line 14, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_room_list.scss */
+.room-list-page .collection {
+  margin-top: 0;
+}

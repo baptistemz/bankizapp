@@ -15,11 +15,11 @@ module Api
 
       def index
         invited_rooms = []
-        current_user.invitations.where('user_id != ?', current_user.id).each do |i| 
-          invited_rooms.push(Room.find(i.room_id))
+        current_user.invitations.joins(:room).where("rooms.user_id != ?", current_user.id).each do |i|
+          invited_rooms.push(i.room)
         end
-        @rooms = current_user.rooms + invited_rooms
-        # @rooms = current_user.rooms
+        @rooms = current_user.rooms
+        @contributions = invited_rooms
         render :index
       end
 

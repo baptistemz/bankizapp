@@ -12602,6 +12602,7 @@ function fetchRoom(name) {
 }
 function fetchRoomList() {
   var token = localStorage.getItem('auth_token');
+  console.log(token);
   var get_url = 'api/v0/rooms';
   var config = { headers: {
       "Authorization": "Bearer " + token,
@@ -12612,9 +12613,13 @@ function fetchRoomList() {
     request.then(function (data) {
       dispatch({ type: GOT_ROOM_LIST, payload: data });
     }).catch(function (error) {
-      _reactReduxToastr.toastr.error('' + error.response.data.errors[0], { timeOut: 8000 });
-      if (error.response.status === 401) {
-        _reactRouter.browserHistory.push('/login');
+      console.log('error', error);
+      var error_message = error.response ? '' + error.response.data.errors[0] : 'error';
+      _reactReduxToastr.toastr.error(error_message, { timeOut: 8000 });
+      if (error.response) {
+        if (error.response.status === 401) {
+          _reactRouter.browserHistory.push('/login');
+        }
       }
     });
   };
@@ -13537,26 +13542,95 @@ var RoomList = function (_Component) {
       var roomListItems = this.props.room_list.map(function (item) {
         return _react2.default.createElement(
           'li',
-          { className: 'waiting-list-icon', key: item.id },
+          { className: 'collection-item movable avatar', key: item.id },
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/rooms/' + item.slug },
-            item.name
+            _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
+            _react2.default.createElement(
+              'span',
+              { className: 'title' },
+              item.name
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'by @',
+              item.dj
+            ),
+            _react2.default.createElement(
+              'a',
+              { href: '#', className: 'secondary-content' },
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons' },
+                'delete'
+              )
+            )
+          )
+        );
+      });
+      var contributionListItems = this.props.contribution_list.map(function (item) {
+        return _react2.default.createElement(
+          'li',
+          { className: 'collection-item movable avatar', key: item.id },
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/rooms/' + item.slug },
+            _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
+            _react2.default.createElement(
+              'span',
+              { className: 'title' },
+              item.name
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'by @',
+              item.dj
+            )
           )
         );
       });
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'room-list-page' },
         _react2.default.createElement(
           'div',
-          null,
-          'Room list'
+          { className: 'header' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Rooms'
+          )
         ),
         _react2.default.createElement(
-          'ul',
-          null,
-          roomListItems
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'The rooms you created'
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'collection' },
+            roomListItems
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'The rooms you visited/contributed to'
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'collection' },
+            contributionListItems
+          )
         )
       );
     }
@@ -13573,7 +13647,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    room_list: state.room.room_list
+    room_list: state.room.room_list,
+    contribution_list: state.room.contribution_list
   };
 }
 
@@ -16034,7 +16109,7 @@ exports.default = function () {
     case _index.GOT_ROOM:
       return _extends({}, state, { id: action.payload.data.id, name: action.payload.data.name, slug: action.payload.data.slug, dj: action.payload.data.dj, users: action.payload.data.users });
     case _index.GOT_ROOM_LIST:
-      return _extends({}, state, { room_list: action.payload.data });
+      return _extends({}, state, { room_list: action.payload.data.rooms, contribution_list: action.payload.data.contributions });
     case _index.CREATE_INVITATION:
       if (state.users.some(function (u) {
         return u.id === action.payload.id;
@@ -16062,7 +16137,7 @@ var _index = require('../actions/index');
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var INITIAL_STATE = { room_list: [], id: '', name: '', slug: '', dj: {}, users: [], strangers_number: 0 };
+var INITIAL_STATE = { room_list: [], contribution_list: [], id: '', name: '', slug: '', dj: {}, users: [], strangers_number: 0 };
 
 },{"../actions/index":2}],24:[function(require,module,exports){
 'use strict';
