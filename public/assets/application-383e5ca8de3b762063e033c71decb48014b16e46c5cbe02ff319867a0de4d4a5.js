@@ -12658,8 +12658,8 @@ function connectToRoom(room_slug) {
     var request = _axios2.default.post(post_url, { invitation: { active: true } }, config);
     console.log("request set", request);
     return function (dispatch) {
-      console.log("request passed", data);
       request.then(function (data) {
+        console.log("request passed", data);
         dispatch({ type: CREATE_INVITATION, payload: data.data });
       });
     };
@@ -13559,7 +13559,7 @@ var RoomList = function (_Component) {
       var roomListItems = this.props.room_list.map(function (item) {
         return _react2.default.createElement(
           'li',
-          { className: 'collection-item movable avatar', key: item.id },
+          { className: 'collection-item avatar', key: item.id },
           _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
           _react2.default.createElement(
             'span',
@@ -13591,7 +13591,7 @@ var RoomList = function (_Component) {
       var contributionListItems = this.props.contribution_list.map(function (item) {
         return _react2.default.createElement(
           'li',
-          { className: 'collection-item movable avatar', key: item.id },
+          { className: 'collection-item avatar', key: item.id },
           _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
           _react2.default.createElement(
             'span',
@@ -15681,13 +15681,13 @@ var SoundMixer = function (_React$Component) {
                   u.username
                 );
               }),
-              _react2.default.createElement(
+              this.props.strangers_number > 0 ? _react2.default.createElement(
                 'div',
                 null,
                 '+',
                 this.props.strangers_number,
                 ' strangers'
-              )
+              ) : _react2.default.createElement('div', null)
             )
           ),
           _react2.default.createElement(
@@ -15696,7 +15696,7 @@ var SoundMixer = function (_React$Component) {
             _react2.default.createElement(
               'h6',
               null,
-              'Share you room with friends : '
+              'Share this room : '
             ),
             _react2.default.createElement(
               'div',

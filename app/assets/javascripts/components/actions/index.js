@@ -220,8 +220,8 @@ export function connectToRoom(room_slug){
     const request = axios.post(post_url, {invitation:{active: true}}, config)
     console.log("request set", request)
     return(dispatch) => {
-      console.log("request passed", data)
       request.then(function(data){
+        console.log("request passed", data)
         dispatch({type: CREATE_INVITATION, payload:data.data})
       })
     }

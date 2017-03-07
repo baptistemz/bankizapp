@@ -12,7 +12,7 @@ class RoomList extends Component {
   render(){
     const roomListItems = this.props.room_list.map((item) => {
       return(
-        <li className="collection-item movable avatar" key={item.id}>
+        <li className="collection-item avatar" key={item.id}>
           <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
           <span className="title">{item.name}</span>
           <p>by @{item.dj}</p>
@@ -23,7 +23,7 @@ class RoomList extends Component {
     })
     const contributionListItems = this.props.contribution_list.map((item) => {
       return(
-        <li className="collection-item movable avatar" key={item.id}>
+        <li className="collection-item avatar" key={item.id}>
           <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
           <span className="title">{item.name}</span>
           <p>by @{item.dj}</p>

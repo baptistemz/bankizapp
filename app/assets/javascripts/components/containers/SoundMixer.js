@@ -128,11 +128,15 @@ class SoundMixer extends React.Component {
                   </div>
                 )
               })}
-              <div>+{this.props.strangers_number} strangers</div>
+              {this.props.strangers_number > 0 ?
+                <div>+{this.props.strangers_number} strangers</div>
+              :
+                <div></div>
+              }
             </div>
           </div>
           <div className="space-around">
-            <h6>Share you room with friends : </h6>
+            <h6>Share this room : </h6>
             <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
           </div>
         </div>
