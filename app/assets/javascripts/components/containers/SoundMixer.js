@@ -128,6 +128,7 @@ class SoundMixer extends React.Component {
                   </div>
                 )
               })}
+              <div>+{this.props.strangers_number} strangers</div>
             </div>
           </div>
           <div className="space-around">

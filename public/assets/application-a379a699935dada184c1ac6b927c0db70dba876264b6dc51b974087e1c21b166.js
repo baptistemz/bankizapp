@@ -12393,7 +12393,7 @@ global.Root = _Root2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LOGOUT_FAILURE = exports.LOGOUT_SUCCESS = exports.LOGOUT_REQUEST = exports.SIGNUP_FAILURE = exports.SIGNUP_SUCCESS = exports.SIGNUP_REQUEST = exports.LOGIN_FAILURE = exports.LOGIN_SUCCESS = exports.LOGIN_REQUEST = exports.DELETE_INVITATION = exports.CREATE_INVITATION = exports.CHANGE_LIST_ORDER = exports.CHANGE_DRAG_ORDER = exports.GOT_ROOM_LIST = exports.GOT_ROOM = exports.SWITCH_PLAYERS = exports.DELETE_MUSIC = exports.UPDATE_MUSIC = exports.DELETE_FROM_WAITING_LIST = exports.ADD_MUSIC = exports.STOP_PLAYER = exports.START_PLAYER = exports.PLAY_NEXT = exports.CHANGE_BALANCE = exports.FETCH_MUSICS = undefined;
+exports.LOGOUT_FAILURE = exports.LOGOUT_SUCCESS = exports.LOGOUT_REQUEST = exports.SIGNUP_FAILURE = exports.SIGNUP_SUCCESS = exports.SIGNUP_REQUEST = exports.LOGIN_FAILURE = exports.LOGIN_SUCCESS = exports.LOGIN_REQUEST = exports.STRANGERS_NUMBER_CHANGED = exports.DELETE_INVITATION = exports.CREATE_INVITATION = exports.CHANGE_LIST_ORDER = exports.CHANGE_DRAG_ORDER = exports.GOT_ROOM_LIST = exports.GOT_ROOM = exports.SWITCH_PLAYERS = exports.DELETE_MUSIC = exports.UPDATE_MUSIC = exports.DELETE_FROM_WAITING_LIST = exports.ADD_MUSIC = exports.STOP_PLAYER = exports.START_PLAYER = exports.PLAY_NEXT = exports.CHANGE_BALANCE = exports.FETCH_MUSICS = undefined;
 exports.fetchMusics = fetchMusics;
 exports.addMusic = addMusic;
 exports.receiveAddedMusic = receiveAddedMusic;
@@ -12415,6 +12415,7 @@ exports.connectToRoom = connectToRoom;
 exports.receiveNewInvitation = receiveNewInvitation;
 exports.disconnectFromRoom = disconnectFromRoom;
 exports.receiveDeletedInvitation = receiveDeletedInvitation;
+exports.strangersNumberChanged = strangersNumberChanged;
 exports.loginUser = loginUser;
 exports.signupUser = signupUser;
 exports.logoutUser = logoutUser;
@@ -12460,6 +12461,7 @@ var CHANGE_DRAG_ORDER = exports.CHANGE_DRAG_ORDER = 'CHANGE_DRAG_ORDER';
 var CHANGE_LIST_ORDER = exports.CHANGE_LIST_ORDER = 'CHANGE_LIST_ORDER';
 var CREATE_INVITATION = exports.CREATE_INVITATION = 'CREATE_INVITATION';
 var DELETE_INVITATION = exports.DELETE_INVITATION = 'DELETE_INVITATION';
+var STRANGERS_NUMBER_CHANGED = exports.STRANGERS_NUMBER_CHANGED = 'STRANGERS_NUMBER_CHANGED';
 
 var LOGIN_REQUEST = exports.LOGIN_REQUEST = 'LOGIN_REQUEST';
 var LOGIN_SUCCESS = exports.LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -12654,7 +12656,9 @@ function connectToRoom(room_slug) {
         "Content-Type": "application/json"
       } };
     var request = _axios2.default.post(post_url, { invitation: { active: true } }, config);
+    console.log("request set", request);
     return function (dispatch) {
+      console.log("request passed", data);
       request.then(function (data) {
         dispatch({ type: CREATE_INVITATION, payload: data.data });
       });
@@ -12676,24 +12680,38 @@ function receiveNewInvitation(data) {
 }
 
 function disconnectFromRoom(room_slug, invitation_id) {
-  var put_url = '/api/v0/rooms/' + room_slug + '/invitations/' + invitation_id;
   var token = localStorage.getItem('auth_token');
-  var config = { headers: {
-      "Authorization": "Bearer " + token,
-      "Content-Type": "application/json"
-    } };
-  var request = _axios2.default.put(put_url, { invitation: { active: false } }, config);
-  return function (dispatch) {
-    request.then(function (data) {
-      console.log("disconnect action", data.data);
-      dispatch({ type: DELETE_INVITATION, payload: data.data });
-    });
-  };
+  if (token) {
+    var put_url = '/api/v0/rooms/' + room_slug + '/invitations/' + invitation_id;
+    var config = { headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      } };
+    var request = _axios2.default.put(put_url, { invitation: { active: false } }, config);
+    return function (dispatch) {
+      request.then(function (data) {
+        console.log("disconnect action", data.data);
+        dispatch({ type: DELETE_INVITATION, payload: data.data });
+      });
+    };
+  } else {
+    var _request2 = _axios2.default.post('/api/v0/rooms/' + room_slug + '/decrement_strangers_number');
+    return function (dispatch) {
+      _request2.then(function (data) {
+        dispatch({ type: DELETE_INVITATION, payload: data.data });
+      });
+    };
+  }
 }
 function receiveDeletedInvitation(data) {
   return function (dispatch) {
     console.log("in actions... received deleted", data);
     dispatch({ type: DELETE_INVITATION, payload: data.invitation });
+  };
+}
+function strangersNumberChanged(data) {
+  return function (dispatch) {
+    dispatch({ type: STRANGERS_NUMBER_CHANGED, payload: data });
   };
 }
 
@@ -13125,7 +13143,6 @@ var Prehome = function (_Component) {
     value: function handleScroll(event) {
       var scrollTop = event.target.scrollingElement.scrollTop,
           itemTranslate = Math.min(0, scrollTop / 3 - 60);
-      console.log(scrollTop);
       if (scrollTop > 200 && scrollTop < 520) {
         document.getElementById('fake-input-text').style["width"] = (scrollTop - 200) / 2 + "px";
       } else if (scrollTop > 520) {
@@ -13543,29 +13560,30 @@ var RoomList = function (_Component) {
         return _react2.default.createElement(
           'li',
           { className: 'collection-item movable avatar', key: item.id },
+          _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
+          _react2.default.createElement(
+            'span',
+            { className: 'title' },
+            item.name
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'by @',
+            item.dj
+          ),
           _react2.default.createElement(
             _reactRouter.Link,
-            { to: '/rooms/' + item.slug },
-            _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
+            { to: '/rooms/' + item.slug, className: 'btn list-element-btn' },
+            'Enter'
+          ),
+          _react2.default.createElement(
+            'a',
+            { href: '#', className: 'secondary-content' },
             _react2.default.createElement(
-              'span',
-              { className: 'title' },
-              item.name
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              'by @',
-              item.dj
-            ),
-            _react2.default.createElement(
-              'a',
-              { href: '#', className: 'secondary-content' },
-              _react2.default.createElement(
-                'i',
-                { className: 'material-icons' },
-                'delete'
-              )
+              'i',
+              { className: 'material-icons' },
+              'delete'
             )
           )
         );
@@ -13574,21 +13592,22 @@ var RoomList = function (_Component) {
         return _react2.default.createElement(
           'li',
           { className: 'collection-item movable avatar', key: item.id },
+          _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
+          _react2.default.createElement(
+            'span',
+            { className: 'title' },
+            item.name
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'by @',
+            item.dj
+          ),
           _react2.default.createElement(
             _reactRouter.Link,
-            { to: '/rooms/' + item.slug },
-            _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
-            _react2.default.createElement(
-              'span',
-              { className: 'title' },
-              item.name
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              'by @',
-              item.dj
-            )
+            { to: '/rooms/' + item.slug, className: 'btn list-element-btn' },
+            'Enter'
           )
         );
       });
@@ -14735,11 +14754,15 @@ var Room = function (_Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      var username = this.props.username;
-      var invitation = this.props.room_users.filter(function (u) {
-        return u.username === username;
-      });
-      this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id);
+      if (this.props.username) {
+        var username = this.props.username;
+        var invitation = this.props.room_users.filter(function (u) {
+          return u.username === username;
+        });
+        this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id);
+      } else {
+        this.props.disconnectFromRoom(this.props.routeParams.roomId, null);
+      }
     }
   }, {
     key: 'receiveRoomData',
@@ -14762,6 +14785,10 @@ var Room = function (_Component) {
         case "new invitation":
           this.props.receiveNewInvitation(data);
           break;
+        case "strangers_number_changed":
+          console.log("strangers_number_changed", data);
+          this.props.strangersNumberChanged(data);
+          break;
         case "invitation deleted":
           this.props.receiveDeletedInvitation(data);
           break;
@@ -14783,7 +14810,7 @@ var Room = function (_Component) {
 }(_react.Component);
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ fetchRoom: _index.fetchRoom, receiveAddedMusic: _index.receiveAddedMusic, receiveUpdatedMusic: _index.receiveUpdatedMusic, receiveDeletedMusic: _index.receiveDeletedMusic, receiveSortedMusics: _index.receiveSortedMusics, receiveNewInvitation: _index.receiveNewInvitation, receiveDeletedInvitation: _index.receiveDeletedInvitation, connectToRoom: _index.connectToRoom, disconnectFromRoom: _index.disconnectFromRoom }, dispatch);
+  return (0, _redux.bindActionCreators)({ fetchRoom: _index.fetchRoom, receiveAddedMusic: _index.receiveAddedMusic, receiveUpdatedMusic: _index.receiveUpdatedMusic, receiveDeletedMusic: _index.receiveDeletedMusic, receiveSortedMusics: _index.receiveSortedMusics, receiveNewInvitation: _index.receiveNewInvitation, receiveDeletedInvitation: _index.receiveDeletedInvitation, connectToRoom: _index.connectToRoom, disconnectFromRoom: _index.disconnectFromRoom, strangersNumberChanged: _index.strangersNumberChanged }, dispatch);
 }
 
 function mapStateToProps(state) {
@@ -15653,7 +15680,14 @@ var SoundMixer = function (_React$Component) {
                   { key: i },
                   u.username
                 );
-              })
+              }),
+              _react2.default.createElement(
+                'div',
+                null,
+                '+',
+                this.props.strangers_number,
+                ' strangers'
+              )
             )
           ),
           _react2.default.createElement(
@@ -16107,7 +16141,7 @@ exports.default = function () {
 
   switch (action.type) {
     case _index.GOT_ROOM:
-      return _extends({}, state, { id: action.payload.data.id, name: action.payload.data.name, slug: action.payload.data.slug, dj: action.payload.data.dj, users: action.payload.data.users });
+      return _extends({}, state, { id: action.payload.data.id, name: action.payload.data.name, slug: action.payload.data.slug, dj: action.payload.data.dj, users: action.payload.data.users, strangers_number: action.payload.data.strangers_number });
     case _index.GOT_ROOM_LIST:
       return _extends({}, state, { room_list: action.payload.data.rooms, contribution_list: action.payload.data.contributions });
     case _index.CREATE_INVITATION:
@@ -16128,6 +16162,8 @@ exports.default = function () {
       } else {
         return state;
       }
+    case _index.STRANGERS_NUMBER_CHANGED:
+      return _extends({}, state, { strangers_number: action.payload.strangers_number });
     default:
       return state;
   }

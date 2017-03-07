@@ -2,7 +2,7 @@ module Api
   module V0
     class RoomsController < ApplicationController
       before_action :authenticate_request!
-      skip_before_action :authenticate_request!, :only => [:show]
+      skip_before_action :authenticate_request!, :only => [:show, :increment_strangers_number, :decrement_strangers_number]
 
       def create
         @room = current_user.rooms.create(room_params)
@@ -32,13 +32,13 @@ module Api
       end
 
       def increment_strangers_number
-        @room = Room.friendly.find(params[:id])
+        @room = Room.friendly.find(params[:room_id])
         @room.update(strangers_number: @room.strangers_number + 1)
         render json: { strangers_number: @room.strangers_number }
       end
 
       def decrement_strangers_number
-        @room = Room.friendly.find(params[:id])
+        @room = Room.friendly.find(params[:room_id])
         @room.update(strangers_number: @room.strangers_number - 1)
         render json: { strangers_number: @room.strangers_number }
       end

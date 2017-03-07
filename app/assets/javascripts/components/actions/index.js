@@ -24,6 +24,7 @@ export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
 export const CHANGE_LIST_ORDER ='CHANGE_LIST_ORDER'
 export const CREATE_INVITATION ='CREATE_INVITATION'
 export const DELETE_INVITATION ='DELETE_INVITATION'
+export const STRANGERS_NUMBER_CHANGED ='STRANGERS_NUMBER_CHANGED'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -217,7 +218,9 @@ export function connectToRoom(room_slug){
       "Content-Type": "application/json"
     }}
     const request = axios.post(post_url, {invitation:{active: true}}, config)
+    console.log("request set", request)
     return(dispatch) => {
+      console.log("request passed", data)
       request.then(function(data){
         dispatch({type: CREATE_INVITATION, payload:data.data})
       })
@@ -239,24 +242,38 @@ export function receiveNewInvitation(data){
 }
 
 export function disconnectFromRoom(room_slug, invitation_id){
-  const put_url = `/api/v0/rooms/${room_slug}/invitations/${invitation_id}`
   const token = localStorage.getItem('auth_token')
-  const config = {headers: {
+  if(token){
+    const put_url = `/api/v0/rooms/${room_slug}/invitations/${invitation_id}`
+    const config = {headers: {
       "Authorization": "Bearer "+ token,
       "Content-Type": "application/json"
-   }}
-  const request = axios.put(put_url, {invitation:{active: false}}, config)
-  return(dispatch) => {
-    request.then(function(data){
-      console.log("disconnect action", data.data)
-      dispatch({type: DELETE_INVITATION, payload:data.data})
-    })
+    }}
+    const request = axios.put(put_url, {invitation:{active: false}}, config)
+    return(dispatch) => {
+      request.then(function(data){
+        console.log("disconnect action", data.data)
+        dispatch({type: DELETE_INVITATION, payload:data.data})
+      })
+    }
+  }else{
+    const request = axios.post(`/api/v0/rooms/${room_slug}/decrement_strangers_number`)
+    return(dispatch) => {
+      request.then(function(data){
+        dispatch({type: DELETE_INVITATION, payload:data.data})
+      })
+    }
   }
 }
 export function receiveDeletedInvitation(data){
   return(dispatch) => {
     console.log("in actions... received deleted", data)
     dispatch({type: DELETE_INVITATION, payload:data.invitation})
+  }
+}
+export function strangersNumberChanged(data){
+  return(dispatch) => {
+    dispatch({type: STRANGERS_NUMBER_CHANGED, payload:data})
   }
 }
 

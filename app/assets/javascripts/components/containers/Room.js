@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom} from '../actions/index'
+import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged} from '../actions/index'
 import SearchGroup from './SearchGroup';
 import SoundMixer from './SoundMixer';
 
@@ -23,11 +23,15 @@ class Room extends Component {
     this.props.connectToRoom(this.props.routeParams.roomId)
   }
   componentWillUnmount(){
-    const username = this.props.username
-    const invitation = this.props.room_users.filter(function(u) {
-      return u.username === username ;
-    });
-    this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id)
+    if (this.props.username){
+      const username = this.props.username
+      const invitation = this.props.room_users.filter(function(u) {
+        return u.username === username ;
+      });
+      this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id)
+    }else{
+      this.props.disconnectFromRoom(this.props.routeParams.roomId, null)      
+    }
   }
   receiveRoomData(data){
     switch(data.action) {
@@ -48,6 +52,10 @@ class Room extends Component {
       case "new invitation":
         this.props.receiveNewInvitation(data)
         break;
+      case "strangers_number_changed":
+        console.log("strangers_number_changed", data)
+        this.props.strangersNumberChanged(data)
+        break;
       case "invitation deleted":
         this.props.receiveDeletedInvitation(data)
         break;
@@ -64,7 +72,7 @@ class Room extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom}, dispatch);
+  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged}, dispatch);
 }
 
 function mapStateToProps(state){

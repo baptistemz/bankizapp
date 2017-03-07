@@ -13,23 +13,21 @@ class RoomList extends Component {
     const roomListItems = this.props.room_list.map((item) => {
       return(
         <li className="collection-item movable avatar" key={item.id}>
-          <Link to={`/rooms/${item.slug}`}>
-            <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
-            <span className="title">{item.name}</span>
-            <p>by @{item.dj}</p>
-            <a href="#" className="secondary-content"><i className="material-icons">delete</i></a>
-          </Link>
+          <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
+          <span className="title">{item.name}</span>
+          <p>by @{item.dj}</p>
+          <Link to={`/rooms/${item.slug}`} className="btn list-element-btn">Enter</Link>
+          <a href="#" className="secondary-content"><i className="material-icons">delete</i></a>
         </li>
       )
     })
     const contributionListItems = this.props.contribution_list.map((item) => {
       return(
         <li className="collection-item movable avatar" key={item.id}>
-          <Link to={`/rooms/${item.slug}`}>
-            <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
-            <span className="title">{item.name}</span>
-            <p>by @{item.dj}</p>
-          </Link>
+          <img src="/mix_table.png" alt="" className="circle avatar-sizing"/>
+          <span className="title">{item.name}</span>
+          <p>by @{item.dj}</p>
+          <Link to={`/rooms/${item.slug}`} className="btn list-element-btn">Enter</Link>
         </li>
       )
     })

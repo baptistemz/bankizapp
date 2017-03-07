@@ -13672,6 +13672,11 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* line 79, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_waiting_list.scss */
+.collection .collection-item.avatar .secondary-content {
+  top: 20px;
+}
+
+/* line 83, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_waiting_list.scss */
 .truncate-list {
   position: absolute;
   width: 100%;
@@ -14027,4 +14032,12 @@ input[type="range"]::-moz-range-thumb {
 /* line 14, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_room_list.scss */
 .room-list-page .collection {
   margin-top: 0;
+}
+
+/* line 19, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_room_list.scss */
+.list-element-btn {
+  position: absolute;
+  right: 55px;
+  top: 15px;
+  padding: 0 1rem;
 }

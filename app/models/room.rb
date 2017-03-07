@@ -4,12 +4,19 @@ class Room < ApplicationRecord
   has_many :invitations, dependent: :destroy
   extend FriendlyId
   friendly_id :name, use: :slugged
+  after_update :broadcast_updated_room
 
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug, :name
 
   def broadcast_modified_list(musics)
     ActionCable.server.broadcast(self.slug, {action: "sorted", musics: ActiveSupport::JSON.decode(render_musics(musics))})
+  end
+
+  def broadcast_updated_room()
+    if self.strangers_number_changed?
+      ActionCable.server.broadcast(self.slug, {action: "strangers_number_changed", strangers_number: self.strangers_number})
+    end
   end
 
   private
