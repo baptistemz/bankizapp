@@ -15,7 +15,9 @@ class SoundMixer extends React.Component {
     this.state={
       to_switch: 1,
       forceFirstPlayer: false,
-      forceSecondPlayer: false
+      forceSecondPlayer: false,
+      switchCountDown1: 10,
+      switchCountDown2: 10
     }
   }
 
@@ -51,6 +53,7 @@ class SoundMixer extends React.Component {
     this.props.deleteMusic(music, this.props.room_id)
   }
   videoPlayer(music, num){
+    const switchCountDown = num === 1 ? this.state.switchCountDown1 : this.state.switchCountDown2
     const isFirstMusic = !this.props.music_2
     const toSwitch = (this.props.mute_player!=num)
     const alignRight = (!isFirstMusic && !toSwitch)
@@ -64,6 +67,7 @@ class SoundMixer extends React.Component {
       setPlayingAt={this.setPlayingAt.bind(this)}
       isFirstMusic={isFirstMusic}
       alignRight={alignRight}
+      switchCountDown={switchCountDown}
       deleteVideo={this.deleteVideo.bind(this)}/>
   }
   onBalanceChange(balance){
@@ -79,8 +83,10 @@ class SoundMixer extends React.Component {
     let callCount = 1;
     var waitAndSee =function () {
       if (callCount < 10) {
+        this.props.mute_player === 1 ? this.setState({switchCountDown1: 10 - callCount}) : this.setState({switchCountDown1: 10 - callCount})
         this.getBalance() === '100' ? callCount += 1 : clearInterval(waitAndSwitch)
       } else {
+        this.props.mute_player === 1 ? this.setState({switchCountDown1: 10}) : this.setState({switchCountDown1: 10})
         const old_player = this.props.mute_player === 1 ? 0 : 1
         this.switchPlayers(old_player)
         clearInterval(waitAndSwitch);

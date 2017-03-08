@@ -34,6 +34,11 @@ a[disabled] i, a[disabled] span {
   color: rgb(144,144,144)
 }
 
+big{
+  font-size: 30px;
+  color: $primary-color
+}
+
 .block-500{
   display: block;
   height: 500px;
@@ -142,6 +147,8 @@ a[disabled] i, a[disabled] span {
   display: flex;
   align-items: center;
 }
+
+
 
 // DEBUG MATERIALIZE
 span.value{

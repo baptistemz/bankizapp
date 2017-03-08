@@ -75,17 +75,25 @@
   top: 5px;
   right: 5px;
   left: auto;
-  color: $primary-color;
-  background-color: white;
+  color: white;
   padding: 5px 5px 0 5px;
   z-index: 40;
-  border: 1px solid $primary-color;
-  border-radius: 20px;
   i{
     font-size: 20px
   }
 }
 .delete-btn:hover{
+  color: $primary-color;
+  background-color: white;
+  border: 1px solid $primary-color;
+  border-radius: 20px;
+}
+#delete_message_1, #delete_message_2{
+  transition: all 500ms ease-out;
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 70px);
   color: white;
-  background-color: $primary-color;
+  opacity: 0;
+  text-shadow: 1px 1px 3px #565454;
 }

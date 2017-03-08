@@ -30,7 +30,7 @@ class Room extends Component {
       });
       this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id)
     }else{
-      this.props.disconnectFromRoom(this.props.routeParams.roomId, null)      
+      this.props.disconnectFromRoom(this.props.routeParams.roomId, null)
     }
   }
   receiveRoomData(data){
@@ -39,11 +39,9 @@ class Room extends Component {
         this.props.receiveAddedMusic(data)
         break;
       case "updated":
-        console.log("channel - updated")
         this.props.receiveUpdatedMusic(data)
         break;
       case "deleted":
-        console.log("channel - deleted")
         this.props.receiveDeletedMusic(data)
         break;
       case "sorted":
@@ -53,7 +51,6 @@ class Room extends Component {
         this.props.receiveNewInvitation(data)
         break;
       case "strangers_number_changed":
-        console.log("strangers_number_changed", data)
         this.props.strangersNumberChanged(data)
         break;
       case "invitation deleted":

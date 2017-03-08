@@ -43,9 +43,17 @@ export default function(state = INITIAL_STATE, action){
     || (state.waiting_list.indexOf(music_to_delete_data) != -1)){
       if(music_to_delete.state === "playing"){
         if (state.mute_player === 2){
-          return {...state, music_2: null}
+          if(!state.music_1||!state.music_2){
+            return {...state, music_1: null}
+          }else{
+            return {...state, music_2: null}
+          }
         }else{
-          return {...state, music_1: null}
+          if(!state.music_1||!state.music_2){
+            return {...state, music_2: null}
+          }else{
+            return {...state, music_1: null}
+          }
         }
       }else if(music_to_delete.state === "next"){
         if (state.mute_player === 2){
@@ -115,8 +123,6 @@ export default function(state = INITIAL_STATE, action){
       const playing = $.grep(action.payload.data.musics, function(e){ return e.state == "playing"})[0];
       const next = $.grep(action.payload.data.musics, function(e){ return e.state == "next"})[0];
       const waiting = $.grep(action.payload.data.musics, function(e){ return e.state == "waiting"}).map(function(a) {return JSON.parse(a.json_data);});
-      console.log("playing", playing)
-      console.log("next", next)
       if(state.mute_player === 2){
         return {...state, waiting_list: waiting, music_1: playing ? JSON.parse(playing.json_data) : null, music_2: next ? JSON.parse(next.json_data) : null, draggingObject: {items: waiting, draggingIndex: null}}
       }else{

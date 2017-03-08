@@ -14,7 +14,6 @@ export const PLAY_NEXT = "PLAY_NEXT";
 export const START_PLAYER = "START_PLAYER";
 export const STOP_PLAYER = "STOP_PLAYER";
 export const ADD_MUSIC = "ADD_MUSIC";
-export const DELETE_FROM_WAITING_LIST = "DELETE_FROM_WAITING_LIST";
 export const UPDATE_MUSIC = "UPDATE_MUSIC";
 export const DELETE_MUSIC = "DELETE_MUSIC";
 export const SWITCH_PLAYERS = "SWITCH_PLAYERS";
@@ -91,13 +90,11 @@ export function deleteMusic(music, room_id){
 }
 export function receiveUpdatedMusic(data){
   return(dispatch) => {
-    console.log("receive updated", data.music)
     dispatch({type: UPDATE_MUSIC, payload:data.music})
   }
 }
 export function receiveDeletedMusic(data){
   return(dispatch) => {
-    console.log("receive deleted", data.music)
     dispatch({type: DELETE_MUSIC, payload:data.music})
   }
 }
@@ -166,7 +163,6 @@ export function fetchRoom(name){
 }
 export function fetchRoomList(){
   const token = localStorage.getItem('auth_token')
-  console.log(token)
   const get_url = 'api/v0/rooms'
   const config = {headers: {
       "Authorization": "Bearer "+ token,
@@ -177,7 +173,6 @@ export function fetchRoomList(){
     request.then(function(data){
       dispatch({type: GOT_ROOM_LIST, payload:data})
     }).catch(function (error) {
-      console.log('error', error)
       const error_message = error.response ?`${error.response.data.errors[0]}`:'error';
       toastr.error(error_message, {timeOut: 8000});
       if(error.response){
@@ -218,10 +213,8 @@ export function connectToRoom(room_slug){
       "Content-Type": "application/json"
     }}
     const request = axios.post(post_url, {invitation:{active: true}}, config)
-    console.log("request set", request)
     return(dispatch) => {
       request.then(function(data){
-        console.log("request passed", data)
         dispatch({type: CREATE_INVITATION, payload:data.data})
       })
     }
@@ -236,7 +229,6 @@ export function connectToRoom(room_slug){
 }
 export function receiveNewInvitation(data){
   return(dispatch) => {
-    console.log("in actions... received new", data)
     dispatch({type: CREATE_INVITATION, payload:data.invitation})
   }
 }
@@ -252,7 +244,6 @@ export function disconnectFromRoom(room_slug, invitation_id){
     const request = axios.put(put_url, {invitation:{active: false}}, config)
     return(dispatch) => {
       request.then(function(data){
-        console.log("disconnect action", data.data)
         dispatch({type: DELETE_INVITATION, payload:data.data})
       })
     }
@@ -267,7 +258,6 @@ export function disconnectFromRoom(room_slug, invitation_id){
 }
 export function receiveDeletedInvitation(data){
   return(dispatch) => {
-    console.log("in actions... received deleted", data)
     dispatch({type: DELETE_INVITATION, payload:data.invitation})
   }
 }

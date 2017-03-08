@@ -62,10 +62,7 @@ input[type="range"]::-moz-range-thumb{
   cursor: pointer;
   position: relative;
 }
-.logged-in-state big{
-  font-size: 30px;
-  color: $primary-color
-}
+
 #logged-in-chip{
   position: absolute;
   z-index: 30;

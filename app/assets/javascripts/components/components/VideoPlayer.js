@@ -25,6 +25,11 @@ export default class VideoPlayer extends React.Component {
     }else if(!oldProps.alignRight && this.props.alignRight) {
       this.align('right')
     }
+    if(this.props.switchCountDown < 10){
+      document.getElementById(`delete_message_${this.props.number}`).style["opacity"] = 1
+    }else{
+      document.getElementById(`delete_message_${this.props.number}`).style["opacity"] = 0
+    }
   }
   align(side){
     console.log("align, side=", side, "this=", this.props.video.snippet)
@@ -72,6 +77,7 @@ export default class VideoPlayer extends React.Component {
   }
   onProgress(currentTime, transitionTime){
     if(currentTime >= transitionTime ) {
+      console.log(this.state.countdown)
       // 20 seconds before the end of the video, this will be called.
       if(this.state.countdown === 0){
         return false
@@ -112,7 +118,7 @@ export default class VideoPlayer extends React.Component {
     }
     const video = this.props.video
     const videoId = video.id.videoId;
-    // const url = `//www.youtube.com/embed/${video.id.videoId}?color=white&enablejsapi=1&modestbranding=1&autoplay=0&origin=http://localhost:8080`;
+    const message_id = `delete_message_${this.props.number}`;
     if(this.state.player){
       const player= this.state.player
       if(this.state.thumbnail === 'right'){
@@ -120,12 +126,6 @@ export default class VideoPlayer extends React.Component {
       }else {
         player.setVolume(100 - this.props.balance)
       }
-      // if VideoId has changed (if it's not contained in the url of the video played by
-      //  the player),  ==>> play new video in the player
-      // if(player.getVideoUrl().indexOf(videoId) === -1){
-      //   player.loadVideoById(videoId);
-      //   this.align('left')
-      // }
     }
     const opts = {
       playerVars: { // https://developers.google.com/youtube/player_parameters
@@ -138,6 +138,7 @@ export default class VideoPlayer extends React.Component {
         fs: 1
       }
     };
+
     return(
         <div className="video-container">
           <Youtube videoId={this.props.video.id.videoId}
@@ -146,6 +147,9 @@ export default class VideoPlayer extends React.Component {
             onStateChange={this.onStateChange.bind(this)}/>
           <h5 className="music-title">{this.props.video.snippet.title}</h5>
           <div className="delete-btn" onClick={this.props.deleteVideo.bind(this, this.props.video)}><i className="material-icons">delete</i></div>
+          <div id={message_id}>
+            auto delete in <big>{this.props.switchCountDown}</big> seconds
+          </div>
         </div>
     );
   }
