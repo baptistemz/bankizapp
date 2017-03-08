@@ -3,8 +3,8 @@ class Music < ApplicationRecord
   extend Enumerize
   after_create :broadcast_added_music
   after_update :broadcast_updated_music
-  after_destroy :broadcast_deleted_music
   after_destroy { |record| update_states(record) }
+  after_destroy :broadcast_deleted_music
   default_scope { order("created_at ASC") }
 
   belongs_to :room

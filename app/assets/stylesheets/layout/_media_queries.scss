@@ -46,13 +46,12 @@
     top: 12px;
     right: 5%;
   }
-  #logged-in-chip {
-    top:0px;
-    left: calc(110px + 5%);
-  }
   .users-group{
     p.underline{
       font-size: 13px
+    }
+    h6{
+      width: 71px
     }
     .btn{
       padding: 0 0.8rem
@@ -76,7 +75,7 @@
   }
   .video-container{
     top: 259px;
-    width: calc(35.6% - 14px);
+    width: calc(35.5% - 14px);
   }
   .right-thumbnail{
     right:7.5%;
@@ -104,9 +103,7 @@
     right: 8%;
   }
   #logged-in-chip {
-    bottom:486px;
-    top:auto;
-    left: 7%;
+    left: 124px
   }
 }
 @media only screen and (min-width: 992px) and (max-width : 1200px) {
@@ -123,8 +120,8 @@
     font-size: 1.95em;
   }
   .video-container{
-    top: 265px;
-    width: calc(29.4% - 16px);
+    top: 267px;
+    width: calc(29.3% - 16px);
   }
   .right-thumbnail{
     right:15%;
@@ -158,9 +155,7 @@
     }
   }
   #logged-in-chip {
-    bottom:486px;
-    top:auto;
-    left: 15%;
+    left: 128px
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -178,7 +173,7 @@
   }
   .video-container{
     top: 285px;
-    width: calc(29.1% - 12px);
+    width: calc(29% - 11px);
   }
   .right-thumbnail{
     right:15%;
@@ -209,8 +204,6 @@
     }
   }
   #logged-in-chip {
-    bottom:474px;
-    top:auto;
-    left: 15%;
+    left: 128px
   }
 }

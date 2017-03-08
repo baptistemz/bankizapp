@@ -14002,6 +14002,7 @@ var VideoPlayer = function (_React$Component) {
   _createClass(VideoPlayer, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log("component did mount", this.props.video.snippet);
       this.props.alignRight ? this.align('right') : this.align('left');
     }
   }, {
@@ -14009,11 +14010,14 @@ var VideoPlayer = function (_React$Component) {
     value: function componentDidUpdate(oldProps) {
       if (oldProps.alignRight && !this.props.alignRight) {
         this.align('left');
+      } else if (!oldProps.alignRight && this.props.alignRight) {
+        this.align('right');
       }
     }
   }, {
     key: 'align',
     value: function align(side) {
+      console.log("align, side=", side, "this=", this.props.video.snippet);
       var classes = _reactDom2.default.findDOMNode(this).className;
       if (side === 'right') {
         this.setState({ thumbnail: 'right' });
@@ -14145,6 +14149,15 @@ var VideoPlayer = function (_React$Component) {
           'h5',
           { className: 'music-title' },
           this.props.video.snippet.title
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'delete-btn', onClick: this.props.deleteVideo.bind(this, this.props.video) },
+          _react2.default.createElement(
+            'i',
+            { className: 'material-icons' },
+            'delete'
+          )
         )
       );
     }
@@ -15552,6 +15565,11 @@ var SoundMixer = function (_React$Component) {
       }
     }
   }, {
+    key: 'deleteVideo',
+    value: function deleteVideo(music) {
+      this.props.deleteMusic(music, this.props.room_id);
+    }
+  }, {
     key: 'videoPlayer',
     value: function videoPlayer(music, num) {
       var isFirstMusic = !this.props.music_2;
@@ -15566,7 +15584,8 @@ var SoundMixer = function (_React$Component) {
         forcePlay: num === 1 ? this.state.forceFirstPlayer : this.state.forceSecondPlayer,
         setPlayingAt: this.setPlayingAt.bind(this),
         isFirstMusic: isFirstMusic,
-        alignRight: alignRight });
+        alignRight: alignRight,
+        deleteVideo: this.deleteVideo.bind(this) });
     }
   }, {
     key: 'onBalanceChange',
@@ -16001,9 +16020,9 @@ exports.default = function () {
       if (state.music_1 && state.music_1.etag === music_to_delete_data.etag || state.music_2 && state.music_2.etag === music_to_delete_data.etag || state.waiting_list.indexOf(music_to_delete_data) != -1) {
         if (music_to_delete.state === "playing") {
           if (state.mute_player === 2) {
-            return _extends({}, state, { music_1: null });
-          } else {
             return _extends({}, state, { music_2: null });
+          } else {
+            return _extends({}, state, { music_1: null });
           }
         } else if (music_to_delete.state === "next") {
           if (state.mute_player === 2) {

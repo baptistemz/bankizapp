@@ -12100,638 +12100,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
     margin-bottom: 5em;
   }
 }
-@media only screen and (min-width: 0px) and (max-width: 600px) {
-  /* line 2, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-
-  /* line 6, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h2 {
-    font-size: 1.8em;
-  }
-
-  /* line 9, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h3 {
-    font-size: 1.6em;
-    margin-top: 0;
-  }
-
-  /* line 13, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h4 {
-    font-size: 1.5em;
-  }
-
-  /* line 16, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .video-container {
-    width: 90%;
-  }
-
-  /* line 19, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .right-thumbnail {
-    left: 5%;
-    top: 369px;
-  }
-
-  /* line 23, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .left-thumbnail {
-    left: 5%;
-    top: 144px;
-  }
-
-  /* line 27, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #logo-sound-group {
-    padding: 10px 0;
-    position: relative;
-  }
-
-  /* line 31, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .sidenav-background {
-    height: 198px;
-  }
-
-  /* line 34, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .room-presentation {
-    margin-bottom: -20px;
-  }
-
-  /* line 37, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .users-group {
-    margin-bottom: 10px;
-  }
-
-  /* line 40, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #fake-soundmixer {
-    width: 90%;
-    left: 5%;
-    top: 56%;
-  }
-
-  /* line 45, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn {
-    top: 12px;
-    right: 5%;
-  }
-
-  /* line 49, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #logged-in-chip {
-    top: 0px;
-    left: calc(110px + 5%);
-  }
-
-  /* line 54, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .users-group p.underline {
-    font-size: 13px;
-  }
-  /* line 57, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .users-group .btn, .users-group .btn-large {
-    padding: 0 0.8rem;
-  }
-}
-@media only screen and (min-width: 600px) and (max-width: 992px) {
-  /* line 63, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h1 {
-    font-size: 2.4em;
-    margin-bottom: 15px;
-  }
-
-  /* line 67, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h2 {
-    font-size: 2.1em;
-  }
-
-  /* line 70, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h3 {
-    font-size: 1.8em;
-    margin-top: 0;
-  }
-
-  /* line 74, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h4 {
-    font-size: 1.65em;
-  }
-
-  /* line 77, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .video-container {
-    top: 259px;
-    width: calc(35.6% - 14px);
-  }
-
-  /* line 81, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .right-thumbnail {
-    right: 7.5%;
-  }
-
-  /* line 84, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .left-thumbnail {
-    left: 7.5%;
-  }
-
-  /* line 87, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .sidenav-background {
-    height: 198px;
-  }
-
-  /* line 90, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .room-presentation {
-    margin-top: 65px;
-    margin-bottom: 20px;
-  }
-
-  /* line 94, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .users-group {
-    margin-bottom: 20px;
-  }
-
-  /* line 97, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #fake-soundmixer {
-    width: 80%;
-    left: 10%;
-    top: 50%;
-  }
-
-  /* line 102, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn {
-    top: 12px;
-    right: 8%;
-  }
-
-  /* line 106, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #logged-in-chip {
-    bottom: 486px;
-    top: auto;
-    left: 7%;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1200px) {
-  /* line 113, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h1 {
-    font-size: 2.6em;
-  }
-
-  /* line 116, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h2 {
-    font-size: 2.35em;
-  }
-
-  /* line 119, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h3 {
-    font-size: 2.15em;
-  }
-
-  /* line 122, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h4 {
-    font-size: 1.95em;
-  }
-
-  /* line 125, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .video-container {
-    top: 265px;
-    width: calc(29.4% - 16px);
-  }
-
-  /* line 129, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .right-thumbnail {
-    right: 15%;
-  }
-
-  /* line 132, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .left-thumbnail {
-    left: 15%;
-  }
-
-  /* line 135, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #logo {
-    margin-top: calc(40px - 10%);
-  }
-
-  /* line 138, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .sidenav-background {
-    height: 200px;
-  }
-
-  /* line 141, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .room-presentation {
-    margin-top: 57px;
-    margin-bottom: 10px;
-  }
-
-  /* line 145, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .users-group {
-    margin-bottom: 30px;
-  }
-
-  /* line 148, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn {
-    top: 20px;
-    right: 5%;
-  }
-  /* line 151, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn .btn-floating {
-    width: 55px;
-    height: 55px;
-  }
-  /* line 154, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn .btn-floating .material-icons {
-    line-height: 55px;
-    font-size: 31px;
-  }
-
-  /* line 160, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #logged-in-chip {
-    bottom: 486px;
-    top: auto;
-    left: 15%;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  /* line 167, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h1 {
-    font-size: 3em;
-  }
-
-  /* line 170, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h2 {
-    font-size: 2.7em;
-  }
-
-  /* line 173, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h3 {
-    font-size: 2.4em;
-  }
-
-  /* line 176, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  h4 {
-    font-size: 2.1em;
-  }
-
-  /* line 179, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .video-container {
-    top: 285px;
-    width: calc(29.1% - 12px);
-  }
-
-  /* line 183, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .right-thumbnail {
-    right: 15%;
-  }
-
-  /* line 186, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .left-thumbnail {
-    left: 15%;
-  }
-
-  /* line 189, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .sidenav-background {
-    height: 200px;
-  }
-
-  /* line 192, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .room-presentation {
-    margin-top: 48px;
-    margin-bottom: 15px;
-  }
-
-  /* line 196, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  .users-group {
-    margin-bottom: 35px;
-  }
-
-  /* line 199, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn {
-    top: 20px;
-    right: 5%;
-  }
-  /* line 202, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn .btn-floating {
-    width: 55px;
-    height: 55px;
-  }
-  /* line 205, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #search-btn .btn-floating .material-icons {
-    line-height: 55px;
-    font-size: 31px;
-  }
-
-  /* line 211, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
-  #logged-in-chip {
-    bottom: 474px;
-    top: auto;
-    left: 15%;
-  }
-}
-/* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-body {
-  font-family: 'Asap';
-}
-
-/* line 5, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat";
-}
-
-/* line 9, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-h1 {
-  display: inline;
-  border-bottom: 8px solid #2F9EE2;
-  padding-bottom: 2px;
-  line-height: 1.75em;
-}
-
-/* line 16, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-h3 {
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-/* line 21, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.modal h4 {
-  margin-top: 5px;
-}
-
-/* line 25, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.avatar-sizing {
-  width: 56px;
-  height: 56px;
-}
-
-/* line 30, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-a[disabled] {
-  pointer-events: none;
-}
-
-/* line 33, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-a[disabled] i, a[disabled] span {
-  color: #909090;
-}
-
-/* line 37, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.block-500 {
-  display: block;
-  height: 500px;
-  width: 100%;
-}
-
-/* line 42, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.block-10 {
-  display: block;
-  height: 10px;
-  width: 100%;
-}
-
-/* line 47, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.button-collapse {
-  z-index: 30;
-  position: fixed;
-  top: 5px;
-  left: 15px;
-}
-
-/* line 54, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.hidden {
-  visibility: hidden;
-}
-
-/* line 57, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.visible {
-  visibility: visible;
-}
-
-/* line 61, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.fixed {
-  position: fixed;
-}
-
-/* line 64, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.absolute {
-  position: absolute;
-}
-
-/* line 67, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.text-center {
-  text-align: center;
-}
-
-/* line 70, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.text-right {
-  text-align: right;
-}
-
-/* line 73, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.underline {
-  display: inline;
-  border-bottom: 2px solid #2F9EE2;
-  line-height: 1.75em;
-}
-
-/* line 79, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.list-inline {
-  padding-left: 0;
-  margin-left: -5px;
-  list-style: none;
-}
-
-/* line 84, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.list-inline li {
-  vertical-align: top;
-  display: inline-block;
-  padding-right: 5px;
-  padding-left: 5px;
-}
-
-/* line 91, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.margin-top-20 {
-  margin-top: 20px;
-}
-
-/* line 95, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.horizontal-padded-20 {
-  padding: 0 20px;
-}
-
-/* line 99, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.margin-left-10 {
-  margin-left: 10px;
-}
-
-/* line 103, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.no-padding {
-  padding: 0;
-}
-
-/* line 107, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.text-20 {
-  font-size: 20px;
-}
-
-/* line 111, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.full-width {
-  width: 100%;
-}
-
-/* line 115, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.space-around {
-  display: flex;
-  justify-content: space-around;
-}
-
-/* line 120, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.align-items {
-  display: flex;
-  align-items: center;
-}
-
-/* line 125, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.btn-small {
-  height: 28px;
-  line-height: 24px;
-  font-size: 11px;
-  padding: 3px 4px;
-  min-width: 104px;
-}
-
-/* line 133, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.nice-container {
-  border: 1px solid #C2C0C2;
-  padding: 10px 10%;
-  border-radius: 3px;
-  background-color: white;
-}
-
-/* line 140, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-.vertical-align-container {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-/* line 147, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-span.value {
-  visibility: hidden;
-}
-
-/* line 150, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
-span.thumb.active {
-  visibility: hidden;
-}
-
-/* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-up-enter {
-  top: 100px;
-}
-
-/* line 4, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-up-enter-active {
-  top: 0;
-  transition: all 500ms ease-in;
-}
-
-/* line 8, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-up-leave {
-  opacity: 1.0;
-  transition: opacity 1s ease-in-out;
-}
-
-/* line 12, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-up-leave-active {
-  opacity: 0.01;
-}
-
-/* line 16, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-right-leave {
-  left: 0;
-  opacity: 1;
-}
-
-/* line 20, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-right-leave-active {
-  left: 500px;
-  opacity: 0;
-  transition: all 500ms ease-out;
-}
-
-/* line 26, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-right-enter {
-  left: -500px;
-  opacity: 0;
-}
-
-/* line 30, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-right-enter-active {
-  left: 0;
-  opacity: 1;
-  transition: all 500ms ease-out;
-}
-
-/* line 35, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-in-out-enter {
-  opacity: 0.01;
-  transition: opacity 1s ease-in-out;
-}
-
-/* line 39, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-in-out-enter-active {
-  opacity: 1.0;
-}
-
-/* line 42, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-in-out-leave {
-  opacity: 1.0;
-  transition: opacity 1s ease-in-out;
-}
-
-/* line 46, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-.fade-in-out-leave-active {
-  opacity: 0.01;
-}
-
-/* line 51, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
-#blink {
-  -moz-animation-duration: 1000ms;
-  -moz-animation-name: blink;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-direction: alternate;
-  -webkit-animation-duration: 1000ms;
-  -webkit-animation-name: blink;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-  animation-duration: 1000ms;
-  animation-name: blink;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@-moz-keyframes blink {
-  from {
-    color: #2F9EE2;
-    border-color: #2F9EE2;
-  }
-  to {
-    color: white;
-    border-color: white;
-  }
-}
-@-webkit-keyframes blink {
-  from {
-    color: #2F9EE2;
-    border-color: #2F9EE2;
-  }
-  to {
-    color: white;
-    border-color: white;
-  }
-}
-@keyframes blink {
-  from {
-    color: #2F9EE2;
-    border-color: #2F9EE2;
-  }
-  to {
-    color: white;
-    border-color: white;
-  }
-}
 /* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/components/_player.scss */
 .video-container {
   padding: 88px 0;
@@ -12807,6 +12175,32 @@ span.thumb.active {
 .play-pause img {
   width: 36px;
   margin-top: 16px;
+}
+
+/* line 71, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/components/_player.scss */
+.delete-btn {
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: auto;
+  color: #2F9EE2;
+  background-color: white;
+  padding: 5px 5px 0 5px;
+  z-index: 40;
+  border: 1px solid #2F9EE2;
+  border-radius: 20px;
+}
+/* line 84, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/components/_player.scss */
+.delete-btn i {
+  font-size: 20px;
+}
+
+/* line 88, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/components/_player.scss */
+.delete-btn:hover {
+  color: white;
+  background-color: #2F9EE2;
 }
 
 /* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/components/_card.scss */
@@ -13549,27 +12943,32 @@ input[type="range"]::-moz-range-thumb {
 .users-group h6 {
   margin: 0 10px 0 0;
   line-height: 18px;
-  width: 71px;
+  width: 108px;
   text-align: right;
 }
 
 /* line 61, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
 .logged-in-state {
   cursor: pointer;
+  position: relative;
 }
 
-/* line 64, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
+/* line 65, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
 .logged-in-state big {
   font-size: 30px;
   color: #2F9EE2;
 }
 
-/* line 68, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
+/* line 69, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
 #logged-in-chip {
+  position: absolute;
   z-index: 30;
+  left: 114px;
+  bottom: 0px;
+  top: auto;
 }
 
-/* line 71, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
+/* line 76, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
 .logged-in-state .underline:hover + #logged-in-chip {
   -o-transition: opacity 0.5s linear;
   -moz-transition: opacity 0.5s linear;
@@ -13579,7 +12978,7 @@ input[type="range"]::-moz-range-thumb {
   opacity: 1;
 }
 
-/* line 80, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
+/* line 85, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/pages/_soundmixer.scss */
 .modal {
   width: 90% !important;
   min-height: 90% !important;
@@ -14049,4 +13448,629 @@ input[type="range"]::-moz-range-thumb {
   right: 55px;
   top: 15px;
   padding: 0 1rem;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 600px) {
+  /* line 2, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  /* line 6, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h2 {
+    font-size: 1.8em;
+  }
+
+  /* line 9, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h3 {
+    font-size: 1.6em;
+    margin-top: 0;
+  }
+
+  /* line 13, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h4 {
+    font-size: 1.5em;
+  }
+
+  /* line 16, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .video-container {
+    width: 90%;
+  }
+
+  /* line 19, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .right-thumbnail {
+    left: 5%;
+    top: 369px;
+  }
+
+  /* line 23, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .left-thumbnail {
+    left: 5%;
+    top: 144px;
+  }
+
+  /* line 27, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #logo-sound-group {
+    padding: 10px 0;
+    position: relative;
+  }
+
+  /* line 31, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .sidenav-background {
+    height: 198px;
+  }
+
+  /* line 34, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .room-presentation {
+    margin-bottom: -20px;
+  }
+
+  /* line 37, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group {
+    margin-bottom: 10px;
+  }
+
+  /* line 40, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #fake-soundmixer {
+    width: 90%;
+    left: 5%;
+    top: 56%;
+  }
+
+  /* line 45, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn {
+    top: 12px;
+    right: 5%;
+  }
+
+  /* line 50, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group p.underline {
+    font-size: 13px;
+  }
+  /* line 53, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group h6 {
+    width: 71px;
+  }
+  /* line 56, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group .btn, .users-group .btn-large {
+    padding: 0 0.8rem;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  /* line 62, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h1 {
+    font-size: 2.4em;
+    margin-bottom: 15px;
+  }
+
+  /* line 66, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h2 {
+    font-size: 2.1em;
+  }
+
+  /* line 69, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h3 {
+    font-size: 1.8em;
+    margin-top: 0;
+  }
+
+  /* line 73, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h4 {
+    font-size: 1.65em;
+  }
+
+  /* line 76, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .video-container {
+    top: 259px;
+    width: calc(35.5% - 14px);
+  }
+
+  /* line 80, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .right-thumbnail {
+    right: 7.5%;
+  }
+
+  /* line 83, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .left-thumbnail {
+    left: 7.5%;
+  }
+
+  /* line 86, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .sidenav-background {
+    height: 198px;
+  }
+
+  /* line 89, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .room-presentation {
+    margin-top: 65px;
+    margin-bottom: 20px;
+  }
+
+  /* line 93, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group {
+    margin-bottom: 20px;
+  }
+
+  /* line 96, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #fake-soundmixer {
+    width: 80%;
+    left: 10%;
+    top: 50%;
+  }
+
+  /* line 101, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn {
+    top: 12px;
+    right: 8%;
+  }
+
+  /* line 105, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #logged-in-chip {
+    left: 124px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 110, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h1 {
+    font-size: 2.6em;
+  }
+
+  /* line 113, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h2 {
+    font-size: 2.35em;
+  }
+
+  /* line 116, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h3 {
+    font-size: 2.15em;
+  }
+
+  /* line 119, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h4 {
+    font-size: 1.95em;
+  }
+
+  /* line 122, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .video-container {
+    top: 267px;
+    width: calc(29.3% - 16px);
+  }
+
+  /* line 126, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .right-thumbnail {
+    right: 15%;
+  }
+
+  /* line 129, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .left-thumbnail {
+    left: 15%;
+  }
+
+  /* line 132, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #logo {
+    margin-top: calc(40px - 10%);
+  }
+
+  /* line 135, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .sidenav-background {
+    height: 200px;
+  }
+
+  /* line 138, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .room-presentation {
+    margin-top: 57px;
+    margin-bottom: 10px;
+  }
+
+  /* line 142, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group {
+    margin-bottom: 30px;
+  }
+
+  /* line 145, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn {
+    top: 20px;
+    right: 5%;
+  }
+  /* line 148, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn .btn-floating {
+    width: 55px;
+    height: 55px;
+  }
+  /* line 151, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn .btn-floating .material-icons {
+    line-height: 55px;
+    font-size: 31px;
+  }
+
+  /* line 157, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #logged-in-chip {
+    left: 128px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* line 162, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h1 {
+    font-size: 3em;
+  }
+
+  /* line 165, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h2 {
+    font-size: 2.7em;
+  }
+
+  /* line 168, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h3 {
+    font-size: 2.4em;
+  }
+
+  /* line 171, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  h4 {
+    font-size: 2.1em;
+  }
+
+  /* line 174, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .video-container {
+    top: 285px;
+    width: calc(29% - 11px);
+  }
+
+  /* line 178, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .right-thumbnail {
+    right: 15%;
+  }
+
+  /* line 181, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .left-thumbnail {
+    left: 15%;
+  }
+
+  /* line 184, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .sidenav-background {
+    height: 200px;
+  }
+
+  /* line 187, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .room-presentation {
+    margin-top: 48px;
+    margin-bottom: 15px;
+  }
+
+  /* line 191, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  .users-group {
+    margin-bottom: 35px;
+  }
+
+  /* line 194, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn {
+    top: 20px;
+    right: 5%;
+  }
+  /* line 197, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn .btn-floating {
+    width: 55px;
+    height: 55px;
+  }
+  /* line 200, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #search-btn .btn-floating .material-icons {
+    line-height: 55px;
+    font-size: 31px;
+  }
+
+  /* line 206, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_media_queries.scss */
+  #logged-in-chip {
+    left: 128px;
+  }
+}
+/* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+body {
+  font-family: 'Asap';
+}
+
+/* line 5, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat";
+}
+
+/* line 9, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+h1 {
+  display: inline;
+  border-bottom: 8px solid #2F9EE2;
+  padding-bottom: 2px;
+  line-height: 1.75em;
+}
+
+/* line 16, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+h3 {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/* line 21, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.modal h4 {
+  margin-top: 5px;
+}
+
+/* line 25, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.avatar-sizing {
+  width: 56px;
+  height: 56px;
+}
+
+/* line 30, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+a[disabled] {
+  pointer-events: none;
+}
+
+/* line 33, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+a[disabled] i, a[disabled] span {
+  color: #909090;
+}
+
+/* line 37, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.block-500 {
+  display: block;
+  height: 500px;
+  width: 100%;
+}
+
+/* line 42, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.block-10 {
+  display: block;
+  height: 10px;
+  width: 100%;
+}
+
+/* line 47, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.button-collapse {
+  z-index: 30;
+  position: fixed;
+  top: 5px;
+  left: 15px;
+}
+
+/* line 54, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.hidden {
+  visibility: hidden;
+}
+
+/* line 57, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.visible {
+  visibility: visible;
+}
+
+/* line 61, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.fixed {
+  position: fixed;
+}
+
+/* line 64, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.absolute {
+  position: absolute;
+}
+
+/* line 67, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.text-center {
+  text-align: center;
+}
+
+/* line 70, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.text-right {
+  text-align: right;
+}
+
+/* line 73, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.underline {
+  display: inline;
+  border-bottom: 2px solid #2F9EE2;
+  line-height: 1.75em;
+}
+
+/* line 79, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.list-inline {
+  padding-left: 0;
+  margin-left: -5px;
+  list-style: none;
+}
+
+/* line 84, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.list-inline li {
+  vertical-align: top;
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+/* line 91, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+/* line 95, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.horizontal-padded-20 {
+  padding: 0 20px;
+}
+
+/* line 99, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+/* line 103, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.no-padding {
+  padding: 0;
+}
+
+/* line 107, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.text-20 {
+  font-size: 20px;
+}
+
+/* line 111, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.full-width {
+  width: 100%;
+}
+
+/* line 115, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* line 120, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.align-items {
+  display: flex;
+  align-items: center;
+}
+
+/* line 125, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.btn-small {
+  height: 28px;
+  line-height: 24px;
+  font-size: 11px;
+  padding: 3px 4px;
+  min-width: 104px;
+}
+
+/* line 133, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.nice-container {
+  border: 1px solid #C2C0C2;
+  padding: 10px 10%;
+  border-radius: 3px;
+  background-color: white;
+}
+
+/* line 140, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+.vertical-align-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* line 147, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+span.value {
+  visibility: hidden;
+}
+
+/* line 150, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_utilities.scss */
+span.thumb.active {
+  visibility: hidden;
+}
+
+/* line 1, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-up-enter {
+  top: 100px;
+}
+
+/* line 4, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-up-enter-active {
+  top: 0;
+  transition: all 500ms ease-in;
+}
+
+/* line 8, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-up-leave {
+  opacity: 1.0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* line 12, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-up-leave-active {
+  opacity: 0.01;
+}
+
+/* line 16, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-right-leave {
+  left: 0;
+  opacity: 1;
+}
+
+/* line 20, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-right-leave-active {
+  left: 500px;
+  opacity: 0;
+  transition: all 500ms ease-out;
+}
+
+/* line 26, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-right-enter {
+  left: -500px;
+  opacity: 0;
+}
+
+/* line 30, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-right-enter-active {
+  left: 0;
+  opacity: 1;
+  transition: all 500ms ease-out;
+}
+
+/* line 35, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-in-out-enter {
+  opacity: 0.01;
+  transition: opacity 1s ease-in-out;
+}
+
+/* line 39, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-in-out-enter-active {
+  opacity: 1.0;
+}
+
+/* line 42, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-in-out-leave {
+  opacity: 1.0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* line 46, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+.fade-in-out-leave-active {
+  opacity: 0.01;
+}
+
+/* line 51, /Users/user/code/baptistemz/react-rails-redux-sample/app/assets/stylesheets/layout/_animations.scss */
+#blink {
+  -moz-animation-duration: 1000ms;
+  -moz-animation-name: blink;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: alternate;
+  -webkit-animation-duration: 1000ms;
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-duration: 1000ms;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@-moz-keyframes blink {
+  from {
+    color: #2F9EE2;
+    border-color: #2F9EE2;
+  }
+  to {
+    color: white;
+    border-color: white;
+  }
+}
+@-webkit-keyframes blink {
+  from {
+    color: #2F9EE2;
+    border-color: #2F9EE2;
+  }
+  to {
+    color: white;
+    border-color: white;
+  }
+}
+@keyframes blink {
+  from {
+    color: #2F9EE2;
+    border-color: #2F9EE2;
+  }
+  to {
+    color: white;
+    border-color: white;
+  }
 }

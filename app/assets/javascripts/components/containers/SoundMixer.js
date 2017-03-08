@@ -47,6 +47,9 @@ class SoundMixer extends React.Component {
       }
     }
   }
+  deleteVideo(music){
+    this.props.deleteMusic(music, this.props.room_id)
+  }
   videoPlayer(music, num){
     const isFirstMusic = !this.props.music_2
     const toSwitch = (this.props.mute_player!=num)
@@ -60,7 +63,8 @@ class SoundMixer extends React.Component {
       forcePlay={num === 1 ? this.state.forceFirstPlayer : this.state.forceSecondPlayer}
       setPlayingAt={this.setPlayingAt.bind(this)}
       isFirstMusic={isFirstMusic}
-      alignRight={alignRight}/>
+      alignRight={alignRight}
+      deleteVideo={this.deleteVideo.bind(this)}/>
   }
   onBalanceChange(balance){
     if(balance === '100'){

@@ -16,14 +16,18 @@ export default class VideoPlayer extends React.Component {
     this.onReady = this.onReady.bind(this)
   }
   componentDidMount(){
+    console.log("component did mount", this.props.video.snippet)
     this.props.alignRight ? this.align('right') : this.align('left')
   }
   componentDidUpdate(oldProps){
     if(oldProps.alignRight && !this.props.alignRight){
       this.align('left')
+    }else if(!oldProps.alignRight && this.props.alignRight) {
+      this.align('right')
     }
   }
   align(side){
+    console.log("align, side=", side, "this=", this.props.video.snippet)
     const classes= ReactDOM.findDOMNode(this).className;
     if(side==='right'){
       this.setState({thumbnail: 'right'})
@@ -137,10 +141,11 @@ export default class VideoPlayer extends React.Component {
     return(
         <div className="video-container">
           <Youtube videoId={this.props.video.id.videoId}
-          onReady={this.onReady.bind(this)}
-          opts={opts}
-          onStateChange={this.onStateChange.bind(this)}/>
+            onReady={this.onReady.bind(this)}
+            opts={opts}
+            onStateChange={this.onStateChange.bind(this)}/>
           <h5 className="music-title">{this.props.video.snippet.title}</h5>
+          <div className="delete-btn" onClick={this.props.deleteVideo.bind(this, this.props.video)}><i className="material-icons">delete</i></div>
         </div>
     );
   }

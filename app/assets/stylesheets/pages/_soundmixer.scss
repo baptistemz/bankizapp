@@ -54,19 +54,24 @@ input[type="range"]::-moz-range-thumb{
   & h6 {
     margin: 0 10px 0 0;
     line-height: 18px;
-    width: 71px;
+    width: 108px;
     text-align: right
   }
 }
 .logged-in-state{
-  cursor: pointer
+  cursor: pointer;
+  position: relative;
 }
 .logged-in-state big{
   font-size: 30px;
   color: $primary-color
 }
 #logged-in-chip{
+  position: absolute;
   z-index: 30;
+  left: 114px;
+  bottom: 0px;
+  top: auto;
 }
 .logged-in-state .underline:hover + #logged-in-chip {
   -o-transition: opacity 0.5s linear;

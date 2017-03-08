@@ -67,3 +67,25 @@
   width: 36px;
   margin-top: 16px
 }
+
+.delete-btn{
+  cursor:pointer;
+  transition: all 200ms ease-out;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  left: auto;
+  color: $primary-color;
+  background-color: white;
+  padding: 5px 5px 0 5px;
+  z-index: 40;
+  border: 1px solid $primary-color;
+  border-radius: 20px;
+  i{
+    font-size: 20px
+  }
+}
+.delete-btn:hover{
+  color: white;
+  background-color: $primary-color;
+}

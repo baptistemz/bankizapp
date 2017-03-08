@@ -43,9 +43,9 @@ export default function(state = INITIAL_STATE, action){
     || (state.waiting_list.indexOf(music_to_delete_data) != -1)){
       if(music_to_delete.state === "playing"){
         if (state.mute_player === 2){
-          return {...state, music_1: null}
-        }else{
           return {...state, music_2: null}
+        }else{
+          return {...state, music_1: null}
         }
       }else if(music_to_delete.state === "next"){
         if (state.mute_player === 2){
