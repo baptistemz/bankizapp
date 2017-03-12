@@ -80,6 +80,7 @@ class SideNav extends Component {
           </ul>
           <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="material-icons" id="burger-menu">menu</i></a>
         </div>
+        {this.props.children}
       </div>
     )
   }
