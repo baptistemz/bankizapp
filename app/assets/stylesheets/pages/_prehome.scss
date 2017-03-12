@@ -24,7 +24,7 @@
   color: white;
   position: fixed;
   top: 0;
-  right: 0;
+  left: calc(100% - 260px);
   & input {
     margin-bottom: 5px;
   }
@@ -163,9 +163,9 @@
   #vol-btn{
     z-index: 10;
     position: absolute;
-    top: 26%;
+    top: calc(32% - 15px);
     left: 40%;
-    height: 11%
+    height: 30px;
   }
   .fake-waiting-list{
     position: absolute;
