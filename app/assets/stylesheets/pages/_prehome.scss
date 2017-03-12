@@ -114,8 +114,7 @@
   top: 50%;
   left: 20%;
   margin-top: -157px;
-  // position: relative;
-  & > img:first-child{
+  #fake-soundmixer-img{
     z-index:1;
     width: 100%;
     -webkit-filter: drop-shadow(5px 5px 5px #222);
@@ -127,14 +126,14 @@
       z-index: 10;
       position: absolute;
       top: 0;
-      height: 63.5%;
       left: 0;
+      width: 39.5%;
     }
     &-2{
       z-index: 10;
       position: absolute;
       top: 0;
-      height: 63.5%;
+      width: 39.5%;
       right: 0;
     }
   }

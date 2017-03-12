@@ -239,7 +239,7 @@ class Prehome extends Component {
             data-opacity="0"
             data-scale="1.5"
             >
-            <img src="fake-soundmixer.png" alt="mix"/>
+            <img id="fake-soundmixer-img" src="fake-soundmixer.png" alt="mix"/>
             <div id="fake-player-1-group">
               <img id="fake-player-1" src="fake-player.png" alt="music player"/>
               <div id="player-1-volume" className="volume-group space-around align-items">

@@ -60,25 +60,27 @@ class SideNav extends Component {
   }
   render() {
     return (
-      <div className= "transparent-navbar">
-        <ul id="slide-out" className="side-nav">
-          <li>
-            <div className="userView">
-              <div className="background sidenav-background"></div>
-              {this.props.isAuthenticated ? this.profile() : this.connect()}
-            </div>
-          </li>
-        <li><div className="divider"></div></li>
-        <li><Link to={'/'}><i className="material-icons">home</i>Home</Link></li>
-        <li><Link to={'/rooms'}><i className="material-icons">list</i>My rooms</Link></li>
-        <li><Link to={'/'}><i className="material-icons">playlist_add</i>New Room</Link></li>
-        <li><a href="#!">Link</a></li>
-        <li><div className="divider"></div></li>
-        <li><a className="subheader">Subheader</a></li>
-        <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
-        </ul>
-        <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="material-icons" id="burger-menu">menu</i></a>
-        {this.props.children}
+      <div>
+        <div className= "transparent-navbar">
+          <ul id="slide-out" className="side-nav">
+            <li>
+              <div className="userView">
+                <div className="background sidenav-background"></div>
+                {this.props.isAuthenticated ? this.profile() : this.connect()}
+              </div>
+            </li>
+            <li><div className="divider"></div></li>
+            <li><Link to={'/'}><i className="material-icons">home</i>Home</Link></li>
+            <li><Link to={'/rooms'}><i className="material-icons">list</i>My rooms</Link></li>
+            <li><Link to={'/'}><i className="material-icons">playlist_add</i>New Room</Link></li>
+            <li><a href="#!">Link</a></li>
+            <li><div className="divider"></div></li>
+            <li><a className="subheader">Subheader</a></li>
+            <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
+          </ul>
+          <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="material-icons" id="burger-menu">menu</i></a>
+        </div>
+        // {this.props.children}
       </div>
     )
   }
