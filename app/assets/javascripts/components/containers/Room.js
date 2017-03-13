@@ -34,6 +34,7 @@ class Room extends Component {
     }
   }
   receiveRoomData(data){
+    console.log("RECEIVED ALGO", data)
     switch(data.action) {
       case "added":
         console.log("receive added")
