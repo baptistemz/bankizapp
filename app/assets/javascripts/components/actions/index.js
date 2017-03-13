@@ -105,7 +105,7 @@ export function createRoom(name, slug){
   const data = {room:{
      name: name,
      slug: slug,
-     strangers_number:0
+     strangers_number: 0
   }}
   const config = {headers: {
       "Authorization": "Bearer "+ token,

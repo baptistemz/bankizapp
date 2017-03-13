@@ -5,7 +5,7 @@ module Api
       skip_before_action :authenticate_request!, :only => [:show, :increment_strangers_number, :decrement_strangers_number]
 
       def create
-        @room = current_user.rooms.create(room_params, strangers_number: 0)
+        @room = current_user.rooms.create(room_params)
         if @room.save
           render :show, status: :created
         else
@@ -46,7 +46,7 @@ module Api
       private
 
       def room_params
-        params.require(:room).permit(:name,:slug)
+        params.require(:room).permit(:name, :slug, :strangers_number)
       end
 
       def render_error
