@@ -13733,15 +13733,17 @@ var Room = function (_Component) {
           }
         });
       }
-      window.onbeforeunload = function () {
-        // run cleanup when page refreshes
-        _this2.componentCleanup();
-      };
     }
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this3 = this;
+
       this.props.connectToRoom(this.props.routeParams.roomId);
+      window.onbeforeunload = function () {
+        // run cleanup when page refreshes
+        _this3.componentCleanup();
+      };
     }
   }, {
     key: 'componentWillUnmount',

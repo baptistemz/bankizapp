@@ -29,12 +29,12 @@ class Room extends Component {
         received: ((data) => this.receiveRoomData(data))
       });
     }
-    window.onbeforeunload = () => { // run cleanup when page refreshes
-      this.componentCleanup();
-    }
   }
   componentDidMount(){
     this.props.connectToRoom(this.props.routeParams.roomId)
+    window.onbeforeunload = () => { // run cleanup when page refreshes
+      this.componentCleanup();
+    }
   }
   componentWillUnmount(){
     this.componentCleanup();
