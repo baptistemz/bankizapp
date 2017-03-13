@@ -36,24 +36,31 @@ class Room extends Component {
   receiveRoomData(data){
     switch(data.action) {
       case "added":
+        console.log("receive added")
         this.props.receiveAddedMusic(data)
         break;
       case "updated":
+        console.log("receive updated")
         this.props.receiveUpdatedMusic(data)
         break;
       case "deleted":
+        console.log("receive deleted")
         this.props.receiveDeletedMusic(data)
         break;
       case "sorted":
+        console.log("receive sorted")
         this.props.receiveSortedMusics(data)
         break;
       case "new invitation":
+        console.log("receive new invitation")
         this.props.receiveNewInvitation(data)
         break;
       case "strangers_number_changed":
+        console.log("receive strangers_number_changed")
         this.props.strangersNumberChanged(data)
         break;
       case "invitation deleted":
+        console.log("receive invitation deleted")
         this.props.receiveDeletedInvitation(data)
         break;
     }
