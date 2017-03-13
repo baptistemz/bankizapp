@@ -25,5 +25,4 @@ class Room < ApplicationRecord
     @musics = musics
     ApplicationController.renderer.render(template: "api/v0/musics/index.json.jbuilder", locals: { musics: @musics })
   end
-
 end

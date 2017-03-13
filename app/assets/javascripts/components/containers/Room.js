@@ -7,6 +7,17 @@ import SearchGroup from './SearchGroup';
 import SoundMixer from './SoundMixer';
 
 class Room extends Component {
+  componentCleanup(){
+    if (this.props.username){
+      const username = this.props.username
+      const invitation = this.props.room_users.filter(function(u) {
+        return u.username === username ;
+      });
+      this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id)
+    }else{
+      this.props.disconnectFromRoom(this.props.routeParams.roomId, null)
+    }
+  }
   componentWillMount(){
     this.props.fetchRoom(this.props.params.roomId)
     const props = this.props
@@ -18,20 +29,16 @@ class Room extends Component {
         received: ((data) => this.receiveRoomData(data))
       });
     }
+    window.onbeforeunload = () => { // run cleanup when page refreshes
+      this.componentCleanup();
+    }
   }
   componentDidMount(){
     this.props.connectToRoom(this.props.routeParams.roomId)
   }
   componentWillUnmount(){
-    if (this.props.username){
-      const username = this.props.username
-      const invitation = this.props.room_users.filter(function(u) {
-        return u.username === username ;
-      });
-      this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id)
-    }else{
-      this.props.disconnectFromRoom(this.props.routeParams.roomId, null)
-    }
+    this.componentCleanup();
+    window.onbeforeunload = null; // remove the event handler for normal unmounting
   }
   receiveRoomData(data){
     console.log("RECEIVED ALGO", data)

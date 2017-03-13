@@ -13701,6 +13701,19 @@ var Room = function (_Component) {
   }
 
   _createClass(Room, [{
+    key: 'componentCleanup',
+    value: function componentCleanup() {
+      if (this.props.username) {
+        var username = this.props.username;
+        var invitation = this.props.room_users.filter(function (u) {
+          return u.username === username;
+        });
+        this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id);
+      } else {
+        this.props.disconnectFromRoom(this.props.routeParams.roomId, null);
+      }
+    }
+  }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
       var _this2 = this;
@@ -13720,6 +13733,10 @@ var Room = function (_Component) {
           }
         });
       }
+      window.onbeforeunload = function () {
+        // run cleanup when page refreshes
+        _this2.componentCleanup();
+      };
     }
   }, {
     key: 'componentDidMount',
@@ -13729,15 +13746,8 @@ var Room = function (_Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      if (this.props.username) {
-        var username = this.props.username;
-        var invitation = this.props.room_users.filter(function (u) {
-          return u.username === username;
-        });
-        this.props.disconnectFromRoom(this.props.routeParams.roomId, invitation[0].id);
-      } else {
-        this.props.disconnectFromRoom(this.props.routeParams.roomId, null);
-      }
+      this.componentCleanup();
+      window.onbeforeunload = null; // remove the event handler for normal unmounting
     }
   }, {
     key: 'receiveRoomData',
