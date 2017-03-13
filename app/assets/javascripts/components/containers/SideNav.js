@@ -8,7 +8,6 @@ class SideNav extends Component {
   componentDidMount(){
 
     $('.button-collapse').sideNav({
-      // menuWidth: 400, // Default is 300
       closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
       draggable: true
     });
