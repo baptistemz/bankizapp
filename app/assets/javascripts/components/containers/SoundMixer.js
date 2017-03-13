@@ -13,7 +13,6 @@ class SoundMixer extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      to_switch: 1,
       forceFirstPlayer: false,
       forceSecondPlayer: false,
       switchCountDown1: 10,
@@ -34,7 +33,6 @@ class SoundMixer extends React.Component {
     const old_music = old_player === 1 ? this.props.music_1 : this.props.music_2
     this.props.deleteMusic(old_music, this.props.room_id)
     const new_player = old_player === 1 ? 2 : 1
-    this.setState({to_switch: new_player})
   }
   setPlayingAt(player, statement){
     statement ? this.props.startPlayer(player) : this.props.stopPlayer(player)
