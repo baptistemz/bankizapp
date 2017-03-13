@@ -10,13 +10,9 @@ const ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 export const FETCH_MUSICS = "FETCH_MUSICS";
 export const CHANGE_BALANCE = "CHANGE_BALANCE";
-export const PLAY_NEXT = "PLAY_NEXT";
-export const START_PLAYER = "START_PLAYER";
-export const STOP_PLAYER = "STOP_PLAYER";
 export const ADD_MUSIC = "ADD_MUSIC";
 export const UPDATE_MUSIC = "UPDATE_MUSIC";
 export const DELETE_MUSIC = "DELETE_MUSIC";
-export const SWITCH_PLAYERS = "SWITCH_PLAYERS";
 export const GOT_ROOM ='GOT_ROOM'
 export const GOT_ROOM_LIST ='GOT_ROOM_LIST'
 export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
@@ -101,30 +97,6 @@ export function receiveDeletedMusic(data){
 export function changeBalance(balance){
   return(dispatch) => {
     dispatch({type: CHANGE_BALANCE, payload: balance})
-  }
-}
-export function playNext(player){
-  return(dispatch) => {
-    dispatch({type: PLAY_NEXT, payload: player})
-  }
-}
-export function startPlayer(player){
-  return(dispatch) => {
-    dispatch({type: START_PLAYER, payload: player})
-  }
-}
-export function stopPlayer(player){
-  return(dispatch) => {
-    dispatch({type: STOP_PLAYER, payload: player})
-  }
-}
-export function switchPlayers(old_music, next_music, room_id){
-  const delete_url = `/api/v0/rooms/${room_id}/musics/${slugify(old_music.etag.substr(music.etag.length - 10))}`
-  const request = axios.delete(delete_url)
-  return(dispatch) => {
-    request.then(function(data){
-      dispatch({type: DELETE_MUSIC, payload: data.data})
-    })
   }
 }
 export function createRoom(name, slug){

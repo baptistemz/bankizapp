@@ -12393,7 +12393,7 @@ global.Root = _Root2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LOGOUT_FAILURE = exports.LOGOUT_SUCCESS = exports.LOGOUT_REQUEST = exports.SIGNUP_FAILURE = exports.SIGNUP_SUCCESS = exports.SIGNUP_REQUEST = exports.LOGIN_FAILURE = exports.LOGIN_SUCCESS = exports.LOGIN_REQUEST = exports.STRANGERS_NUMBER_CHANGED = exports.DELETE_INVITATION = exports.CREATE_INVITATION = exports.CHANGE_LIST_ORDER = exports.CHANGE_DRAG_ORDER = exports.GOT_ROOM_LIST = exports.GOT_ROOM = exports.SWITCH_PLAYERS = exports.DELETE_MUSIC = exports.UPDATE_MUSIC = exports.ADD_MUSIC = exports.STOP_PLAYER = exports.START_PLAYER = exports.PLAY_NEXT = exports.CHANGE_BALANCE = exports.FETCH_MUSICS = undefined;
+exports.LOGOUT_FAILURE = exports.LOGOUT_SUCCESS = exports.LOGOUT_REQUEST = exports.SIGNUP_FAILURE = exports.SIGNUP_SUCCESS = exports.SIGNUP_REQUEST = exports.LOGIN_FAILURE = exports.LOGIN_SUCCESS = exports.LOGIN_REQUEST = exports.STRANGERS_NUMBER_CHANGED = exports.DELETE_INVITATION = exports.CREATE_INVITATION = exports.CHANGE_LIST_ORDER = exports.CHANGE_DRAG_ORDER = exports.GOT_ROOM_LIST = exports.GOT_ROOM = exports.DELETE_MUSIC = exports.UPDATE_MUSIC = exports.ADD_MUSIC = exports.CHANGE_BALANCE = exports.FETCH_MUSICS = undefined;
 exports.fetchMusics = fetchMusics;
 exports.addMusic = addMusic;
 exports.receiveAddedMusic = receiveAddedMusic;
@@ -12401,10 +12401,6 @@ exports.deleteMusic = deleteMusic;
 exports.receiveUpdatedMusic = receiveUpdatedMusic;
 exports.receiveDeletedMusic = receiveDeletedMusic;
 exports.changeBalance = changeBalance;
-exports.playNext = playNext;
-exports.startPlayer = startPlayer;
-exports.stopPlayer = stopPlayer;
-exports.switchPlayers = switchPlayers;
 exports.createRoom = createRoom;
 exports.fetchRoom = fetchRoom;
 exports.fetchRoomList = fetchRoomList;
@@ -12440,20 +12436,18 @@ var _slugify2 = _interopRequireDefault(_slugify);
 
 var _reactReduxToastr = require('react-redux-toastr');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 var API_KEY = 'AIzaSyDaosxESYbzNrFkJ1vEXL3H7XiNGGEwAUM';
 var ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 var FETCH_MUSICS = exports.FETCH_MUSICS = "FETCH_MUSICS";
 var CHANGE_BALANCE = exports.CHANGE_BALANCE = "CHANGE_BALANCE";
-var PLAY_NEXT = exports.PLAY_NEXT = "PLAY_NEXT";
-var START_PLAYER = exports.START_PLAYER = "START_PLAYER";
-var STOP_PLAYER = exports.STOP_PLAYER = "STOP_PLAYER";
 var ADD_MUSIC = exports.ADD_MUSIC = "ADD_MUSIC";
 var UPDATE_MUSIC = exports.UPDATE_MUSIC = "UPDATE_MUSIC";
 var DELETE_MUSIC = exports.DELETE_MUSIC = "DELETE_MUSIC";
-var SWITCH_PLAYERS = exports.SWITCH_PLAYERS = "SWITCH_PLAYERS";
 var GOT_ROOM = exports.GOT_ROOM = 'GOT_ROOM';
 var GOT_ROOM_LIST = exports.GOT_ROOM_LIST = 'GOT_ROOM_LIST';
 var CHANGE_DRAG_ORDER = exports.CHANGE_DRAG_ORDER = 'CHANGE_DRAG_ORDER';
@@ -12539,30 +12533,6 @@ function receiveDeletedMusic(data) {
 function changeBalance(balance) {
   return function (dispatch) {
     dispatch({ type: CHANGE_BALANCE, payload: balance });
-  };
-}
-function playNext(player) {
-  return function (dispatch) {
-    dispatch({ type: PLAY_NEXT, payload: player });
-  };
-}
-function startPlayer(player) {
-  return function (dispatch) {
-    dispatch({ type: START_PLAYER, payload: player });
-  };
-}
-function stopPlayer(player) {
-  return function (dispatch) {
-    dispatch({ type: STOP_PLAYER, payload: player });
-  };
-}
-function switchPlayers(old_music, next_music, room_id) {
-  var delete_url = '/api/v0/rooms/' + room_id + '/musics/' + (0, _slugify2.default)(old_music.etag.substr(music.etag.length - 10));
-  var request = _axios2.default.delete(delete_url);
-  return function (dispatch) {
-    request.then(function (data) {
-      dispatch({ type: DELETE_MUSIC, payload: data.data });
-    });
   };
 }
 function createRoom(name, slug) {
@@ -12860,11 +12830,21 @@ function logoutUser() {
 },{"../slugify":24,"axios":26,"moment":102,"react-redux-toastr":248,"react-router":306,"youtube-api-search":374}],3:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -12878,13 +12858,27 @@ var _index = require('../actions/index');
 
 var _reactRouter = require('react-router');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var Login = function (_Component) {
   _inherits(Login, _Component);
@@ -12909,89 +12903,7 @@ var Login = function (_Component) {
     value: function render() {
       var errorMessage = this.props.errorMessage;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'container' },
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'vertical-align-container' },
-            _react2.default.createElement(
-              'div',
-              { className: 'col s12 l10 offset-l1' },
-              _react2.default.createElement(
-                'div',
-                { className: 'nice-container' },
-                _react2.default.createElement(
-                  'h4',
-                  { className: 'text-center' },
-                  'Log in'
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'row' },
-                  _react2.default.createElement(
-                    'form',
-                    { onSubmit: this.onFormSubmit.bind(this) },
-                    _react2.default.createElement(
-                      'div',
-                      { className: 'input-field' },
-                      _react2.default.createElement(
-                        'i',
-                        { className: 'material-icons prefix' },
-                        'email'
-                      ),
-                      _react2.default.createElement('input', { id: 'icon_email', ref: 'email', type: 'email', className: 'validate' }),
-                      _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'icon_email' },
-                        'Email'
-                      )
-                    ),
-                    _react2.default.createElement(
-                      'div',
-                      { className: 'input-field' },
-                      _react2.default.createElement(
-                        'i',
-                        { className: 'material-icons prefix' },
-                        'lock_outline'
-                      ),
-                      _react2.default.createElement('input', { id: 'icon_password', ref: 'password', type: 'password', className: 'validate' }),
-                      _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'icon_password' },
-                        'Password'
-                      )
-                    ),
-                    _react2.default.createElement(
-                      'button',
-                      { type: 'submit', className: 'btn full-width margin-top-20' },
-                      'Submit'
-                    )
-                  ),
-                  errorMessage && _react2.default.createElement(
-                    'p',
-                    null,
-                    errorMessage
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'text-center margin-top-20 text-20' },
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/signup' },
-                  'No account yet ? Create one !'
-                )
-              )
-            )
-          )
-        )
-      );
+      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'vertical-align-container' }, _react2.default.createElement('div', { className: 'col s12 l10 offset-l1' }, _react2.default.createElement('div', { className: 'nice-container' }, _react2.default.createElement('h4', { className: 'text-center' }, 'Log in'), _react2.default.createElement('br', null), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('form', { onSubmit: this.onFormSubmit.bind(this) }, _react2.default.createElement('div', { className: 'input-field' }, _react2.default.createElement('i', { className: 'material-icons prefix' }, 'email'), _react2.default.createElement('input', { id: 'icon_email', ref: 'email', type: 'email', className: 'validate' }), _react2.default.createElement('label', { htmlFor: 'icon_email' }, 'Email')), _react2.default.createElement('div', { className: 'input-field' }, _react2.default.createElement('i', { className: 'material-icons prefix' }, 'lock_outline'), _react2.default.createElement('input', { id: 'icon_password', ref: 'password', type: 'password', className: 'validate' }), _react2.default.createElement('label', { htmlFor: 'icon_password' }, 'Password')), _react2.default.createElement('button', { type: 'submit', className: 'btn full-width margin-top-20' }, 'Submit')), errorMessage && _react2.default.createElement('p', null, errorMessage))), _react2.default.createElement('div', { className: 'text-center margin-top-20 text-20' }, _react2.default.createElement(_reactRouter.Link, { to: '/signup' }, 'No account yet ? Create one !'))))));
     }
   }]);
 
@@ -13075,11 +12987,21 @@ exports.default = MusicListItem;
 },{"react":349}],5:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -13095,13 +13017,27 @@ var _slugify = require('../slugify');
 
 var _slugify2 = _interopRequireDefault(_slugify);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var Prehome = function (_Component) {
   _inherits(Prehome, _Component);
@@ -13311,184 +13247,18 @@ var Prehome = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'prehome-background' },
-        _react2.default.createElement(
-          'div',
-          { className: 'strip' },
-          _react2.default.createElement(
-            'form',
-            { className: 'connect', onSubmit: this.goToRoom.bind(this) },
-            _react2.default.createElement(
-              'label',
-              { htmlFor: 'room_input' },
-              'Choose a room Name'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'space-around' },
-              _react2.default.createElement('input', { id: 'room_input', type: 'text', required: true, placeholder: 'room name', ref: function ref(input) {
-                  _this2.roomInput = input;
-                } }),
-              _react2.default.createElement(
-                'button',
-                { type: 'submit', className: 'btn white-btn' },
-                'Create'
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'prehome-content' },
-          _react2.default.createElement(
-            'div',
-            { className: 'cover-container' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'div',
-                { id: 'prehome-logo' },
-                _react2.default.createElement('img', { src: '/logo1.png', alt: 'bankiz' })
-              ),
-              _react2.default.createElement(
-                'h1',
-                null,
-                'Collaborative music mix'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'title-container' },
-            _react2.default.createElement(
-              'h2',
-              null,
-              'Create your room'
-            ),
-            _react2.default.createElement(
-              'div',
-              { id: 'fake-form' },
-              _react2.default.createElement(
-                'div',
-                { id: 'fake-input' },
-                _react2.default.createElement(
-                  'p',
-                  { id: 'fake-input-text' },
-                  'Michel\'s_birthday_party'
-                ),
-                _react2.default.createElement('hr', null)
-              ),
-              _react2.default.createElement(
-                'div',
-                { id: 'fake-btn' },
-                'CREATE'
-              )
-            )
-          ),
-          _react2.default.createElement('div', { className: 'block-500' }),
-          _react2.default.createElement(
-            'div',
-            {
-              className: 'animateme scrollme',
-              id: 'fake-soundmixer',
-              'data-when': 'enter',
-              'data-from': '0.5',
-              'data-crop': 'false',
-              'data-to': '0',
-              'data-opacity': '0',
-              'data-scale': '1.5'
-            },
-            _react2.default.createElement('img', { id: 'fake-soundmixer-img', src: 'fake-soundmixer.png', alt: 'mix' }),
-            _react2.default.createElement(
-              'div',
-              { id: 'fake-player-1-group' },
-              _react2.default.createElement('img', { id: 'fake-player-1', src: 'fake-player.png', alt: 'music player' }),
-              _react2.default.createElement(
-                'div',
-                { id: 'player-1-volume', className: 'volume-group space-around align-items' },
-                _react2.default.createElement('img', { className: 'volume-1', src: 'volume-1.png', alt: 'music volume transition' }),
-                _react2.default.createElement('img', { className: 'volume-2', src: 'volume-2.png', alt: 'music volume transition' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { id: 'fake-player-2-group' },
-              _react2.default.createElement('img', { id: 'fake-player-2', src: 'fake-player.png', alt: 'music player' }),
-              _react2.default.createElement(
-                'div',
-                { id: 'player-2-volume', className: 'volume-group space-around align-items' },
-                _react2.default.createElement('img', { className: 'volume-1', src: 'volume-1.png', alt: 'music volume transition' }),
-                _react2.default.createElement('img', { className: 'volume-2', src: 'volume-2.png', alt: 'music volume transition' })
-              )
-            ),
-            _react2.default.createElement('img', { id: 'vol-btn', src: 'volume-btn.png', alt: 'volume equalizer' }),
-            _react2.default.createElement(
-              'div',
-              { className: 'space-around fake-waiting-list' },
-              _react2.default.createElement('img', { id: 'yt-list-element', src: 'yt-list-element.png', alt: 'youtube' }),
-              _react2.default.createElement('img', { id: 'sp-list-element', src: 'sp-list-element.png', alt: 'spotify' }),
-              _react2.default.createElement('img', { id: 'sc-list-element', src: 'sc-list-element.png', alt: 'soundcloud' }),
-              _react2.default.createElement('img', { id: 'yt-list-element-2', src: 'yt-list-element.png', alt: 'youtube' }),
-              _react2.default.createElement('img', { id: 'yt-list-element-3', src: 'sc-list-element.png', alt: 'soundcloud' }),
-              _react2.default.createElement('img', { id: 'sp-list-element-2', src: 'sp-list-element.png', alt: 'spotify' })
-            ),
-            _react2.default.createElement(
-              'div',
-              { id: 'fake-invite-btn' },
-              'INVITE'
-            ),
-            _react2.default.createElement('img', { className: 'fake-user-icon', id: 'fake-user-1', src: 'fake-user.png', alt: 'invited user' }),
-            _react2.default.createElement('img', { className: 'fake-user-icon', id: 'fake-user-2', src: 'fake-user.png', alt: 'invited user' }),
-            _react2.default.createElement('img', { className: 'fake-user-icon', id: 'fake-user-3', src: 'fake-user.png', alt: 'invited user' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'subtitle-container', id: 'subtitle-1' },
-            _react2.default.createElement(
-              'h2',
-              null,
-              'Build your playlist'
-            )
-          ),
-          _react2.default.createElement('div', { className: 'bloc-10' }),
-          _react2.default.createElement(
-            'div',
-            { className: 'subtitle-container', id: 'subtitle-2' },
-            _react2.default.createElement(
-              'h2',
-              null,
-              'Manage transitions'
-            )
-          ),
-          _react2.default.createElement('div', { className: 'bloc-10' }),
-          _react2.default.createElement(
-            'div',
-            { className: 'subtitle-container', id: 'subtitle-3' },
-            _react2.default.createElement(
-              'h2',
-              null,
-              'Share with friends'
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'subtitle-container', id: 'subtitle-4' },
-            _react2.default.createElement(
-              'h4',
-              null,
-              _react2.default.createElement(
-                'p',
-                null,
-                'They can now search musics and enqueue them to the waiting list'
-              )
-            )
-          )
-        ),
-        _react2.default.createElement('div', { id: 'footer' })
-      );
+      return _react2.default.createElement('div', { className: 'prehome-background' }, _react2.default.createElement('div', { className: 'strip' }, _react2.default.createElement('form', { className: 'connect', onSubmit: this.goToRoom.bind(this) }, _react2.default.createElement('label', { htmlFor: 'room_input' }, 'Choose a room Name'), _react2.default.createElement('div', { className: 'space-around' }, _react2.default.createElement('input', { id: 'room_input', type: 'text', required: true, placeholder: 'room name', ref: function ref(input) {
+          _this2.roomInput = input;
+        } }), _react2.default.createElement('button', { type: 'submit', className: 'btn white-btn' }, 'Create')))), _react2.default.createElement('div', { className: 'prehome-content' }, _react2.default.createElement('div', { className: 'cover-container' }, _react2.default.createElement('div', null, _react2.default.createElement('div', { id: 'prehome-logo' }, _react2.default.createElement('img', { src: '/logo1.png', alt: 'bankiz' })), _react2.default.createElement('h1', null, 'Collaborative music mix'))), _react2.default.createElement('div', { className: 'title-container' }, _react2.default.createElement('h2', null, 'Create your room'), _react2.default.createElement('div', { id: 'fake-form' }, _react2.default.createElement('div', { id: 'fake-input' }, _react2.default.createElement('p', { id: 'fake-input-text' }, 'Michel\'s_birthday_party'), _react2.default.createElement('hr', null)), _react2.default.createElement('div', { id: 'fake-btn' }, 'CREATE'))), _react2.default.createElement('div', { className: 'block-500' }), _react2.default.createElement('div', {
+        className: 'animateme scrollme',
+        id: 'fake-soundmixer',
+        'data-when': 'enter',
+        'data-from': '0.5',
+        'data-crop': 'false',
+        'data-to': '0',
+        'data-opacity': '0',
+        'data-scale': '1.5'
+      }, _react2.default.createElement('img', { id: 'fake-soundmixer-img', src: 'fake-soundmixer.png', alt: 'mix' }), _react2.default.createElement('div', { id: 'fake-player-1-group' }, _react2.default.createElement('img', { id: 'fake-player-1', src: 'fake-player.png', alt: 'music player' }), _react2.default.createElement('div', { id: 'player-1-volume', className: 'volume-group space-around align-items' }, _react2.default.createElement('img', { className: 'volume-1', src: 'volume-1.png', alt: 'music volume transition' }), _react2.default.createElement('img', { className: 'volume-2', src: 'volume-2.png', alt: 'music volume transition' }))), _react2.default.createElement('div', { id: 'fake-player-2-group' }, _react2.default.createElement('img', { id: 'fake-player-2', src: 'fake-player.png', alt: 'music player' }), _react2.default.createElement('div', { id: 'player-2-volume', className: 'volume-group space-around align-items' }, _react2.default.createElement('img', { className: 'volume-1', src: 'volume-1.png', alt: 'music volume transition' }), _react2.default.createElement('img', { className: 'volume-2', src: 'volume-2.png', alt: 'music volume transition' }))), _react2.default.createElement('img', { id: 'vol-btn', src: 'volume-btn.png', alt: 'volume equalizer' }), _react2.default.createElement('div', { className: 'space-around fake-waiting-list' }, _react2.default.createElement('img', { id: 'yt-list-element', src: 'yt-list-element.png', alt: 'youtube' }), _react2.default.createElement('img', { id: 'sp-list-element', src: 'sp-list-element.png', alt: 'spotify' }), _react2.default.createElement('img', { id: 'sc-list-element', src: 'sc-list-element.png', alt: 'soundcloud' }), _react2.default.createElement('img', { id: 'yt-list-element-2', src: 'yt-list-element.png', alt: 'youtube' }), _react2.default.createElement('img', { id: 'yt-list-element-3', src: 'sc-list-element.png', alt: 'soundcloud' }), _react2.default.createElement('img', { id: 'sp-list-element-2', src: 'sp-list-element.png', alt: 'spotify' })), _react2.default.createElement('div', { id: 'fake-invite-btn' }, 'INVITE'), _react2.default.createElement('img', { className: 'fake-user-icon', id: 'fake-user-1', src: 'fake-user.png', alt: 'invited user' }), _react2.default.createElement('img', { className: 'fake-user-icon', id: 'fake-user-2', src: 'fake-user.png', alt: 'invited user' }), _react2.default.createElement('img', { className: 'fake-user-icon', id: 'fake-user-3', src: 'fake-user.png', alt: 'invited user' })), _react2.default.createElement('div', { className: 'subtitle-container', id: 'subtitle-1' }, _react2.default.createElement('h2', null, 'Build your playlist')), _react2.default.createElement('div', { className: 'bloc-10' }), _react2.default.createElement('div', { className: 'subtitle-container', id: 'subtitle-2' }, _react2.default.createElement('h2', null, 'Manage transitions')), _react2.default.createElement('div', { className: 'bloc-10' }), _react2.default.createElement('div', { className: 'subtitle-container', id: 'subtitle-3' }, _react2.default.createElement('h2', null, 'Share with friends')), _react2.default.createElement('div', { className: 'subtitle-container', id: 'subtitle-4' }, _react2.default.createElement('h4', null, _react2.default.createElement('p', null, 'They can now search musics and enqueue them to the waiting list')))), _react2.default.createElement('div', { id: 'footer' }));
     }
   }]);
 
@@ -13503,11 +13273,21 @@ exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Prehome);
 },{"../actions/index":2,"../slugify":24,"react":349,"react-redux":261,"redux":356}],6:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -13521,13 +13301,27 @@ var _redux = require('redux');
 
 var _reactRouter = require('react-router');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var RoomList = function (_Component) {
   _inherits(RoomList, _Component);
@@ -13547,101 +13341,12 @@ var RoomList = function (_Component) {
     key: 'render',
     value: function render() {
       var roomListItems = this.props.room_list.map(function (item) {
-        return _react2.default.createElement(
-          'li',
-          { className: 'collection-item avatar', key: item.id },
-          _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
-          _react2.default.createElement(
-            'span',
-            { className: 'title' },
-            item.name
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'by @',
-            item.dj
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/rooms/' + item.slug, className: 'btn list-element-btn' },
-            'Enter'
-          ),
-          _react2.default.createElement(
-            'a',
-            { href: '#', className: 'secondary-content' },
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons' },
-              'delete'
-            )
-          )
-        );
+        return _react2.default.createElement('li', { className: 'collection-item avatar', key: item.id }, _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }), _react2.default.createElement('span', { className: 'title' }, item.name), _react2.default.createElement('p', null, 'by @', item.dj), _react2.default.createElement(_reactRouter.Link, { to: '/rooms/' + item.slug, className: 'btn list-element-btn' }, 'Enter'), _react2.default.createElement('a', { href: '#', className: 'secondary-content' }, _react2.default.createElement('i', { className: 'material-icons' }, 'delete')));
       });
       var contributionListItems = this.props.contribution_list.map(function (item) {
-        return _react2.default.createElement(
-          'li',
-          { className: 'collection-item avatar', key: item.id },
-          _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }),
-          _react2.default.createElement(
-            'span',
-            { className: 'title' },
-            item.name
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'by @',
-            item.dj
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/rooms/' + item.slug, className: 'btn list-element-btn' },
-            'Enter'
-          )
-        );
+        return _react2.default.createElement('li', { className: 'collection-item avatar', key: item.id }, _react2.default.createElement('img', { src: '/mix_table.png', alt: '', className: 'circle avatar-sizing' }), _react2.default.createElement('span', { className: 'title' }, item.name), _react2.default.createElement('p', null, 'by @', item.dj), _react2.default.createElement(_reactRouter.Link, { to: '/rooms/' + item.slug, className: 'btn list-element-btn' }, 'Enter'));
       });
-      return _react2.default.createElement(
-        'div',
-        { className: 'room-list-page' },
-        _react2.default.createElement(
-          'div',
-          { className: 'header' },
-          _react2.default.createElement(
-            'h1',
-            null,
-            'Rooms'
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(
-            'h2',
-            null,
-            'The rooms you created'
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'collection' },
-            roomListItems
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(
-            'h2',
-            null,
-            'The rooms you visited/contributed to'
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'collection' },
-            contributionListItems
-          )
-        )
-      );
+      return _react2.default.createElement('div', { className: 'room-list-page' }, _react2.default.createElement('div', { className: 'header' }, _react2.default.createElement('h1', null, 'Rooms')), _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h2', null, 'The rooms you created'), _react2.default.createElement('ul', { className: 'collection' }, roomListItems)), _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h2', null, 'The rooms you visited/contributed to'), _react2.default.createElement('ul', { className: 'collection' }, contributionListItems)));
     }
   }]);
 
@@ -13666,11 +13371,21 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 },{"../actions/index":2,"react":349,"react-redux":261,"react-router":306,"redux":356}],7:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -13684,13 +13399,27 @@ var _index = require('../actions/index');
 
 var _reactRouter = require('react-router');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var Signup = function (_Component) {
   _inherits(Signup, _Component);
@@ -13720,126 +13449,7 @@ var Signup = function (_Component) {
     value: function render() {
       var errorMessage = this.props.errorMessage;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'container' },
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'vertical-align-container' },
-            _react2.default.createElement(
-              'div',
-              { className: 'col s12 l10 offset-l1' },
-              _react2.default.createElement(
-                'div',
-                { className: 'nice-container' },
-                _react2.default.createElement(
-                  'h4',
-                  { className: 'text-center' },
-                  'Sign up'
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'modal-content' },
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                      'form',
-                      { onSubmit: this.onFormSubmit.bind(this), className: 'col s12' },
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'row' },
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'input-field col s12 m6' },
-                          _react2.default.createElement(
-                            'i',
-                            { className: 'material-icons prefix' },
-                            'account_circle'
-                          ),
-                          _react2.default.createElement('input', { id: 'icon_prefix', ref: 'username', type: 'text', className: 'validate' }),
-                          _react2.default.createElement(
-                            'label',
-                            { htmlFor: 'icon_prefix' },
-                            'Username'
-                          )
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'input-field col s12 m6' },
-                          _react2.default.createElement(
-                            'i',
-                            { className: 'material-icons prefix' },
-                            'email'
-                          ),
-                          _react2.default.createElement('input', { id: 'icon_email', ref: 'email', type: 'email', className: 'validate' }),
-                          _react2.default.createElement(
-                            'label',
-                            { htmlFor: 'icon_email' },
-                            'Email'
-                          )
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'input-field col s12' },
-                          _react2.default.createElement(
-                            'i',
-                            { className: 'material-icons prefix' },
-                            'lock_outline'
-                          ),
-                          _react2.default.createElement('input', { id: 'icon_password', ref: 'password', type: 'password', className: 'validate' }),
-                          _react2.default.createElement(
-                            'label',
-                            { htmlFor: 'icon_password' },
-                            'Password'
-                          )
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'input-field col s12' },
-                          _react2.default.createElement(
-                            'i',
-                            { className: 'material-icons prefix' },
-                            'lock_outline'
-                          ),
-                          _react2.default.createElement('input', { id: 'icon_password_confirmation', ref: 'password_confirmation', type: 'password', className: 'validate' }),
-                          _react2.default.createElement(
-                            'label',
-                            { htmlFor: 'icon_password_confirmation' },
-                            'Password confirmation'
-                          )
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'button',
-                        { type: 'submit', className: 'btn full-width margin-top-20' },
-                        'Submit'
-                      )
-                    ),
-                    errorMessage && _react2.default.createElement(
-                      'p',
-                      null,
-                      errorMessage
-                    )
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'text-center margin-top-20 text-20' },
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/login' },
-                  'Already have an account ? Log in !'
-                )
-              )
-            )
-          )
-        )
-      );
+      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'vertical-align-container' }, _react2.default.createElement('div', { className: 'col s12 l10 offset-l1' }, _react2.default.createElement('div', { className: 'nice-container' }, _react2.default.createElement('h4', { className: 'text-center' }, 'Sign up'), _react2.default.createElement('div', { className: 'modal-content' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('form', { onSubmit: this.onFormSubmit.bind(this), className: 'col s12' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'input-field col s12 m6' }, _react2.default.createElement('i', { className: 'material-icons prefix' }, 'account_circle'), _react2.default.createElement('input', { id: 'icon_prefix', ref: 'username', type: 'text', className: 'validate' }), _react2.default.createElement('label', { htmlFor: 'icon_prefix' }, 'Username')), _react2.default.createElement('div', { className: 'input-field col s12 m6' }, _react2.default.createElement('i', { className: 'material-icons prefix' }, 'email'), _react2.default.createElement('input', { id: 'icon_email', ref: 'email', type: 'email', className: 'validate' }), _react2.default.createElement('label', { htmlFor: 'icon_email' }, 'Email')), _react2.default.createElement('div', { className: 'input-field col s12' }, _react2.default.createElement('i', { className: 'material-icons prefix' }, 'lock_outline'), _react2.default.createElement('input', { id: 'icon_password', ref: 'password', type: 'password', className: 'validate' }), _react2.default.createElement('label', { htmlFor: 'icon_password' }, 'Password')), _react2.default.createElement('div', { className: 'input-field col s12' }, _react2.default.createElement('i', { className: 'material-icons prefix' }, 'lock_outline'), _react2.default.createElement('input', { id: 'icon_password_confirmation', ref: 'password_confirmation', type: 'password', className: 'validate' }), _react2.default.createElement('label', { htmlFor: 'icon_password_confirmation' }, 'Password confirmation'))), _react2.default.createElement('button', { type: 'submit', className: 'btn full-width margin-top-20' }, 'Submit')), errorMessage && _react2.default.createElement('p', null, errorMessage)))), _react2.default.createElement('div', { className: 'text-center margin-top-20 text-20' }, _react2.default.createElement(_reactRouter.Link, { to: '/login' }, 'Already have an account ? Log in !'))))));
     }
   }]);
 
@@ -14492,11 +14102,21 @@ exports.default = WaitingList;
 },{"./SortableLargeListItem":8,"react":349,"react-addons-css-transition-group":106}],12:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -14524,13 +14144,27 @@ var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group'
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var MusicSearchList = function (_Component) {
   _inherits(MusicSearchList, _Component);
@@ -14567,116 +14201,14 @@ var MusicSearchList = function (_Component) {
       var _this2 = this;
 
       var musics = this.props.musics;
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'col s12' },
-            _react2.default.createElement(
-              'ul',
-              { className: 'tabs' },
-              _react2.default.createElement(
-                'li',
-                { className: 'tab col s4' },
-                _react2.default.createElement(
-                  'a',
-                  { href: '#youtube' },
-                  'Youtube'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                { className: 'tab col s4' },
-                _react2.default.createElement(
-                  'a',
-                  { href: '#soundcloud' },
-                  'Soundcloud'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                { className: 'tab col s4' },
-                _react2.default.createElement(
-                  'a',
-                  { href: '#spotify' },
-                  'Spotify'
-                )
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { id: 'youtube', className: 'col s12' },
-            _react2.default.createElement(
-              'h4',
-              null,
-              'Results of your search on Youtube'
-            ),
-            _react2.default.createElement(
-              'ul',
-              null,
-              _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                  _reactAddonsCssTransitionGroup2.default,
-                  { transitionName: 'fade', transitionEnterTimeout: 300, transitionLeaveTimeout: 300 },
-                  musics.map(function (music) {
-                    return _react2.default.createElement(_MusicListItem2.default, {
-                      onVideoSelect: _this2.playMusic.bind(_this2, music),
-                      addVideoToList: _this2.addMusicToList.bind(_this2, music),
-                      key: music.etag,
-                      music: music
-                    });
-                  })
-                )
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { id: 'soundcloud', className: 'col s12' },
-            _react2.default.createElement(
-              'h4',
-              null,
-              'The Soundcould integration is coming soon !'
-            ),
-            _react2.default.createElement(
-              'a',
-              { className: 'btn', href: '#' },
-              'Get notified when by email'
-            ),
-            _react2.default.createElement(
-              'em',
-              null,
-              'Promise we won\'t send you tricks to earn 10,000$ in ten minutes'
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { id: 'spotify', className: 'col s12' },
-            _react2.default.createElement(
-              'h4',
-              null,
-              'The Spotify integration is coming soon !'
-            ),
-            _react2.default.createElement(
-              'a',
-              { className: 'btn', href: '#' },
-              'Get notified when by email'
-            ),
-            _react2.default.createElement(
-              'em',
-              null,
-              'Promise we won\'t send you tricks to earn 10,000$ in ten minutes'
-            )
-          )
-        )
-      );
+      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col s12' }, _react2.default.createElement('ul', { className: 'tabs' }, _react2.default.createElement('li', { className: 'tab col s4' }, _react2.default.createElement('a', { href: '#youtube' }, 'Youtube')), _react2.default.createElement('li', { className: 'tab col s4' }, _react2.default.createElement('a', { href: '#soundcloud' }, 'Soundcloud')), _react2.default.createElement('li', { className: 'tab col s4' }, _react2.default.createElement('a', { href: '#spotify' }, 'Spotify')))), _react2.default.createElement('div', { id: 'youtube', className: 'col s12' }, _react2.default.createElement('h4', null, 'Results of your search on Youtube'), _react2.default.createElement('ul', null, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { transitionName: 'fade', transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, musics.map(function (music) {
+        return _react2.default.createElement(_MusicListItem2.default, {
+          onVideoSelect: _this2.playMusic.bind(_this2, music),
+          addVideoToList: _this2.addMusicToList.bind(_this2, music),
+          key: music.etag,
+          music: music
+        });
+      }))))), _react2.default.createElement('div', { id: 'soundcloud', className: 'col s12' }, _react2.default.createElement('h4', null, 'The Soundcould integration is coming soon !'), _react2.default.createElement('a', { className: 'btn', href: '#' }, 'Get notified when by email'), _react2.default.createElement('em', null, 'Promise we won\'t send you tricks to earn 10,000$ in ten minutes')), _react2.default.createElement('div', { id: 'spotify', className: 'col s12' }, _react2.default.createElement('h4', null, 'The Spotify integration is coming soon !'), _react2.default.createElement('a', { className: 'btn', href: '#' }, 'Get notified when by email'), _react2.default.createElement('em', null, 'Promise we won\'t send you tricks to earn 10,000$ in ten minutes'))));
     }
   }]);
 
@@ -14699,11 +14231,21 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 },{"../actions/index":2,"../components/MusicListItem":4,"../slugify":24,"lodash":101,"react":349,"react-addons-css-transition-group":106,"react-redux":261,"redux":356}],13:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -14723,13 +14265,27 @@ var _SoundMixer = require('./SoundMixer');
 
 var _SoundMixer2 = _interopRequireDefault(_SoundMixer);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var Room = function (_Component) {
   _inherits(Room, _Component);
@@ -14816,12 +14372,7 @@ var Room = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'container' },
-        _react2.default.createElement(_SoundMixer2.default, null),
-        _react2.default.createElement(_SearchGroup2.default, null)
-      );
+      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement(_SoundMixer2.default, null), _react2.default.createElement(_SearchGroup2.default, null));
     }
   }]);
 
@@ -14972,11 +14523,21 @@ exports.default = _react2.default.createElement(
 },{"../components/Login":3,"../components/Prehome":5,"../components/RoomList":6,"../components/Signup":7,"./Room":13,"./SideNav":18,"react":349,"react-router":306}],16:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -14988,13 +14549,27 @@ var _redux = require('redux');
 
 var _index = require('../actions/index');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var SearchBar = function (_Component) {
   _inherits(SearchBar, _Component);
@@ -15033,42 +14608,12 @@ var SearchBar = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'nav',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'nav-wrapper' },
-          _react2.default.createElement(
-            'form',
-            { onSubmit: this.onFormSubmit, className: 'col s8' },
-            _react2.default.createElement(
-              'div',
-              { className: 'input-field' },
-              _react2.default.createElement('input', { type: 'search',
-                required: true,
-                id: 'search',
-                className: 'form-control',
-                value: this.state.term,
-                onChange: this.onInputChange }),
-              _react2.default.createElement(
-                'label',
-                { htmlFor: 'search' },
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'search'
-                )
-              ),
-              _react2.default.createElement(
-                'i',
-                { onClick: this.onFormSubmit, className: 'material-icons' },
-                'close'
-              )
-            )
-          )
-        )
-      );
+      return _react2.default.createElement('nav', null, _react2.default.createElement('div', { className: 'nav-wrapper' }, _react2.default.createElement('form', { onSubmit: this.onFormSubmit, className: 'col s8' }, _react2.default.createElement('div', { className: 'input-field' }, _react2.default.createElement('input', { type: 'search',
+        required: true,
+        id: 'search',
+        className: 'form-control',
+        value: this.state.term,
+        onChange: this.onInputChange }), _react2.default.createElement('label', { htmlFor: 'search' }, _react2.default.createElement('i', { className: 'material-icons' }, 'search')), _react2.default.createElement('i', { onClick: this.onFormSubmit, className: 'material-icons' }, 'close')))));
     }
   }]);
 
@@ -15164,11 +14709,21 @@ exports.default = SearchGroup;
 },{"./MusicSearchList":12,"./SearchBar":16,"react":349}],18:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = require('react');
 
@@ -15182,13 +14737,27 @@ var _index = require('../actions/index');
 
 var _reactRouter = require('react-router');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var SideNav = function (_Component) {
   _inherits(SideNav, _Component);
@@ -15216,247 +14785,17 @@ var SideNav = function (_Component) {
   }, {
     key: 'profile',
     value: function profile() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'table',
-          null,
-          _react2.default.createElement(
-            'tbody',
-            null,
-            _react2.default.createElement(
-              'tr',
-              null,
-              _react2.default.createElement(
-                'td',
-                null,
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'perm_identity'
-                )
-              ),
-              _react2.default.createElement(
-                'td',
-                null,
-                _react2.default.createElement(
-                  'span',
-                  { className: 'white-text name' },
-                  this.props.username
-                ),
-                _react2.default.createElement(
-                  'span',
-                  { className: 'white-text email' },
-                  this.props.email
-                )
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'space-around profile-btn-group' },
-          _react2.default.createElement(
-            'a',
-            { onClick: this.logout.bind(this) },
-            _react2.default.createElement(
-              'div',
-              { className: 'btn btn-small' },
-              'Update profile'
-            )
-          ),
-          _react2.default.createElement(
-            'a',
-            { onClick: this.logout.bind(this) },
-            _react2.default.createElement(
-              'div',
-              { className: 'btn btn-small' },
-              'Log out'
-            )
-          )
-        )
-      );
+      return _react2.default.createElement('div', null, _react2.default.createElement('table', null, _react2.default.createElement('tbody', null, _react2.default.createElement('tr', null, _react2.default.createElement('td', null, _react2.default.createElement('i', { className: 'material-icons' }, 'perm_identity')), _react2.default.createElement('td', null, _react2.default.createElement('span', { className: 'white-text name' }, this.props.username), _react2.default.createElement('span', { className: 'white-text email' }, this.props.email))))), _react2.default.createElement('div', { className: 'space-around profile-btn-group' }, _react2.default.createElement('a', { onClick: this.logout.bind(this) }, _react2.default.createElement('div', { className: 'btn btn-small' }, 'Update profile')), _react2.default.createElement('a', { onClick: this.logout.bind(this) }, _react2.default.createElement('div', { className: 'btn btn-small' }, 'Log out'))));
     }
   }, {
     key: 'connect',
     value: function connect() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'table',
-          null,
-          _react2.default.createElement(
-            'tbody',
-            null,
-            _react2.default.createElement(
-              'tr',
-              null,
-              _react2.default.createElement(
-                'td',
-                null,
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'not_interested'
-                )
-              ),
-              _react2.default.createElement(
-                'td',
-                null,
-                _react2.default.createElement(
-                  'span',
-                  { className: 'white-text name' },
-                  'Not connected'
-                ),
-                _react2.default.createElement(
-                  'span',
-                  { className: 'white-text email' },
-                  'Login or Sign up'
-                )
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'space-around profile-btn-group' },
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/login' },
-            _react2.default.createElement(
-              'div',
-              { className: 'btn btn-small' },
-              'Login'
-            )
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/signup' },
-            _react2.default.createElement(
-              'div',
-              { className: 'btn btn-small' },
-              'Sign up'
-            )
-          )
-        )
-      );
+      return _react2.default.createElement('div', null, _react2.default.createElement('table', null, _react2.default.createElement('tbody', null, _react2.default.createElement('tr', null, _react2.default.createElement('td', null, _react2.default.createElement('i', { className: 'material-icons' }, 'not_interested')), _react2.default.createElement('td', null, _react2.default.createElement('span', { className: 'white-text name' }, 'Not connected'), _react2.default.createElement('span', { className: 'white-text email' }, 'Login or Sign up'))))), _react2.default.createElement('div', { className: 'space-around profile-btn-group' }, _react2.default.createElement(_reactRouter.Link, { to: '/login' }, _react2.default.createElement('div', { className: 'btn btn-small' }, 'Login')), _react2.default.createElement(_reactRouter.Link, { to: '/signup' }, _react2.default.createElement('div', { className: 'btn btn-small' }, 'Sign up'))));
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'transparent-navbar' },
-          _react2.default.createElement(
-            'ul',
-            { id: 'slide-out', className: 'side-nav' },
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'div',
-                { className: 'userView' },
-                _react2.default.createElement('div', { className: 'background sidenav-background' }),
-                this.props.isAuthenticated ? this.profile() : this.connect()
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement('div', { className: 'divider' })
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/' },
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'home'
-                ),
-                'Home'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/rooms' },
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'list'
-                ),
-                'My rooms'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/' },
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'playlist_add'
-                ),
-                'New Room'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
-                { href: '#!' },
-                'Link'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement('div', { className: 'divider' })
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
-                { className: 'subheader' },
-                'Subheader'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
-                { className: 'waves-effect', href: '#!' },
-                'Third Link With Waves'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'a',
-            { href: '#', 'data-activates': 'slide-out', className: 'button-collapse show-on-large' },
-            _react2.default.createElement(
-              'i',
-              { className: 'material-icons', id: 'burger-menu' },
-              'menu'
-            )
-          )
-        ),
-        this.props.children
-      );
+      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'transparent-navbar' }, _react2.default.createElement('ul', { id: 'slide-out', className: 'side-nav' }, _react2.default.createElement('li', null, _react2.default.createElement('div', { className: 'userView' }, _react2.default.createElement('div', { className: 'background sidenav-background' }), this.props.isAuthenticated ? this.profile() : this.connect())), _react2.default.createElement('li', null, _react2.default.createElement('div', { className: 'divider' })), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { to: '/' }, _react2.default.createElement('i', { className: 'material-icons' }, 'home'), 'Home')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { to: '/rooms' }, _react2.default.createElement('i', { className: 'material-icons' }, 'list'), 'My rooms')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { to: '/' }, _react2.default.createElement('i', { className: 'material-icons' }, 'playlist_add'), 'New Room')), _react2.default.createElement('li', null, _react2.default.createElement('a', { href: '#!' }, 'Link')), _react2.default.createElement('li', null, _react2.default.createElement('div', { className: 'divider' })), _react2.default.createElement('li', null, _react2.default.createElement('a', { className: 'subheader' }, 'Subheader')), _react2.default.createElement('li', null, _react2.default.createElement('a', { className: 'waves-effect', href: '#!' }, 'Third Link With Waves'))), _react2.default.createElement('a', { href: '#', 'data-activates': 'slide-out', className: 'button-collapse show-on-large' }, _react2.default.createElement('i', { className: 'material-icons', id: 'burger-menu' }, 'menu'))), this.props.children);
     }
   }]);
 
@@ -15479,11 +14818,21 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 },{"../actions/index":2,"react":349,"react-redux":261,"react-router":306,"redux":356}],19:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _redux = require('redux');
 
@@ -15513,13 +14862,27 @@ var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTran
 
 var _reactReduxToastr = require('react-redux-toastr');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var SoundMixer = function (_React$Component) {
   _inherits(SoundMixer, _React$Component);
@@ -15557,11 +14920,6 @@ var SoundMixer = function (_React$Component) {
       var new_player = old_player === 1 ? 2 : 1;
     }
   }, {
-    key: 'setPlayingAt',
-    value: function setPlayingAt(player, statement) {
-      statement ? this.props.startPlayer(player) : this.props.stopPlayer(player);
-    }
-  }, {
     key: 'fade',
     value: function fade() {
       var balance = this.props.balance;
@@ -15592,7 +14950,6 @@ var SoundMixer = function (_React$Component) {
         onVideoEnd: this.switchPlayers.bind(this),
         forceOtherPlayer: this.forcePlayer.bind(this),
         forcePlay: num === 1 ? this.state.forceFirstPlayer : this.state.forceSecondPlayer,
-        setPlayingAt: this.setPlayingAt.bind(this),
         isFirstMusic: isFirstMusic,
         alignRight: alignRight,
         switchCountDown: switchCountDown,
@@ -15617,10 +14974,10 @@ var SoundMixer = function (_React$Component) {
       var callCount = 1;
       var waitAndSee = function waitAndSee() {
         if (callCount < 10) {
-          this.props.mute_player === 1 ? this.setState({ switchCountDown1: 10 - callCount }) : this.setState({ switchCountDown1: 10 - callCount });
+          this.props.mute_player === 1 ? this.setState({ switchCountDown2: 10 - callCount }) : this.setState({ switchCountDown1: 10 - callCount });
           this.getBalance() === '100' ? callCount += 1 : clearInterval(waitAndSwitch);
         } else {
-          this.props.mute_player === 1 ? this.setState({ switchCountDown1: 10 }) : this.setState({ switchCountDown1: 10 });
+          this.props.mute_player === 1 ? this.setState({ switchCountDown2: 10 }) : this.setState({ switchCountDown1: 10 });
           var old_player = this.props.mute_player === 1 ? 0 : 1;
           this.switchPlayers(old_player);
           clearInterval(waitAndSwitch);
@@ -15666,187 +15023,31 @@ var SoundMixer = function (_React$Component) {
     value: function djUi() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'row' },
-        _react2.default.createElement(
-          'div',
-          { className: 'room-presentation' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'text-center' },
-            this.props.room_name
-          ),
-          _react2.default.createElement(
-            'h3',
-            { className: 'text-center grey-text' },
-            ' by @',
-            this.props.dj_name
-          )
-        ),
-        _react2.default.createElement('br', null),
-        this.music(this.props.music_1, 1),
-        this.music(this.props.music_2, 2),
-        _react2.default.createElement(
-          'div',
-          { className: 'users-group col s12' },
-          _react2.default.createElement(
-            'div',
-            { className: 'logged-in-state' },
-            _react2.default.createElement(
-              'p',
-              { className: 'underline' },
-              _react2.default.createElement(
-                'big',
-                null,
-                this.props.room_users.length + this.props.strangers_number
-              ),
-              ' users connected'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'hover-chip', id: 'logged-in-chip' },
-              this.props.room_users.map(function (u, i) {
-                return _react2.default.createElement(
-                  'div',
-                  { key: i },
-                  u.username
-                );
-              }),
-              this.props.strangers_number > 0 ? _react2.default.createElement(
-                'div',
-                null,
-                '+',
-                this.props.strangers_number,
-                ' strangers'
-              ) : _react2.default.createElement('div', null)
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'space-around' },
-            _react2.default.createElement(
-              'h6',
-              null,
-              'Share this room : '
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'btn', onClick: this.copyLink.bind(this) },
-              'Copy Link'
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col s12 m5' },
-          _react2.default.createElement(
-            'div',
-            { className: 'player-background right-background z-depth-1' },
-            _react2.default.createElement(
-              'h5',
-              null,
-              'track 1'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'play-pause' },
-              _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col s12 m2' },
-          _react2.default.createElement(
-            'div',
-            { id: 'logo-sound-group' },
-            _react2.default.createElement('div', { id: 'left-sound-link', className: 'hide-on-med-and-up' }),
-            _react2.default.createElement('div', { id: 'right-sound-link', className: 'hide-on-med-and-up' }),
-            _react2.default.createElement('img', { className: 'hide-on-small-only', src: '/logo1.png', id: 'logo', alt: 'penguin' }),
-            _react2.default.createElement(
-              'form',
-              { action: '#' },
-              _react2.default.createElement('input', { type: 'range', value: this.props.balance, min: '0', max: '100',
-                onChange: function onChange(event) {
-                  return _this2.onBalanceChange(event.target.value);
-                } })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col s12 m5' },
-          _react2.default.createElement(
-            'div',
-            { className: 'player-background left-background z-depth-1' },
-            _react2.default.createElement(
-              'h5',
-              null,
-              'track 2'
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'play-pause' },
-              _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col s12' },
-          _react2.default.createElement(_WaitingList2.default, { deleteMusicFromList: this.deleteFromWaitingList.bind(this),
-            changeListOrder: this.changeListOrder.bind(this),
-            list: this.props.waiting_list,
-            roomId: this.props.room_id,
-            draggingObject: this.props.draggingObject,
-            printListOrder: this.printListOrder.bind(this) })
-        )
-      );
+      return _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'room-presentation' }, _react2.default.createElement('h1', { className: 'text-center' }, this.props.room_name), _react2.default.createElement('h3', { className: 'text-center grey-text' }, ' by @', this.props.dj_name)), _react2.default.createElement('br', null), this.music(this.props.music_1, 1), this.music(this.props.music_2, 2), _react2.default.createElement('div', { className: 'users-group col s12' }, _react2.default.createElement('div', { className: 'logged-in-state' }, _react2.default.createElement('p', { className: 'underline' }, _react2.default.createElement('big', null, this.props.room_users.length + this.props.strangers_number), ' users connected'), _react2.default.createElement('div', { className: 'hover-chip', id: 'logged-in-chip' }, this.props.room_users.map(function (u, i) {
+        return _react2.default.createElement('div', { key: i }, u.username);
+      }), this.props.strangers_number > 0 ? _react2.default.createElement('div', null, '+', this.props.strangers_number, ' strangers') : _react2.default.createElement('div', null))), _react2.default.createElement('div', { className: 'space-around' }, _react2.default.createElement('h6', null, 'Share this room : '), _react2.default.createElement('div', { className: 'btn', onClick: this.copyLink.bind(this) }, 'Copy Link'))), _react2.default.createElement('div', { className: 'col s12 m5' }, _react2.default.createElement('div', { className: 'player-background right-background z-depth-1' }, _react2.default.createElement('h5', null, 'track 1'), _react2.default.createElement('div', { className: 'play-pause' }, _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })))), _react2.default.createElement('div', { className: 'col s12 m2' }, _react2.default.createElement('div', { id: 'logo-sound-group' }, _react2.default.createElement('div', { id: 'left-sound-link', className: 'hide-on-med-and-up' }), _react2.default.createElement('div', { id: 'right-sound-link', className: 'hide-on-med-and-up' }), _react2.default.createElement('img', { className: 'hide-on-small-only', src: '/logo1.png', id: 'logo', alt: 'penguin' }), _react2.default.createElement('form', { action: '#' }, _react2.default.createElement('input', { type: 'range', value: this.props.balance, min: '0', max: '100',
+        onChange: function onChange(event) {
+          return _this2.onBalanceChange(event.target.value);
+        } })))), _react2.default.createElement('div', { className: 'col s12 m5' }, _react2.default.createElement('div', { className: 'player-background left-background z-depth-1' }, _react2.default.createElement('h5', null, 'track 2'), _react2.default.createElement('div', { className: 'play-pause' }, _react2.default.createElement('img', { src: '/play_pause.png', alt: 'play/pause' })))), _react2.default.createElement('div', { className: 'col s12' }, _react2.default.createElement(_WaitingList2.default, { deleteMusicFromList: this.deleteFromWaitingList.bind(this),
+        changeListOrder: this.changeListOrder.bind(this),
+        list: this.props.waiting_list,
+        roomId: this.props.room_id,
+        draggingObject: this.props.draggingObject,
+        printListOrder: this.printListOrder.bind(this) })));
     }
   }, {
     key: 'visitorUi',
     value: function visitorUi() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'row' },
-        _react2.default.createElement(
-          'div',
-          { className: 'room-presentation' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'text-center' },
-            this.props.room_name
-          ),
-          _react2.default.createElement(
-            'h3',
-            { className: 'text-center grey-text' },
-            ' by @',
-            this.props.dj_name
-          )
-        ),
-        _react2.default.createElement(_VisitorUI2.default, { waitingList: this.props.waiting_list,
-          reverted: this.props.mute_player === 1,
-          music1: this.props.music_1,
-          music2: this.props.music_2 })
-      );
+      return _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'room-presentation' }, _react2.default.createElement('h1', { className: 'text-center' }, this.props.room_name), _react2.default.createElement('h3', { className: 'text-center grey-text' }, ' by @', this.props.dj_name)), _react2.default.createElement(_VisitorUI2.default, { waitingList: this.props.waiting_list,
+        reverted: this.props.mute_player === 1,
+        music1: this.props.music_1,
+        music2: this.props.music_2 }));
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.props.current_username === this.props.dj_name) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          this.djUi()
-        );
-      } else {
-        return _react2.default.createElement(
-          'div',
-          null,
-          this.visitorUi()
-        );
-      }
+      var ui = this.props.current_username === this.props.dj_name ? this.djUi() : this.visitorUi();
+      return _react2.default.createElement('div', null, ui);
     }
   }]);
 
@@ -15854,7 +15055,7 @@ var SoundMixer = function (_React$Component) {
 }(_react2.default.Component);
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ changeBalance: _index.changeBalance, playNext: _index.playNext, startPlayer: _index.startPlayer, stopPlayer: _index.stopPlayer, deleteMusic: _index.deleteMusic, changeDragOrder: _index.changeDragOrder, printListOrder: _index.printListOrder }, dispatch);
+  return (0, _redux.bindActionCreators)({ changeBalance: _index.changeBalance, deleteMusic: _index.deleteMusic, changeDragOrder: _index.changeDragOrder, printListOrder: _index.printListOrder }, dispatch);
 }
 function mapStateToProps(state) {
   return {
@@ -15939,7 +15140,13 @@ exports.default = function () {
 
 var _index = require('../actions/index');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
 
 var INITIAL_STATE = {
   isFetching: false,
@@ -15989,7 +15196,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
@@ -16028,37 +15243,18 @@ exports.default = function () {
           return state;
       }
     case _index.DELETE_MUSIC:
-      var music_to_delete = action.payload;
       var music_to_delete_data = JSON.parse(action.payload.json_data);
-      if (state.music_1 && state.music_1.etag === music_to_delete_data.etag || state.music_2 && state.music_2.etag === music_to_delete_data.etag || state.waiting_list.indexOf(music_to_delete_data) != -1) {
-        if (music_to_delete.state === "playing") {
-          if (state.mute_player === 2) {
-            if (!state.music_1 || !state.music_2) {
-              return _extends({}, state, { music_1: null });
-            } else {
-              return _extends({}, state, { music_2: null });
-            }
-          } else {
-            if (!state.music_1 || !state.music_2) {
-              return _extends({}, state, { music_2: null });
-            } else {
-              return _extends({}, state, { music_1: null });
-            }
-          }
-        } else if (music_to_delete.state === "next") {
-          if (state.mute_player === 2) {
-            return _extends({}, state, { music_1: null });
-          } else {
-            return _extends({}, state, { music_2: null });
-          }
-        } else if (music_to_delete.state === "waiting") {
-          var reduced_list = state.waiting_list.filter(function (x) {
-            return x.etag != music_to_delete_data.etag;
-          });
-          return _extends({}, state, { waiting_list: reduced_list, draggingObject: { items: reduced_list, draggingIndex: null } });
-        } else {
-          return state;
-        }
+      if (state.music_1 && state.music_1.etag === music_to_delete_data.etag) {
+        return _extends({}, state, { music_1: null });
+      } else if (state.music_2 && state.music_2.etag === music_to_delete_data.etag) {
+        return _extends({}, state, { music_2: null });
+      } else if (state.waiting_list.filter(function (i) {
+        return i.id.videoId == music_to_delete_data.id.videoId;
+      }).length > 0) {
+        var reduced_list = state.waiting_list.filter(function (x) {
+          return x.etag != music_to_delete_data.etag;
+        });
+        return _extends({}, state, { waiting_list: reduced_list, draggingObject: { items: reduced_list, draggingIndex: null } });
       } else {
         return state;
       }
@@ -16066,11 +15262,8 @@ exports.default = function () {
       var updated_music = action.payload;
       var updated_music_data = JSON.parse(action.payload.json_data);
       if (updated_music.state === "playing") {
-        if (state.mute_player === 2) {
-          return _extends({}, state, { balance: 0, mute_player: 1 });
-        } else {
-          return _extends({}, state, { balance: 0, mute_player: 2 });
-        }
+        var new_mute_player = state.mute_player === 1 ? 2 : 1;
+        return _extends({}, state, { balance: 0, mute_player: new_mute_player });
       } else if (updated_music.state === "next") {
         var light_list = $.grep(state.waiting_list, function (e) {
           return e.etag != updated_music_data.etag;
@@ -16089,29 +15282,6 @@ exports.default = function () {
       }
     case _index.CHANGE_BALANCE:
       return _extends({}, state, { balance: action.payload });
-    case _index.PLAY_NEXT:
-      var list = state.waiting_list;
-      if (list[0] === state.music_1 || list[0] === state.music_2) {
-        list.shift();
-      }
-      var music = state.waiting_list[0];
-      if (action.payload === 1) {
-        return _extends({}, state, { music_1: music });
-      } else {
-        return _extends({}, state, { music_2: music });
-      }
-    case _index.STOP_PLAYER:
-      if (action.payload === 1) {
-        return _extends({}, state, { music_1: null });
-      } else {
-        return _extends({}, state, { music_2: null });
-      }
-    // case SWITCH_PLAYERS:
-    //   if (action.payload.old_player === 1){
-    //     return {...state, music_1: null, balance: 0, mute_player:1}
-    //   }else{
-    //     return {...state, music_2: null, balance: 0, mute_player:2}
-    //   }
     case _index.GOT_ROOM:
       if (action.payload.data.musics.length > 0) {
         var playing = $.grep(action.payload.data.musics, function (e) {
@@ -16160,7 +15330,15 @@ exports.default = function () {
 
 var _index = require('../actions/index');
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
 
 var INITIAL_STATE = { search_term: '', youtube_auto_complete: [], all: [], music_1: null, music_2: null, balance: 0, mute_player: 2, waiting_list: [], draggingObject: {} };
 
@@ -16171,7 +15349,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
@@ -16191,6 +15377,11 @@ exports.default = function () {
         return _extends({}, state, { users: [].concat(_toConsumableArray(state.users), [action.payload]) });
       }
     case _index.DELETE_INVITATION:
+      console.log("state", state.users);
+      console.log("payload", action.payload);
+      console.log("condition", state.users.some(function (u) {
+        return u.id === action.payload.id;
+      }));
       if (state.users.some(function (u) {
         return u.id === action.payload.id;
       })) {
@@ -16209,7 +15400,15 @@ exports.default = function () {
 
 var _index = require('../actions/index');
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
 
 var INITIAL_STATE = { room_list: [], contribution_list: [], id: '', name: '', slug: '', dj: {}, users: [], strangers_number: 0 };
 

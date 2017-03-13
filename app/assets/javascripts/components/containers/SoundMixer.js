@@ -1,6 +1,6 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {changeBalance, playNext, startPlayer, stopPlayer, deleteMusic, changeDragOrder, printListOrder} from '../actions/index';
+import {changeBalance, deleteMusic, changeDragOrder, printListOrder} from '../actions/index';
 import React from 'react'
 import VideoPlayer from '../components/VideoPlayer'
 import WaitingList from '../components/WaitingList'
@@ -34,9 +34,6 @@ class SoundMixer extends React.Component {
     this.props.deleteMusic(old_music, this.props.room_id)
     const new_player = old_player === 1 ? 2 : 1
   }
-  setPlayingAt(player, statement){
-    statement ? this.props.startPlayer(player) : this.props.stopPlayer(player)
-  }
   fade(){
     const balance = this.props.balance
     if (balance > -1 && balance < 100){
@@ -62,7 +59,6 @@ class SoundMixer extends React.Component {
       onVideoEnd={this.switchPlayers.bind(this)}
       forceOtherPlayer={this.forcePlayer.bind(this)}
       forcePlay={num === 1 ? this.state.forceFirstPlayer : this.state.forceSecondPlayer}
-      setPlayingAt={this.setPlayingAt.bind(this)}
       isFirstMusic={isFirstMusic}
       alignRight={alignRight}
       switchCountDown={switchCountDown}
@@ -81,10 +77,10 @@ class SoundMixer extends React.Component {
     let callCount = 1;
     var waitAndSee =function () {
       if (callCount < 10) {
-        this.props.mute_player === 1 ? this.setState({switchCountDown1: 10 - callCount}) : this.setState({switchCountDown1: 10 - callCount})
+        this.props.mute_player === 1 ? this.setState({switchCountDown2: 10 - callCount}) : this.setState({switchCountDown1: 10 - callCount})
         this.getBalance() === '100' ? callCount += 1 : clearInterval(waitAndSwitch)
       } else {
-        this.props.mute_player === 1 ? this.setState({switchCountDown1: 10}) : this.setState({switchCountDown1: 10})
+        this.props.mute_player === 1 ? this.setState({switchCountDown2: 10}) : this.setState({switchCountDown1: 10})
         const old_player = this.props.mute_player === 1 ? 0 : 1
         this.switchPlayers(old_player)
         clearInterval(waitAndSwitch);
@@ -201,25 +197,13 @@ class SoundMixer extends React.Component {
    )
   }
   render(){
-    if (this.props.current_username === this.props.dj_name){
-      return(
-        <div>
-          {this.djUi()}
-        </div>
-      )
-
-    }else{
-      return(
-        <div>
-          {this.visitorUi()}
-        </div>
-      )
-    }
+    const ui = this.props.current_username === this.props.dj_name ? this.djUi() : this.visitorUi()
+    return <div>{ui}</div>
   }
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({changeBalance, playNext, startPlayer, stopPlayer, deleteMusic, changeDragOrder, printListOrder}, dispatch);
+  return bindActionCreators({changeBalance, deleteMusic, changeDragOrder, printListOrder}, dispatch);
 }
 function mapStateToProps(state){
   return {

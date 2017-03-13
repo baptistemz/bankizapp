@@ -1,4 +1,4 @@
-import {FETCH_MUSICS, PLAY_NEXT, STOP_PLAYER, ADD_MUSIC, DELETE_MUSIC, UPDATE_MUSIC, SWITCH_PLAYERS, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER} from '../actions/index'
+import {FETCH_MUSICS, ADD_MUSIC, DELETE_MUSIC, UPDATE_MUSIC, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER} from '../actions/index'
 
 const INITIAL_STATE = { search_term: '', youtube_auto_complete:[], all:[], music_1: null, music_2: null, balance:0, mute_player:2, waiting_list:[], draggingObject: {}};
 
@@ -36,37 +36,14 @@ export default function(state = INITIAL_STATE, action){
         return state
     }
   case DELETE_MUSIC:
-    const music_to_delete = action.payload
     const music_to_delete_data = JSON.parse(action.payload.json_data)
-    if( (state.music_1 && state.music_1.etag === music_to_delete_data.etag)
-    || (state.music_2 && state.music_2.etag === music_to_delete_data.etag)
-    || (state.waiting_list.indexOf(music_to_delete_data) != -1)){
-      if(music_to_delete.state === "playing"){
-        if (state.mute_player === 2){
-          if(!state.music_1||!state.music_2){
-            return {...state, music_1: null}
-          }else{
-            return {...state, music_2: null}
-          }
-        }else{
-          if(!state.music_1||!state.music_2){
-            return {...state, music_2: null}
-          }else{
-            return {...state, music_1: null}
-          }
-        }
-      }else if(music_to_delete.state === "next"){
-        if (state.mute_player === 2){
-          return {...state, music_1: null}
-        }else{
-          return {...state, music_2: null}
-        }
-      }else if (music_to_delete.state === "waiting"){
-        const reduced_list = state.waiting_list.filter(function(x) { return x.etag != music_to_delete_data.etag})
-        return {...state, waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
-      }else{
-        return state
-      }
+    if(state.music_1 && state.music_1.etag === music_to_delete_data.etag){
+      return {...state, music_1: null}
+    }else if(state.music_2 && state.music_2.etag === music_to_delete_data.etag){
+      return {...state, music_2: null}
+    }else if(state.waiting_list.filter(function(i){return i.id.videoId == music_to_delete_data.id.videoId}).length > 0){
+      const reduced_list = state.waiting_list.filter(function(x) { return x.etag != music_to_delete_data.etag})
+      return {...state, waiting_list: reduced_list, draggingObject: {items: reduced_list, draggingIndex: null}}
     }else{
       return state
     }
@@ -74,11 +51,8 @@ export default function(state = INITIAL_STATE, action){
     const updated_music = action.payload
     const updated_music_data = JSON.parse(action.payload.json_data)
     if(updated_music.state === "playing"){
-      if (state.mute_player === 2){
-        return {...state, balance: 0 , mute_player: 1}
-      }else{
-        return {...state, balance: 0 , mute_player: 2}
-      }
+      const new_mute_player = state.mute_player === 1 ? 2 : 1
+      return {...state, balance: 0 , mute_player: new_mute_player}
     }else if(updated_music.state === "next"){
       const light_list = $.grep(state.waiting_list, function(e){ return e.etag != updated_music_data.etag; });
       if (state.mute_player === 2){
@@ -95,29 +69,6 @@ export default function(state = INITIAL_STATE, action){
     }
   case CHANGE_BALANCE:
     return {...state, balance: action.payload}
-  case PLAY_NEXT:
-    const list = state.waiting_list
-    if((list[0] === state.music_1)||(list[0] === state.music_2)){
-      list.shift()
-    }
-    const music = state.waiting_list[0]
-    if (action.payload === 1){
-      return {...state, music_1: music}
-    }else{
-      return {...state, music_2: music}
-    }
-  case STOP_PLAYER:
-    if (action.payload === 1){
-      return {...state, music_1: null}
-    }else{
-      return {...state, music_2: null}
-    }
-  // case SWITCH_PLAYERS:
-  //   if (action.payload.old_player === 1){
-  //     return {...state, music_1: null, balance: 0, mute_player:1}
-  //   }else{
-  //     return {...state, music_2: null, balance: 0, mute_player:2}
-  //   }
   case GOT_ROOM:
     if(action.payload.data.musics.length> 0){
       const playing = $.grep(action.payload.data.musics, function(e){ return e.state == "playing"})[0];
@@ -152,5 +103,4 @@ export default function(state = INITIAL_STATE, action){
   default:
     return state;
   }
-
 }
