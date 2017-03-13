@@ -1,11 +1,6 @@
 production: &production
   adapter: redis
   url: redis://redistogo:fd03de410d1e03ecdc226faaf1ded92e@porgy.redistogo.com:10312/
-  host: porgy.redistogo.com
-  port: 10312
-  password: fd03de410d1e03ecdc226faaf1ded92e
-  inline: true
-  timeout: 1
 development: &development
   adapter: async
 test: *development
