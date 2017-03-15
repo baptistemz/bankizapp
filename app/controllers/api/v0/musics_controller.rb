@@ -1,6 +1,8 @@
 module Api
   module V0
     class MusicsController < ApplicationController
+      before_action :set_current_user
+
       def index
         @room = Room.friendly.find(params[:room_id])
         @musics = @room.musics.all
@@ -13,14 +15,18 @@ module Api
           music = @room.musics.where(state: "next").first
           music.update(state: "waiting") if music
         end
-        @music = @room.musics.create(music_params)
+        music_params
+        if current_user
+          @music_params[:user_id] = current_user.id
+        end
+        @music = @room.musics.create(@music_params)
         render :show
       end
 
       def update
         @room = Room.friendly.find(params[:room_id])
         @music = @room.musics.friendly.find(params[:id])
-        @music.update(params)
+        @music.update(music_params)
       end
 
       def destroy
@@ -49,7 +55,7 @@ module Api
       private
 
       def music_params
-        params.require(:music).permit(:state, :json_data, :slug)
+        @music_params = params.require(:music).permit(:state, :json_data, :slug, :user_id)
       end
     end
   end

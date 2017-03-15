@@ -2,11 +2,11 @@ import React from 'react';
 import {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {toastr} from 'react-redux-toastr';
 import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged} from '../actions/index'
-import SearchGroup from './SearchGroup';
-import SoundMixer from './SoundMixer';
+import SoundMixer from './SoundMixer'
 
-class Room extends Component {
+class RoomHeader extends Component {
   componentCleanup(){
     if (this.props.username){
       const username = this.props.username
@@ -41,43 +41,73 @@ class Room extends Component {
     window.onbeforeunload = null; // remove the event handler for normal unmounting
   }
   receiveRoomData(data){
-    console.log("RECEIVED ALGO", data)
     switch(data.action) {
       case "added":
-        console.log("receive added")
         this.props.receiveAddedMusic(data)
         break;
       case "updated":
-        console.log("receive updated")
         this.props.receiveUpdatedMusic(data)
         break;
       case "deleted":
-        console.log("receive deleted")
         this.props.receiveDeletedMusic(data)
         break;
       case "sorted":
-        console.log("receive sorted")
         this.props.receiveSortedMusics(data)
         break;
       case "new invitation":
-        console.log("receive new invitation")
         this.props.receiveNewInvitation(data)
         break;
       case "strangers_number_changed":
-        console.log("receive strangers_number_changed")
         this.props.strangersNumberChanged(data)
         break;
       case "invitation deleted":
-        console.log("receive invitation deleted")
         this.props.receiveDeletedInvitation(data)
         break;
     }
   }
+  copyLink(){
+    var aux = document.createElement("input");
+    aux.setAttribute("value", `http://www.bankizapp.com/rooms/${this.props.room_slug}`);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand("copy");
+    document.body.removeChild(aux);
+    toastr.success('The room link has been copied to your clipboard', 'you can now share it with friends !')
+  }
   render() {
     return (
       <div className="container">
-        <SoundMixer/>
-        <SearchGroup/>
+        <div className="room-presentation">
+          <h1 className="text-center">{this.props.room_name}</h1>
+          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
+        </div>
+        <div className="row">
+          <div className="users-group col s12">
+            <div className= "logged-in-state">
+              <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big> users connected</p>
+              <div className="hover-chip" id="logged-in-chip">
+                {this.props.room_users.map(function(u, i){
+                  return(
+                    <div key={i}>
+                      {u.username}
+                    </div>
+                  )
+                })}
+                {this.props.strangers_number > 0 ?
+                  <div>+{this.props.strangers_number} strangers</div>
+                :
+                  <div></div>
+                }
+              </div>
+            </div>
+            <div className="space-around">
+              <h6>Share this room : </h6>
+              <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
+            </div>
+          </div>
+        </div>
+        <SoundMixer visible={this.props.location.pathname != `/rooms/${this.props.room_slug}/search`} />
+        {this.props.children}
       </div>
     );
   }
@@ -89,9 +119,13 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state){
   return {
+    room_name: state.room.name,
+    room_slug: state.room.slug,
+    dj_name: state.room.dj.username,
+    strangers_number: state.room.strangers_number,
     room_users: state.room.users,
     username: state.user.username
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Room)
+export default connect(mapStateToProps,mapDispatchToProps)(RoomHeader)

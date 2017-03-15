@@ -146,7 +146,7 @@ export default class VideoPlayer extends React.Component {
             opts={opts}
             onStateChange={this.onStateChange.bind(this)}/>
           <h5 className="music-title">{this.props.video.snippet.title}</h5>
-          <div className="delete-btn" onClick={this.props.deleteVideo.bind(this, this.props.video)}><i className="material-icons">delete</i></div>
+          <div className="delete-btn" onClick={this.props.deleteVideo.bind(this, this.props.number, this.props.video)}><i className="material-icons">delete</i></div>
           <div id={message_id}>
             auto delete in <big>{this.props.switchCountDown}</big> seconds
           </div>

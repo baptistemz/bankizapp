@@ -21,3 +21,7 @@ nav .input-field label i{
   -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
    -webkit-text-fill-color: $primary-color;
 }
+
+.input-field label:not(.labe-icon).active {
+  transform: initial;
+}

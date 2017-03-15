@@ -7,6 +7,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'c724f542d0360fabf12363456778c002665a748fdf7f5053b37484bbcce11e1b82fa3b09e9cd20851988b077401cad7e9f0c78eee145c69db43373f577647565'
+  config.secret_key = '0de2bb91ee42da563f362e6bed8d5846996f129f64f3a7da80d1ec16652f8f69935b169011e43d24fa519875581d1bf48bd6ebd9e4c490f76117b0f89c025cf7'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -19,7 +20,6 @@ Devise.setup do |config|
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
-
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be

@@ -58,12 +58,18 @@ export function fetchMusics(term){
   }
 }
 export function addMusic(room_id, music, state){
+  const token = localStorage.getItem('auth_token')
   const post_url = `/api/v0/rooms/${room_id}/musics`
-  const request = axios.post(post_url, {
+  const data = {
     json_data: JSON.stringify(music),
     state: state,
     slug: slugify(music.etag.substr(music.etag.length - 10))
-  })
+  }
+  const config = {headers: {
+      "Authorization": "Bearer "+ token,
+      "Content-Type": "application/json"
+  }}
+  const request = axios.post(post_url, data, config)
   return(dispatch) => {
     request.then(function(data){
       dispatch({type: ADD_MUSIC, payload:data.data})

@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # before_filter :authenticate_request!
   protect_from_forgery with: :null_session
   attr_reader :current_user
 
@@ -14,6 +13,14 @@ class ApplicationController < ActionController::Base
     @current_user = User.find(auth_token[:user_id])
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { errors: ['You must be logged in to do this action'] }, status: :unauthorized
+  end
+
+  def set_current_user
+    if user_id_in_token?
+      @current_user = User.find(auth_token[:user_id])
+    else
+      @current_user = nil
+    end
   end
 
   private

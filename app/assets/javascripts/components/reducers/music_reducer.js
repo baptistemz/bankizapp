@@ -1,4 +1,4 @@
-import {FETCH_MUSICS, ADD_MUSIC, DELETE_MUSIC, UPDATE_MUSIC, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER} from '../actions/index'
+import {FETCH_MUSICS, ADD_MUSIC, DELETE_MUSIC, UPDATE_MUSIC, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER} from '../actions/index.js'
 
 const INITIAL_STATE = { search_term: '', youtube_auto_complete:[], all:[], music_1: null, music_2: null, balance:0, mute_player:2, waiting_list:[], draggingObject: {}};
 
@@ -63,7 +63,7 @@ export default function(state = INITIAL_STATE, action){
     }else if(updated_music.state === "waiting"){
       const augmented_list = state.waiting_list
       augmented_list.unshift(updated_music_data)
-      return {...state, music_2: updated_music_data, waiting_list: augmented_list}
+      return {...state, waiting_list: augmented_list}
     }else{
       return state
     }

@@ -1,6 +1,9 @@
 module Api
   module V0
     class UsersController < ApplicationController
+      before_action :authenticate_request!
+      skip_before_action :authenticate_request!, :only => [:create]
+
       def create
         @user = User.new(user_params)
         if @user.save
@@ -9,6 +12,10 @@ module Api
           render_error
         end
       end
+
+      # def send_password_token
+      #   current_user.send_reset_password_instructions
+      # end
 
       private
 

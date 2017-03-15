@@ -1,13 +1,12 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import {changeBalance, deleteMusic, changeDragOrder, printListOrder} from '../actions/index';
 import React from 'react'
 import VideoPlayer from '../components/VideoPlayer'
 import WaitingList from '../components/WaitingList'
 import VisitorUI from '../components/VisitorUI'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {toastr} from 'react-redux-toastr'
-
 
 class SoundMixer extends React.Component {
   constructor(props){
@@ -32,11 +31,12 @@ class SoundMixer extends React.Component {
   switchPlayers(old_player){
     const old_music = old_player === 1 ? this.props.music_1 : this.props.music_2
     this.props.deleteMusic(old_music, this.props.room_id)
-    const new_player = old_player === 1 ? 2 : 1
   }
   fade(){
     const balance = this.props.balance
     if (balance > -1 && balance < 100){
+      this.setState({switchCountDown1: 10})
+      this.setState({ switchCountDown2: 10})
       this.props.changeBalance(balance+5)
       if (balance === 95){
         const old_player = this.props.mute_player === 1 ? 0 : 1
@@ -44,7 +44,8 @@ class SoundMixer extends React.Component {
       }
     }
   }
-  deleteVideo(music){
+  deleteVideo(player, music){
+    player === 1 ? this.setState({switchCountDown1: 10 }): this.setState({ switchCountDown2: 10 })
     this.props.deleteMusic(music, this.props.room_id)
   }
   videoPlayer(music, num){
@@ -93,15 +94,7 @@ class SoundMixer extends React.Component {
       return this.videoPlayer(music, num)
     }
   }
-  copyLink(){
-    var aux = document.createElement("input");
-    aux.setAttribute("value", `http://www.bankizapp.com/rooms/${this.props.room_slug}`);
-    document.body.appendChild(aux);
-    aux.select();
-    document.execCommand("copy");
-    document.body.removeChild(aux);
-    toastr.success('The room link has been copied to your clipboard', 'you can now share it with friends !')
-  }
+
   changeListOrder(obj){
     this.props.changeDragOrder(obj)
   }
@@ -114,36 +107,8 @@ class SoundMixer extends React.Component {
   djUi(){
     return(
       <div className="row">
-        <div className="room-presentation">
-          <h1 className="text-center">{this.props.room_name}</h1>
-          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
-        </div>
-        <br/>
         {this.music(this.props.music_1, 1)}
         {this.music(this.props.music_2, 2)}
-        <div className="users-group col s12">
-          <div className= "logged-in-state">
-            <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big> users connected</p>
-            <div className="hover-chip" id="logged-in-chip">
-              {this.props.room_users.map(function(u, i){
-                return(
-                  <div key={i}>
-                    {u.username}
-                  </div>
-                )
-              })}
-              {this.props.strangers_number > 0 ?
-                <div>+{this.props.strangers_number} strangers</div>
-              :
-                <div></div>
-              }
-            </div>
-          </div>
-          <div className="space-around">
-            <h6>Share this room : </h6>
-            <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
-          </div>
-        </div>
         <div className="col s12 m5">
           <div className="player-background right-background z-depth-1">
             <h5>track 1</h5>
@@ -185,10 +150,6 @@ class SoundMixer extends React.Component {
   visitorUi(){
     return(
       <div className="row">
-        <div className="room-presentation">
-          <h1 className="text-center">{this.props.room_name}</h1>
-          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
-        </div>
         <VisitorUI waitingList= {this.props.waiting_list}
           reverted = {this.props.mute_player === 1}
           music1= {this.props.music_1}
@@ -198,7 +159,17 @@ class SoundMixer extends React.Component {
   }
   render(){
     const ui = this.props.current_username === this.props.dj_name ? this.djUi() : this.visitorUi()
-    return <div>{ui}</div>
+    const visibilityClass = this.props.visible ? 'visible' : 'hidden'
+    return (
+      <div className={visibilityClass}>
+        <Link to={`/rooms/${this.props.room_slug}/search`} id="search-btn">
+          <div className="btn-floating waves-effect waves-light modal-trigger" data-target="modal2"><i className="material-icons">search</i></div>
+        </Link>
+        <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout= {500} transitionLeaveTimeout= {500}>
+          {ui}
+        </ReactCSSTransitionGroup>
+      </div>
+    )
   }
 }
 

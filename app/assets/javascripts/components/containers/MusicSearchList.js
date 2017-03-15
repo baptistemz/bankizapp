@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {browserHistory} from 'react-router'
 import slugify from '../slugify'
 import {addMusic} from '../actions/index';
 import MusicListItem from '../components/MusicListItem';
@@ -15,28 +16,27 @@ class MusicSearchList extends Component {
     $('ul.tabs').tabs();
   }
   playMusic(music){
-    $('#modal2').modal('close');
     const status = !this.props.music_1 && !this.props.music_2 ? "playing" : "next"
+    console.log(status)
     this.props.addMusic(this.props.room_id, music, status);
+    browserHistory.push(`/rooms/${this.props.room_slug}`);
   }
   addMusicToList(music){
-    $('#modal2').modal('close');
     let status = !this.props.music_1 && !this.props.music_2 ? "playing" : "next"
     status = !this.props.music_1 || !this.props.music_2 ? status : "waiting"
     this.props.addMusic(this.props.room_id, music, status);
+    browserHistory.push(`/rooms/${this.props.room_slug}`);
   }
   render(){
     const musics = this.props.musics;
     return(
       <div>
         <div className="row">
-          <div className="col s12">
-            <ul className="tabs">
-              <li className="tab col s4"><a href="#youtube">Youtube</a></li>
-              <li className="tab col s4"><a href="#soundcloud">Soundcloud</a></li>
-              <li className="tab col s4"><a href="#spotify">Spotify</a></li>
-            </ul>
-          </div>
+          <ul className="tabs">
+            <li className="tab col s4"><a href="#youtube">Youtube</a></li>
+            <li className="tab col s4"><a href="#soundcloud">Soundcloud</a></li>
+            <li className="tab col s4"><a href="#spotify">Spotify</a></li>
+          </ul>
           <div id="youtube" className="col s12">
             <h4>Results of your search on Youtube</h4>
             <ul>
@@ -78,6 +78,7 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state){
   return {
     room_id: state.room.id,
+    room_slug: state.room.slug,
     musics: state.music.all,
     music_1: state.music.music_1,
     music_2: state.music.music_2
