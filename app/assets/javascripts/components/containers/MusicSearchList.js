@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router'
 import slugify from '../slugify'
+import {toastr} from 'react-redux-toastr';
+
+
 import {addMusic} from '../actions/index';
 import MusicListItem from '../components/MusicListItem';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -14,6 +17,14 @@ class MusicSearchList extends Component {
   }
   componentDidMount() {
     $('ul.tabs').tabs();
+  }
+  onNotifClick(){
+    if(this.props.isAuthenticated){
+      alert('Thank you for subscribing to this alert. We will notify you when this feature is available')
+    }else{
+      toastr.error('Log in or create an account to access the notification features')
+      browserHistory.push('/login')
+    }
   }
   playMusic(music){
     const status = !this.props.music_1 && !this.props.music_2 ? "playing" : "next"
@@ -58,12 +69,12 @@ class MusicSearchList extends Component {
           </div>
           <div id="soundcloud" className="col s12">
             <h4>The Soundcould integration is coming soon !</h4>
-            <a className="btn"href="#">Get notified when by email</a>
+            <a onClick={this.onNotifClick.bind(this)} className="btn"href="#">Get notified when by email</a>
             <em>Promise we won't send you tricks to earn 10,000$ in ten minutes</em>
           </div>
           <div id="spotify" className="col s12">
             <h4>The Spotify integration is coming soon !</h4>
-            <a className="btn"href="#">Get notified when by email</a>
+            <a onClick={this.onNotifClick.bind(this)} className="btn"href="#">Get notified when by email</a>
             <em>Promise we won't send you tricks to earn 10,000$ in ten minutes</em>
           </div>
         </div>
@@ -77,6 +88,7 @@ function mapDispatchToProps(dispatch){
 }
 function mapStateToProps(state){
   return {
+    isAuthenticated: state.user.isAuthenticated,
     room_id: state.room.id,
     room_slug: state.room.slug,
     musics: state.music.all,
