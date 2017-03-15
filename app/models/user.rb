@@ -4,5 +4,6 @@ class User < ActiveRecord::Base
   validates :username, presence: true
   validates :email, presence: true
   has_many :rooms, dependent: :destroy
+  has_many :musics, dependent: :nullify
   has_many :invitations
 end

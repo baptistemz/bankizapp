@@ -18,11 +18,11 @@
   }
   .right-thumbnail{
     left: 5%;
-    top: 369px;
+    top: 360px;
   }
   .left-thumbnail{
     left: 5%;
-    top:144px;
+    top:135px;
   }
   #logo-sound-group{
     padding: 10px 0;
@@ -34,9 +34,7 @@
   .room-presentation{
     margin-bottom: -20px
   }
-  .users-group{
-    margin-bottom: 10px
-  }
+
   #fake-soundmixer{
     width: 90%;
     left: 5%;
@@ -47,11 +45,14 @@
     right: 5%;
   }
   .users-group{
+    margin-bottom: 6px;
     p.underline{
       font-size: 13px
     }
     h6{
-      width: 71px
+      margin-bottom: 0px;
+      height: 20px;
+      line-height: 40px;
     }
     .btn{
       padding: 0 0.8rem
@@ -74,7 +75,7 @@
     font-size: 1.65em;
   }
   .video-container{
-    top: 259px;
+    top: 254px;
     width: calc(35.5% - 14px);
   }
   .right-thumbnail{
@@ -120,7 +121,7 @@
     font-size: 1.95em;
   }
   .video-container{
-    top: 267px;
+    top: 262px;
     width: calc(29.3% - 16px);
   }
   .right-thumbnail{
@@ -172,7 +173,7 @@
     font-size: 2.1em;
   }
   .video-container{
-    top: 285px;
+    top: 279px;
     width: calc(29% - 11px);
   }
   .right-thumbnail{

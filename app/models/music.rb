@@ -8,6 +8,7 @@ class Music < ApplicationRecord
   default_scope { order("created_at ASC") }
 
   belongs_to :room
+  belongs_to :user
   store_accessor :json_data
   serialize :json_data, ActiveRecord::Coders::NestedHstore
   friendly_id :slug, use: :slugged

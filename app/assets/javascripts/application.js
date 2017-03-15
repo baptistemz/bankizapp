@@ -15,5 +15,6 @@
 //= require scrollme.min
 //= require react_ujs
 //= require materialize
+//= require facebook-share
 //= require components
 //= require cable

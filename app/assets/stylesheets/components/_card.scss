@@ -21,17 +21,15 @@
   display: flex;
   justify-content: space-around;
 }
-.gradient-border{
+.card{
   position: flex;
   vertical-align: center;
   justify-content: center;
-  border: 1px solid transparent;
-  -moz-border-image: -moz-linear-gradient(left, #a5deff 0%, $primary-color 100%);
-  -webkit-border-image: -webkit-linear-gradient(left, #a5deff 0%, $primary-color 100%);
-  border-image: linear-gradient(to right, #a5deff 0%, $primary-color 100%);
-  border-image-slice: 1;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid transparent ;
+  border-radius: 3;
   background-color: white;
-  box-shadow: none;
+  box-shadow: 0 2px 2px rgba(120, 120, 120, 0.2);
 }
 .card-image{
   position: relative
@@ -48,6 +46,8 @@
   color: white;
   position : absolute;
   top:0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .video-duration{

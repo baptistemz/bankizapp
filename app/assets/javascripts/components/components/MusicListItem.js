@@ -6,7 +6,7 @@ const MusicListItem = (props) => {
   const background = {backgroundImage:`url(${imgUrl})`}
   return(
       <li className="col s12 m6 l4">
-        <div className= 'card gradient-border'>
+        <div className= 'card'>
           <div className="card-image">
             <div style={background} ></div>
             <p className="card-title truncate-block">{music.snippet.title}</p>

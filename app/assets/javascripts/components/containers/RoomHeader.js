@@ -43,6 +43,9 @@ class RoomHeader extends Component {
   receiveRoomData(data){
     switch(data.action) {
       case "added":
+        const username = data.music.username || 'stranger'
+        const title = JSON.parse(data.music.json_data).snippet.title
+        toastr.success(`music added by ${username}`, title)
         this.props.receiveAddedMusic(data)
         break;
       case "updated":
@@ -74,6 +77,13 @@ class RoomHeader extends Component {
     document.body.removeChild(aux);
     toastr.success('The room link has been copied to your clipboard', 'you can now share it with friends !')
   }
+  messengerShare(){
+    FB.ui({
+        method: 'send',
+        name: 'Invitation to contribute to my player',
+        link: 'http://www.bankizapp.com/rooms/${this.props.room_slug}',
+    });
+  }
   render() {
     return (
       <div className="container">
@@ -84,7 +94,7 @@ class RoomHeader extends Component {
         <div className="row">
           <div className="users-group col s12">
             <div className= "logged-in-state">
-              <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big> users connected</p>
+              <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big>users<span className="hide-on-small-only"> connected</span></p>
               <div className="hover-chip" id="logged-in-chip">
                 {this.props.room_users.map(function(u, i){
                   return(
@@ -101,7 +111,10 @@ class RoomHeader extends Component {
               </div>
             </div>
             <div className="space-around">
-              <h6>Share this room : </h6>
+              <h6 className="hide-on-small-only">Share this room : </h6>
+              <h6 className="hide-on-med-and-up">Share : </h6>
+              <div className="btn messenger-btn" onClick={this.messengerShare.bind(this)}><img src="/messenger-icon.png" alt="messenger"/></div>
+              <h6>or</h6>
               <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
             </div>
           </div>
