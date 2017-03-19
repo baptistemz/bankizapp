@@ -45,8 +45,8 @@ class MusicSearchList extends Component {
         <div className="row">
           <ul className="tabs">
             <li className="tab col s4"><a href="#youtube">Youtube</a></li>
-            <li className="tab col s4"><a href="#soundcloud">Soundcloud</a></li>
             <li className="tab col s4"><a href="#spotify">Spotify</a></li>
+            <li className="tab col s4"><a href="#deezer">Deezer</a></li>
           </ul>
           <div id="youtube" className="col s12">
             <h4>Results of your search on Youtube</h4>
@@ -67,13 +67,13 @@ class MusicSearchList extends Component {
               </div>
             </ul>
           </div>
-          <div id="soundcloud" className="col s12">
-            <h4>The Soundcould integration is coming soon !</h4>
+          <div id="spotify" className="col s12">
+            <h4>The Spotify integration is coming soon !</h4>
             <a onClick={this.onNotifClick.bind(this)} className="btn"href="#">Get notified when by email</a>
             <em>Promise we won't send you tricks to earn 10,000$ in ten minutes</em>
           </div>
-          <div id="spotify" className="col s12">
-            <h4>The Spotify integration is coming soon !</h4>
+          <div id="deezer" className="col s12">
+            <h4>The Deezer integration is coming soon !</h4>
             <a onClick={this.onNotifClick.bind(this)} className="btn"href="#">Get notified when by email</a>
             <em>Promise we won't send you tricks to earn 10,000$ in ten minutes</em>
           </div>

@@ -30,7 +30,7 @@ class SideNav extends Component {
           </tbody>
         </table>
         <div className="space-around profile-btn-group">
-          <a onClick={this.logout.bind(this)}><div className="btn btn-small">Update profile</div></a>
+          <Link to='/profile'><div className="btn btn-small">Profile</div></Link>
           <a onClick={this.logout.bind(this)}><div className="btn btn-small">Log out</div></a>
         </div>
       </div>

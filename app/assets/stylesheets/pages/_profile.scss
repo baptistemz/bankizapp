@@ -1,0 +1,23 @@
+.profile-picture{
+  margin: 40px auto 0 auto;
+}
+.profile-text-group{
+  border: 1px solid #f3f3f3;
+  border-bottom: 1px solid transparent ;
+  box-shadow: 0 2px 2px rgba(120, 120, 120, 0.2);
+  padding: 10%
+}
+
+.frozen-field i{
+  color: $primary-color;
+  cursor: pointer;
+}
+
+.edit-field i:first-child{
+  // color: $green;
+  cursor: pointer;
+}
+.edit-field i:last-child{
+  // color: $red;
+  cursor: pointer;
+}

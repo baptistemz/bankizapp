@@ -47,8 +47,8 @@ class Prehome extends Component {
       document.getElementById('vol-btn').style["opacity"] = 0;
     } else {
       document.getElementById('fake-soundmixer').classList.remove("fixed")
-      document.getElementById('fake-soundmixer').style["opacity"] = 1;
-      document.getElementById('vol-btn').style["opacity"] = 1;
+      document.getElementById('fake-soundmixer').style["opacity"] = 0;
+      document.getElementById('vol-btn').style["opacity"] = 0;
     }
     if (scrollTop > 1370) {
       document.getElementById('fake-player-1-group').style["opacity"] = 1

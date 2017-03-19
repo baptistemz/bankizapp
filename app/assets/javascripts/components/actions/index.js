@@ -20,6 +20,7 @@ export const CHANGE_LIST_ORDER ='CHANGE_LIST_ORDER'
 export const CREATE_INVITATION ='CREATE_INVITATION'
 export const DELETE_INVITATION ='DELETE_INVITATION'
 export const STRANGERS_NUMBER_CHANGED ='STRANGERS_NUMBER_CHANGED'
+export const UPDATE_PROFILE ='UPDATE_PROFILE'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -38,7 +39,7 @@ export function fetchMusics(term){
     key: API_KEY,
     q: term,
     type: 'video',
-    maxResults: 12
+    maxResults: 18
   };
   const request1 = axios.get(ROOT_URL, { params: params })
   return(dispatch) => {
@@ -126,6 +127,8 @@ export function createRoom(name, slug){
       toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
       if(error.response.status === 401){
         browserHistory.push('/login');
+      }else{
+        browserHistory.push('/');
       }
     });
   }
@@ -248,6 +251,31 @@ export function strangersNumberChanged(data){
 // AUTH
 
 // Auth different states
+export function updateProfile(user_id, type, text){
+  const token = localStorage.getItem('auth_token')
+  console.log(token)
+  const put_url = `/api/v0/users/${user_id}`
+  let data = {}
+  data[type] = text
+  const config = {headers: {
+    "Authorization": "Bearer "+ token,
+    "Content-Type": "application/json"
+  }}
+  return dispatch => {
+    axios.put(put_url, data, config).then(response => {
+      console.log('response', response)
+      localStorage.setItem('email', response.data.email)
+      localStorage.setItem('username', response.data.username)
+      localStorage.setItem('user_id', response.data.id)
+      dispatch({type: UPDATE_PROFILE, payload: response.data})
+      // if (response.statusText === "OK"){
+      // }
+    }).catch(error =>{
+      console.log('error', error)
+      toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
+    });
+  };
+};
 
 function requestLogin(creds) {
   return {
@@ -345,6 +373,7 @@ export function loginUser(creds, current_room) {
           localStorage.setItem('auth_token', user.auth_token)
           localStorage.setItem('email', user.user.email)
           localStorage.setItem('username', user.user.username)
+          localStorage.setItem('user_id', user.user.id)
           // Dispatch the success action
           dispatch(receiveLogin(user))
           toastr.success('Logged in with success', `as ${user.user.username}`)
@@ -387,6 +416,7 @@ export function logoutUser() {
     localStorage.removeItem('auth_token')
     localStorage.removeItem('email')
     localStorage.removeItem('username')
+    localStorage.removeItem('user_id')
     dispatch(receiveLogout())
     toastr.success('Logged out successfully', 'Hope to see you soon !')
   }

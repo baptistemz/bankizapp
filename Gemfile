@@ -49,6 +49,7 @@ gem 'nested-hstore'
 gem 'figaro'
 
 group :development, :test do
+  gem 'letter_opener'
   gem 'binding_of_caller'
   gem 'better_errors'
   gem 'rspec-rails', '~> 3.5'

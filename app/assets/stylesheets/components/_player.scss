@@ -82,7 +82,7 @@
     font-size: 20px
   }
 }
-.delete-btn:hover{
+.delete-btn:hover .editable-field>i:hover{
   color: $primary-color;
   background-color: white;
   border: 1px solid $primary-color;
@@ -94,6 +94,6 @@
   top: calc(50% - 20px);
   left: calc(50% - 70px);
   color: white;
-  opacity: 0;
+  display: none;
   text-shadow: 1px 1px 3px #565454;
 }

@@ -6,6 +6,7 @@ import Prehome from '../components/Prehome';
 import SideNav from './SideNav';
 import SoundMixer from './SoundMixer';
 import SearchGroup from './SearchGroup';
+import Profile from './Profile';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
 
@@ -15,6 +16,7 @@ export default(
       <IndexRoute component={Prehome}/>
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={Login}/>
+      <Route path="/profile" component={Profile}/>
       <Route path= "/rooms/:roomId" component = {RoomHeader}>
         <Route path="search" component={SearchGroup}/>
       </Route>

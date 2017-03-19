@@ -1,10 +1,11 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT_SUCCESS} from '../actions/index'
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, LOGOUT_SUCCESS, UPDATE_PROFILE} from '../actions/index'
 
 const INITIAL_STATE = {
     isFetching: false,
     isAuthenticated: localStorage.getItem('auth_token') ? true : false,
     username: localStorage.getItem("username"),
-    email: localStorage.getItem("email")
+    email: localStorage.getItem("email"),
+    id: localStorage.getItem("user_id")
   };
 
 export default function(state = INITIAL_STATE, action) {
@@ -21,6 +22,7 @@ export default function(state = INITIAL_STATE, action) {
         isAuthenticated: true,
         username: action.user.user.username,
         email: action.user.user.email,
+        id: action.user.user.id,
         errorMessage: ''
       })
     case LOGIN_FAILURE:
@@ -42,6 +44,7 @@ export default function(state = INITIAL_STATE, action) {
         errorMessage: '',
         username: action.user.user.username,
         email: action.user.user.email,
+        id: action.user.user.id,
         errorMessage: ''
       })
     case SIGNUP_FAILURE:
@@ -55,6 +58,9 @@ export default function(state = INITIAL_STATE, action) {
         isFetching: true,
         isAuthenticated: false
       })
+    case UPDATE_PROFILE:
+      const { email, username, id } = action.payload
+      return {...state, email, username, id }
     default:
       return state
   }

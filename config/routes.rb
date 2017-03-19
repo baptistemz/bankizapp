@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v0 do
       post 'auth_user' => 'authentication#authenticate_user'
-      resources :users, only: :create
+      resources :users, only: [ :create, :update, :delete, :show ]
       resources :rooms, only: [ :show, :index, :create, :destroy ] do
         resources :musics, only: [:index, :create, :update, :destroy]
         post 'modify_waiting_list', to: 'musics#modify_waiting_list'

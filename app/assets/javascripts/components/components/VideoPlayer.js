@@ -26,9 +26,9 @@ export default class VideoPlayer extends React.Component {
       this.align('right')
     }
     if(this.props.switchCountDown < 10){
-      document.getElementById(`delete_message_${this.props.number}`).style["opacity"] = 1
+      document.getElementById(`delete_message_${this.props.number}`).style["display"] = 'block';
     }else{
-      document.getElementById(`delete_message_${this.props.number}`).style["opacity"] = 0
+      document.getElementById(`delete_message_${this.props.number}`).style["display"] = 'none';
     }
   }
   align(side){
