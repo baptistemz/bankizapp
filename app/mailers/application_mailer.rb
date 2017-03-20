@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'baptiste@bankizapp.com'
+  default from: 'support@bankizapp.com'
 
 end
