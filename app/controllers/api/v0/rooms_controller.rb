@@ -1,6 +1,6 @@
 module Api
   module V0
-    class RoomsController < ApplicationController
+    class RoomsController < BaseController
       before_action :authenticate_request!
       skip_before_action :authenticate_request!, :only => [:show, :increment_strangers_number, :decrement_strangers_number]
 

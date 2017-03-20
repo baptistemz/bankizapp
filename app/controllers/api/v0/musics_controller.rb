@@ -1,6 +1,6 @@
 module Api
   module V0
-    class MusicsController < ApplicationController
+    class MusicsController < BaseController
       before_action :set_current_user
 
       def index

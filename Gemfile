@@ -17,8 +17,9 @@ gem 'coffee-rails'
 # gem 'therubyracer',  platforms: :ruby
 gem 'redis', '~>3.2'
 gem 'puma', '~> 3.0'
-# gem 'sidekiq'
-# gem 'sidekiq-failures'
+gem 'sidekiq'
+gem 'sinatra', github: 'sinatra'
+gem 'sidekiq-failures'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -47,6 +48,11 @@ gem 'materialize-sass'
 gem 'friendly_id', '~> 5.1.0'
 gem 'nested-hstore'
 gem 'figaro'
+
+gem 'gibbon'
+
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
 
 group :development, :test do
   gem 'letter_opener'

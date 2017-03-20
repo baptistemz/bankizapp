@@ -12,6 +12,7 @@ module ReactRailsReduxSample
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     # config.serve_static_assets = true
+    config.active_job.queue_adapter = :sidekiq
     config.browserify_rails.commandline_options ="-t [ babelify --presets [  es2015 stage-2 react ] ]"
   end
 end

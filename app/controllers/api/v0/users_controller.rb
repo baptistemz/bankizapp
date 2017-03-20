@@ -1,6 +1,6 @@
 module Api
   module V0
-    class UsersController < ApplicationController
+    class UsersController < BaseController
       before_action :authenticate_request!
       skip_before_action :authenticate_request!, :only => [:create]
 

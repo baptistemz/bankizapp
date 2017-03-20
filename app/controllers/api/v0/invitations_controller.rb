@@ -1,6 +1,6 @@
 module Api
   module V0
-    class InvitationsController < ApplicationController
+    class InvitationsController < BaseController
       respond_to :json
       before_action :authenticate_request!
       skip_before_action :authenticate_request!, :only => [:update]

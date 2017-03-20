@@ -1,6 +1,6 @@
 module Api
   module V0
-    class AuthenticationController < ApplicationController
+    class AuthenticationController < BaseController
       def authenticate_user
         user = User.find_for_database_authentication(email: params[:email])
         if user

@@ -1,7 +1,12 @@
+require "sidekiq/web"
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'welcome#index'
   mount ActionCable.server => '/cable'
   devise_for :users
+  authenticate :user, lambda { |u| u.admin } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
   namespace :api, defaults: { format: :json } do
     namespace :v0 do
       post 'auth_user' => 'authentication#authenticate_user'
