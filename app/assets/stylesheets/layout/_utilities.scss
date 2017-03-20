@@ -1,3 +1,10 @@
+// html,body{
+//     width: 100%;
+//     height: 100%;
+//     margin: 0px;
+//     padding: 0px;
+//     overflow-x: hidden;
+// }
 body {
   font-family: 'Asap';
 }
@@ -101,6 +108,10 @@ big{
   margin-top: 20px
 }
 
+.margin-bottom-20{
+  margin-bottom: 20px
+}
+
 .horizontal-padded-20{
   padding: 0 20px
 }
@@ -153,6 +164,9 @@ big{
 }
 
 
+.redux-toastr{
+  width: 300px
+}
 
 // DEBUG MATERIALIZE
 span.value{

@@ -34,14 +34,14 @@ class Login extends Component {
                       <input id="icon_password" ref="password" type="password" className="validate"/>
                       <label htmlFor="icon_password">Password</label>
                     </div>
-                    <button type="submit" className="btn full-width margin-top-20">Submit</button>
+                    <button type="submit" className="btn full-width margin-top-20 margin-bottom-20">Submit</button>
                   </form>
                   {errorMessage &&
                     <p>{errorMessage}</p>
                   }
                 </div>
               </div>
-              <div className="text-center margin-top-20 text-20">
+              <div className="text-center margin-top-20 margin-bottom-20 text-20">
                 <Link to={'/signup'}>No account yet ? Create one !</Link>
               </div>
             </div>

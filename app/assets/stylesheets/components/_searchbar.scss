@@ -4,9 +4,7 @@ nav{
 nav .input-field label i{
   color: $primary-color
 }
-// .material-icons{
-  // color: $primary-color
-// }
+
 .input-field input[type=search]:focus ~ .material-icons{
   color: $primary-color
 }
@@ -22,6 +20,6 @@ nav .input-field label i{
    -webkit-text-fill-color: $primary-color;
 }
 
-.input-field label:not(.labe-icon).active {
+.search-input-field label:not(.labe-icon).active {
   transform: initial;
 }

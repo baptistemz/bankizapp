@@ -253,7 +253,6 @@ export function strangersNumberChanged(data){
 // Auth different states
 export function updateProfile(user_id, type, text){
   const token = localStorage.getItem('auth_token')
-  console.log(token)
   const put_url = `/api/v0/users/${user_id}`
   let data = {}
   data[type] = text
@@ -263,7 +262,6 @@ export function updateProfile(user_id, type, text){
   }}
   return dispatch => {
     axios.put(put_url, data, config).then(response => {
-      console.log('response', response)
       localStorage.setItem('email', response.data.email)
       localStorage.setItem('username', response.data.username)
       localStorage.setItem('user_id', response.data.id)
@@ -273,6 +271,11 @@ export function updateProfile(user_id, type, text){
     }).catch(error =>{
       console.log('error', error)
       toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
+      if(error.response){
+        if(error.response.status === 401){
+          browserHistory.push('/login');
+        }
+      }
     });
   };
 };

@@ -1,7 +1,10 @@
+.prehome-container{
+  height: 700%;
+}
 .prehome-background{
+  height: 700%;
   z-index: 0;
   background: url('/dj_mix.jpeg') no-repeat center center fixed;
-  height: 700%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -14,7 +17,6 @@
 }
 
 .strip{
-  margin: 5px;
   padding: 5px;
   border: 1px solid white;
   border-radius: 3px;
@@ -23,8 +25,8 @@
   z-index: 20;
   color: white;
   position: fixed;
-  top: 0;
-  left: calc(100% - 260px);
+  top: 3px;
+  right: 3px;
   & input {
     margin-bottom: 5px;
   }
@@ -108,6 +110,7 @@
 }
 
 #fake-soundmixer{
+  position: fixed;
   width: 60%;
   margin: auto;
   opacity: 0;

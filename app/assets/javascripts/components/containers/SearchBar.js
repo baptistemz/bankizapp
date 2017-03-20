@@ -32,7 +32,7 @@ class SearchBar extends Component {
       <nav>
         <div className="nav-wrapper">
           <form onSubmit={this.onFormSubmit} className="col s8">
-            <div className="input-field">
+            <div className="input-field search-input-field">
               <input type="search"
                 required
                 id="search"

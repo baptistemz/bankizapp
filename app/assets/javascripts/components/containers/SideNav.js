@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 
 class SideNav extends Component {
   componentDidMount(){
-
     $('.button-collapse').sideNav({
       closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
       draggable: true
@@ -57,7 +56,20 @@ class SideNav extends Component {
       </div>
     )
   }
+  loggedInThumbs(){
+    return(
+      <div>
+        <li><Link to={'/rooms'}><i className="material-icons">list</i>My rooms</Link></li>
+        <li><Link to={'/'}><i className="material-icons">playlist_add</i>New Room</Link></li>
+        <li><div className="divider"></div></li>
+      </div>
+    )
+  }
+  loggedOutThumbs(){
+    return <li><div className="divider"></div></li>
+  }
   render() {
+    const loggedIn = this.props.isAuthenticated
     return (
       <div>
         <div className= "transparent-navbar">
@@ -65,17 +77,12 @@ class SideNav extends Component {
             <li>
               <div className="userView">
                 <div className="background sidenav-background"></div>
-                {this.props.isAuthenticated ? this.profile() : this.connect()}
+                {loggedIn ? this.profile() : this.connect()}
               </div>
             </li>
             <li><div className="divider"></div></li>
             <li><Link to={'/'}><i className="material-icons">home</i>Home</Link></li>
-            <li><Link to={'/rooms'}><i className="material-icons">list</i>My rooms</Link></li>
-            <li><Link to={'/'}><i className="material-icons">playlist_add</i>New Room</Link></li>
-            <li><a href="#!">Link</a></li>
-            <li><div className="divider"></div></li>
-            <li><a className="subheader">Subheader</a></li>
-            <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
+            {loggedIn ? this.loggedInThumbs() : this.loggedOutThumbs()}
           </ul>
           <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="material-icons" id="burger-menu">menu</i></a>
         </div>

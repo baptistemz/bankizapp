@@ -51,7 +51,7 @@ class Signup extends Component {
                           <label htmlFor="icon_password_confirmation">Password confirmation</label>
                         </div>
                       </div>
-                      <button type="submit" className="btn full-width margin-top-20">Submit</button>
+                      <button type="submit" className="btn full-width margin-top-20 margin-bottom-20">Submit</button>
                     </form>
                     {errorMessage &&
                       <p>{errorMessage}</p>
@@ -59,7 +59,7 @@ class Signup extends Component {
                   </div>
                 </div>
               </div>
-              <div className="text-center margin-top-20 text-20">
+              <div className="text-center margin-top-20 margin-bottom-20 text-20">
                 <Link to={'/login'}>Already have an account ? Log in !</Link>
               </div>
             </div>

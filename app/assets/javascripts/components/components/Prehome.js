@@ -13,18 +13,18 @@ class Prehome extends Component {
 
   componentDidMount() {
     document.getElementById('burger-menu').style["color"] = "white"
-    window.addEventListener('scroll', this.handleScroll);
-    window.scrollTo(0, 0)
+    document.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     document.getElementById('burger-menu').style["color"] = "black"
-    window.removeEventListener('scroll', this.handleScroll);
+    document.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll(event) {
     let scrollTop = event.target.scrollingElement.scrollTop,
     itemTranslate = Math.min(0, scrollTop/3 - 60);
+    console.log(scrollTop)
     if(scrollTop > 200 && scrollTop < 520) {
       document.getElementById('fake-input-text').style["width"] = (scrollTop - 200)/2+"px"
     }else if(scrollTop > 520) {
@@ -37,16 +37,10 @@ class Prehome extends Component {
     } else {
       document.getElementById('fake-btn').classList.remove("fake-clic")
     }
-    if (scrollTop > window.innerWidth/10 +960 && scrollTop < 3900) {
-      document.getElementById('fake-soundmixer').classList.add("fixed")
+    if (scrollTop > 650 && scrollTop < 3900) {
       document.getElementById('fake-soundmixer').style["opacity"] = 1;
       document.getElementById('vol-btn').style["opacity"] = 1;
-    } else if(scrollTop > 3900) {
-      document.getElementById('fake-soundmixer').classList.add("fixed")
-      document.getElementById('fake-soundmixer').style["opacity"] = 0;
-      document.getElementById('vol-btn').style["opacity"] = 0;
-    } else {
-      document.getElementById('fake-soundmixer').classList.remove("fixed")
+    }else{
       document.getElementById('fake-soundmixer').style["opacity"] = 0;
       document.getElementById('vol-btn').style["opacity"] = 0;
     }
@@ -163,21 +157,17 @@ class Prehome extends Component {
     if(scrollTop > 3400 && scrollTop < 3900){
       document.getElementById('subtitle-4').style["position"] = "fixed";
       document.getElementById('subtitle-4').style["opacity"] = 1;
-      document.getElementById('fake-soundmixer').style["opacity"] = 1;
     }else if (scrollTop > 3900 && scrollTop < 4500 ){
       document.getElementById('subtitle-4').style["position"] = "fixed";
       document.getElementById('subtitle-4').style["opacity"] = 0;
-      document.getElementById('fake-soundmixer').style["opacity"] = 0;
     }else if (scrollTop > 4500){
       document.getElementById('subtitle-4').style["position"] = "relative";
       document.getElementById('subtitle-4').style["opacity"] = 0;
-      document.getElementById('fake-soundmixer').style["opacity"] = 0;
     }else if(scrollTop > 2620 && scrollTop < 3100){
       document.getElementById('subtitle-4').style["opacity"] = 0;
     }else{
       document.getElementById('subtitle-4').style["position"] = "relative";
       document.getElementById('subtitle-4').style["opacity"] = 1;
-      document.getElementById('fake-soundmixer').style["opacity"] = 1;
     }
     if (scrollTop > 3600) {
       document.getElementById('yt-list-element-2').style["opacity"] = 1
@@ -233,7 +223,6 @@ class Prehome extends Component {
           </div>
           <div className="block-500"></div>
           <div
-            className="animateme scrollme"
             id="fake-soundmixer"
             data-when="enter"
             data-from="0.5"
