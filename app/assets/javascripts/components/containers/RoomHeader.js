@@ -2,10 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {toastr} from 'react-redux-toastr';
-import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged} from '../actions/index'
+import Loader from 'halogen/RingLoader';
+import {fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged, cleanMusic} from '../actions/index'
 import SoundMixer from './SoundMixer'
 
 class RoomHeader extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      loaded: false
+    }
+  }
   componentCleanup(){
     if (this.props.username){
       const username = this.props.username
@@ -37,7 +44,11 @@ class RoomHeader extends Component {
   }
   componentWillUnmount(){
     this.componentCleanup();
+    this.props.cleanMusic();
     window.onbeforeunload = null; // remove the event handler for normal unmounting
+  }
+  componentWillReceiveProps(nextProps){
+    this.setState({loaded: true})
   }
   receiveRoomData(data){
     switch(data.action) {
@@ -84,49 +95,57 @@ class RoomHeader extends Component {
     });
   }
   render() {
-    return (
-      <div className="container">
-        <div className="room-presentation">
-          <h1 className="text-center">{this.props.room_name}</h1>
-          <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
-        </div>
-        <div className="row">
-          <div className="users-group col s12">
-            <div className= "logged-in-state">
-              <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big>users<span className="hide-on-small-only"> connected</span></p>
-              <div className="hover-chip" id="logged-in-chip">
-                {this.props.room_users.map(function(u, i){
-                  return(
-                    <div key={i}>
-                      {u.username}
-                    </div>
-                  )
-                })}
-                {this.props.strangers_number > 0 ?
-                  <div>+{this.props.strangers_number} strangers</div>
-                :
-                  <div></div>
-                }
+    if(this.state.loaded){
+      return (
+        <div className="container">
+          <div className="room-presentation">
+            <h1 className="text-center">{this.props.room_name}</h1>
+            <h3 className= "text-center grey-text"> by @{this.props.dj_name}</h3>
+          </div>
+          <div className="row">
+            <div className="users-group col s12">
+              <div className= "logged-in-state">
+                <p className="underline"><big>{this.props.room_users.length + this.props.strangers_number}</big>users<span className="hide-on-small-only"> connected</span></p>
+                <div className="hover-chip" id="logged-in-chip">
+                  {this.props.room_users.map(function(u, i){
+                    return(
+                      <div key={i}>
+                        {u.username}
+                      </div>
+                    )
+                  })}
+                  {this.props.strangers_number > 0 ?
+                    <div>+{this.props.strangers_number} strangers</div>
+                    :
+                    <div></div>
+                  }
+                </div>
+              </div>
+              <div className="space-around">
+                <h6 className="hide-on-small-only">Share this room : </h6>
+                <h6 className="hide-on-med-and-up">Share : </h6>
+                <div className="btn messenger-btn" onClick={this.messengerShare.bind(this)}><img src="/messenger-icon.png" alt="messenger"/></div>
+                <h6>or</h6>
+                <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
               </div>
             </div>
-            <div className="space-around">
-              <h6 className="hide-on-small-only">Share this room : </h6>
-              <h6 className="hide-on-med-and-up">Share : </h6>
-              <div className="btn messenger-btn" onClick={this.messengerShare.bind(this)}><img src="/messenger-icon.png" alt="messenger"/></div>
-              <h6>or</h6>
-              <div className="btn" onClick={this.copyLink.bind(this)}>Copy Link</div>
-            </div>
           </div>
+          <SoundMixer visible={this.props.location.pathname != `/rooms/${this.props.room_slug}/search`} />
+          {this.props.children}
         </div>
-        <SoundMixer visible={this.props.location.pathname != `/rooms/${this.props.room_slug}/search`} />
-        {this.props.children}
-      </div>
-    );
+      );
+    }else{
+      return (
+        <div className="loader-container full-page-loader">
+          <Loader color="#2F9EE2" size="50px" margin="4px"/>
+        </div>
+      )
+    }
   }
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged}, dispatch);
+  return bindActionCreators({fetchRoom, receiveAddedMusic, receiveUpdatedMusic, receiveDeletedMusic, receiveSortedMusics, receiveNewInvitation, receiveDeletedInvitation, connectToRoom, disconnectFromRoom, strangersNumberChanged, cleanMusic}, dispatch);
 }
 
 function mapStateToProps(state){

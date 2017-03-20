@@ -16,7 +16,6 @@ export default class VideoPlayer extends React.Component {
     this.onReady = this.onReady.bind(this)
   }
   componentDidMount(){
-    console.log("component did mount", this.props.video.snippet)
     this.props.alignRight ? this.align('right') : this.align('left')
   }
   componentDidUpdate(oldProps){
@@ -32,7 +31,6 @@ export default class VideoPlayer extends React.Component {
     }
   }
   align(side){
-    console.log("align, side=", side, "this=", this.props.video.snippet)
     const classes= ReactDOM.findDOMNode(this).className;
     if(side==='right'){
       this.setState({thumbnail: 'right'})
@@ -77,7 +75,6 @@ export default class VideoPlayer extends React.Component {
   }
   onProgress(currentTime, transitionTime){
     if(currentTime >= transitionTime ) {
-      console.log(this.state.countdown)
       // 20 seconds before the end of the video, this will be called.
       if(this.state.countdown === 0){
         return false

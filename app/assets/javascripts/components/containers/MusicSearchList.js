@@ -5,8 +5,6 @@ import {connect} from 'react-redux';
 import {browserHistory} from 'react-router'
 import slugify from '../slugify'
 import {toastr} from 'react-redux-toastr';
-
-
 import {addMusic} from '../actions/index';
 import MusicListItem from '../components/MusicListItem';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -28,7 +26,6 @@ class MusicSearchList extends Component {
   }
   playMusic(music){
     const status = !this.props.music_1 && !this.props.music_2 ? "playing" : "next"
-    console.log(status)
     this.props.addMusic(this.props.room_id, music, status);
     browserHistory.push(`/rooms/${this.props.room_slug}`);
   }

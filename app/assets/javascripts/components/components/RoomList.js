@@ -1,13 +1,23 @@
 import React from 'react';
 import {Component} from 'react';
 import {connect} from 'react-redux';
+import Loader from 'halogen/RingLoader';
 import {fetchRoomList} from '../actions/index'
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router';
 
 class RoomList extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      loaded: false
+    }
+  }
   componentWillMount(){
     this.props.fetchRoomList()
+  }
+  componentWillReceiveProps(nextProps){
+    this.setState({loaded: true})
   }
   render(){
     const roomListItems = this.props.room_list.map((item) => {
@@ -31,25 +41,33 @@ class RoomList extends Component {
         </li>
       )
     })
-    return(
-      <div className="room-list-page">
-        <div className="header">
-          <h1>Rooms</h1>
+    if(this.state.loaded){
+      return(
+        <div className="room-list-page">
+          <div className="header">
+            <h1>Rooms</h1>
+          </div>
+          <div className="container">
+            <h2>The rooms you created</h2>
+            <ul className="collection">
+              {roomListItems}
+            </ul>
+          </div>
+          <div className="container">
+            <h2>The rooms you visited/contributed to</h2>
+            <ul className="collection">
+              {contributionListItems}
+            </ul>
+          </div>
         </div>
-        <div className="container">
-          <h2>The rooms you created</h2>
-          <ul className="collection">
-            {roomListItems}
-          </ul>
+      );
+    }else{
+      return (
+        <div className="loader-container full-page-loader">
+          <Loader color="#2F9EE2" size="50px" margin="4px"/>
         </div>
-        <div className="container">
-          <h2>The rooms you visited/contributed to</h2>
-          <ul className="collection">
-            {contributionListItems}
-          </ul>
-        </div>
-      </div>
-    );
+      )
+    }
   }
 };
 

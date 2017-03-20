@@ -24,7 +24,6 @@ class Prehome extends Component {
   handleScroll(event) {
     let scrollTop = event.target.scrollingElement.scrollTop,
     itemTranslate = Math.min(0, scrollTop/3 - 60);
-    console.log(scrollTop)
     if(scrollTop > 200 && scrollTop < 520) {
       document.getElementById('fake-input-text').style["width"] = (scrollTop - 200)/2+"px"
     }else if(scrollTop > 520) {

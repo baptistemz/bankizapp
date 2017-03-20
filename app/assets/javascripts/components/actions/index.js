@@ -19,6 +19,7 @@ export const CHANGE_DRAG_ORDER ='CHANGE_DRAG_ORDER'
 export const CHANGE_LIST_ORDER ='CHANGE_LIST_ORDER'
 export const CREATE_INVITATION ='CREATE_INVITATION'
 export const DELETE_INVITATION ='DELETE_INVITATION'
+export const CLEAN_MUSIC ='CLEAN_MUSIC'
 export const STRANGERS_NUMBER_CHANGED ='STRANGERS_NUMBER_CHANGED'
 export const UPDATE_PROFILE ='UPDATE_PROFILE'
 
@@ -242,6 +243,11 @@ export function receiveDeletedInvitation(data){
     dispatch({type: DELETE_INVITATION, payload:data.invitation})
   }
 }
+export function cleanMusic(){
+  return(dispatch) => {
+    dispatch({type: CLEAN_MUSIC, payload: 'clean !'})
+  }
+}
 export function strangersNumberChanged(data){
   return(dispatch) => {
     dispatch({type: STRANGERS_NUMBER_CHANGED, payload:data})
@@ -269,7 +275,6 @@ export function updateProfile(user_id, type, text){
       // if (response.statusText === "OK"){
       // }
     }).catch(error =>{
-      console.log('error', error)
       toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
       if(error.response){
         if(error.response.status === 401){

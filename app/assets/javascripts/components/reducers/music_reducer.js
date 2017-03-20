@@ -1,4 +1,4 @@
-import {FETCH_MUSICS, ADD_MUSIC, DELETE_MUSIC, UPDATE_MUSIC, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER} from '../actions/index.js'
+import {FETCH_MUSICS, ADD_MUSIC, DELETE_MUSIC, UPDATE_MUSIC, CHANGE_BALANCE, GOT_ROOM, CHANGE_DRAG_ORDER, CHANGE_LIST_ORDER, CLEAN_MUSIC} from '../actions/index.js'
 
 const INITIAL_STATE = { search_term: '', youtube_auto_complete:[], all:[], music_1: null, music_2: null, balance:0, mute_player:2, waiting_list:[], draggingObject: {}};
 
@@ -100,6 +100,8 @@ export default function(state = INITIAL_STATE, action){
         }
       }
     }
+  case CLEAN_MUSIC:
+    return INITIAL_STATE
   default:
     return state;
   }
