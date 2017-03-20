@@ -21,6 +21,6 @@ class User < ActiveRecord::Base
   end
 
   def register_user_to_mailchimp_list
-    SubscribeToNewsletterJob.perform_now(self)
+    SubscribeToNewsletterJob.perform_later(self)
   end
 end
