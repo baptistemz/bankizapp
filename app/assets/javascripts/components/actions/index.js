@@ -272,8 +272,6 @@ export function updateProfile(user_id, type, text){
       localStorage.setItem('username', response.data.username)
       localStorage.setItem('user_id', response.data.id)
       dispatch({type: UPDATE_PROFILE, payload: response.data})
-      // if (response.statusText === "OK"){
-      // }
     }).catch(error =>{
       toastr.error(`${error.response.data.errors[0]}`, {timeOut: 8000});
       if(error.response){
@@ -427,5 +425,6 @@ export function logoutUser() {
     localStorage.removeItem('user_id')
     dispatch(receiveLogout())
     toastr.success('Logged out successfully', 'Hope to see you soon !')
+    browserHistory.push('/');
   }
 }
