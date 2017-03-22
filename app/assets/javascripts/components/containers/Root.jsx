@@ -19,7 +19,6 @@ export default class Root extends Component {
       console.log('fire')
       // ReactGA.pageview(window.location.pathname);
     }
-    console.log('DB host', process)
     return (
       <Provider store={store}>
         <div>
