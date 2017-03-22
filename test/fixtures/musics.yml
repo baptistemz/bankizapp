@@ -1,0 +1,28 @@
+music_1:
+  json_data: {"kind":"youtube#searchResult","etag":"uQc-MPTsstrHkQcRXL3IWLmeNsM/CNegqP5rrfjYsV4koC97ZHVNSYg","id":{"kind":"youtube#video","videoId":"g66cjRaenHw"},"snippet":{"publishedAt":"2010-07-20T02:54:06.000Z","channelId":"UCWz1npvlrfcGfLWslq-GK4Q","title":"Si yo fuera Maradona - Manu chao  HD","description":"me podran decir que estoy bien o mejor que antes, pero nadie esta dentro mio . Yo se las culpas que tengo Si yo fuera Maradona - Manu chao HD.","thumbnails":{"default":{"url":"https://i.ytimg.com/vi/g66cjRaenHw/default.jpg","width":120,"height":90},"medium":{"url":"https://i.ytimg.com/vi/g66cjRaenHw/mqdefault.jpg","width":320,"height":180},"high":{"url":"https://i.ytimg.com/vi/g66cjRaenHw/hqdefault.jpg","width":480,"height":360}},"channelTitle":"matadorkiwi","liveBroadcastContent":"none"},"duration":"4 minutes"}
+  slug: "97ZHVNSYg"
+  state: playing
+  user_id: 1
+  room_id: 2
+  id: 1
+music_2:
+  json_data: {"kind":"youtube#searchResult","etag":"uQc-MPTsstrHkQcRXL3IWLmeNsM/E2XdfUhRR33k2idxaposmcjgfl4","id":{"kind":"youtube#video","videoId":"3GwjfUFyY6M"},"snippet":{"publishedAt":"2009-10-05T11:22:03.000Z","channelId":"UCbruIYwKjcjdKo5fD_eT3ag","title":"Kool & The Gang - Celebration","description":"Music video by Kool & The Gang performing Celebration. (C) 1980 The Island Def Jam Music Group.","thumbnails":{"default":{"url":"https://i.ytimg.com/vi/3GwjfUFyY6M/default.jpg","width":120,"height":90},"medium":{"url":"https://i.ytimg.com/vi/3GwjfUFyY6M/mqdefault.jpg","width":320,"height":180},"high":{"url":"https://i.ytimg.com/vi/3GwjfUFyY6M/hqdefault.jpg","width":480,"height":360}},"channelTitle":"KoolAndTheGangVEVO","liveBroadcastContent":"none"},"duration":"4 minutes"}
+  slug: "michels-birthday"
+  state: "next"
+  user_id: 2
+  room_id: 2
+  id: 2
+music_3:
+  json_data: {"kind":"youtube#searchResult","etag":"uQc-MPTsstrHkQcRXL3IWLmeNsM/6rxx8z_KtFO5n3CbcVIP1CdWJs8","id":{"kind":"youtube#video","videoId":"qchPLaiKocI"},"snippet":{"publishedAt":"2009-10-05T12:50:01.000Z","channelId":"UCbruIYwKjcjdKo5fD_eT3ag","title":"Kool & The Gang - Get Down On It","description":"Music video by Kool & The Gang performing Get Down On It. (C) 1981 The Island Def Jam Music Group.","thumbnails":{"default":{"url":"https://i.ytimg.com/vi/qchPLaiKocI/default.jpg","width":120,"height":90},"medium":{"url":"https://i.ytimg.com/vi/qchPLaiKocI/mqdefault.jpg","width":320,"height":180},"high":{"url":"https://i.ytimg.com/vi/qchPLaiKocI/hqdefault.jpg","width":480,"height":360}},"channelTitle":"KoolAndTheGangVEVO","liveBroadcastContent":"none"},"duration":"5 minutes"}
+  slug: "rudys-room"
+  state: "waiting"
+  user_id: 1
+  room_id: 2
+  id: 3
+music_4:
+  json_data: {"kind":"youtube#searchResult","etag":"uQc-MPTsstrHkQcRXL3IWLmeNsM/yHRINu_up_pk83ooQwg40zOJIf0","id":{"kind":"youtube#video","videoId":"hsklsxReSe0"},"snippet":{"publishedAt":"2009-10-08T15:17:59.000Z","channelId":"UCbruIYwKjcjdKo5fD_eT3ag","title":"Kool & The Gang - Joanna","description":"Music video by Kool & The Gang performing Joanna. (C) 1983 The Island Def Jam Music Group.","thumbnails":{"default":{"url":"https://i.ytimg.com/vi/hsklsxReSe0/default.jpg","width":120,"height":90},"medium":{"url":"https://i.ytimg.com/vi/hsklsxReSe0/mqdefault.jpg","width":320,"height":180},"high":{"url":"https://i.ytimg.com/vi/hsklsxReSe0/hqdefault.jpg","width":480,"height":360}},"channelTitle":"KoolAndTheGangVEVO","liveBroadcastContent":"none"},"duration":"4 minutes"}
+  slug: "emiles-room"
+  state: "playing"
+  user_id: 2
+  room_id: 3
+  id: 4

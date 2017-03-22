@@ -14,7 +14,7 @@ export default class SearchGroup extends Component {
   render() {
     return (
       <div className="text-center">
-        <Link to={`/rooms/${this.props.params.roomId}/`} id="search-btn">
+        <Link to={`/rooms/${this.props.params.roomId}/`} className="fixed-round-btn" id="search-btn">
           <div className="btn-floating waves-effect waves-light modal-trigger" data-target="modal2"><i className="material-icons">clear</i></div>
         </Link>
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnter={false} transitionLeave={false}>

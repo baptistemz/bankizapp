@@ -15,7 +15,7 @@ class Music < ApplicationRecord
   enumerize :state, in: ["waiting", "playing", "next"]
   validates_uniqueness_of :slug, scope: :room_id
   validates_uniqueness_of :state, scope: :room_id, unless: Proc.new { |music| music.state == "waiting" }
-  validates_presence_of :slug, :json_data, :state
+  validates_presence_of :slug, :json_data, :state, :room_id
 
   def broadcast_added_music
     ActionCable.server.broadcast(self.room.slug, {action: "added", music: ActiveSupport::JSON.decode(render_music(self))})

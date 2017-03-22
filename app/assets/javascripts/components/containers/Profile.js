@@ -19,7 +19,7 @@ class Profile extends Component {
           <img src="/profile_icon.png" alt=""/>
           <h3 className='grey-text'>@{this.props.username}</h3>
         </div>
-        <div className="profile-text-group margin-top-20">
+        <div className="shadowed-box margin-top-20">
           <div className="row">
             <div className="col s12 m6 l3">
               <EditableField

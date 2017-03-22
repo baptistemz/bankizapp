@@ -5,16 +5,25 @@ import {Router, browserHistory} from 'react-router';
 import Routes from './Routes';
 import ReduxToastr from 'react-redux-toastr';
 import configureStore from '../store/configureStore';
+import ReactGA from 'react-ga';
 
+// ReactGA.initialize('UA-000000-01');
+// require('dotenv').config()
+// console.log(process)
 
 const store = configureStore();
 
 export default class Root extends Component {
   render() {
+    function fireTracking() {
+      console.log('fire')
+      // ReactGA.pageview(window.location.pathname);
+    }
+    console.log('DB host', process.env)
     return (
       <Provider store={store}>
         <div>
-          <Router history={browserHistory} routes={Routes}/>
+          <Router onUpdate={fireTracking} history={browserHistory} routes={Routes}/>
           <ReduxToastr
             timeOut={4000}
             preventDuplicates={true}

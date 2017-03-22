@@ -55,9 +55,9 @@ big{
   height: 500px;
   width: 100%;
 }
-.block-10{
+.block-100{
   display: block;
-  height: 10px;
+  height: 100px;
   width: 100%;
 }
 .button-collapse{
@@ -151,8 +151,10 @@ big{
 }
 
 .nice-container{
-  border: 1px solid #C2C0C2;
-  padding: 10px 10%;
+  border: 1px solid #eee;
+  border-bottom: 1px solid transparent ;
+  box-shadow: 0 2px 2px rgba(120, 120, 120, 0.3);
+  padding: 30px 10%;
   border-radius:3px;
   background-color: white
 }
@@ -163,6 +165,12 @@ big{
   align-items: center;
 }
 
+.shadowed-box{
+  border: 1px solid #f3f3f3;
+  border-bottom: 1px solid transparent ;
+  box-shadow: 0 2px 2px rgba(120, 120, 120, 0.2);
+  padding: 10%
+}
 
 .redux-toastr{
   width: 300px

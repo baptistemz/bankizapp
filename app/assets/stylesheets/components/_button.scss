@@ -28,7 +28,7 @@
   background-color: #0087d6;
 }
 
-#search-btn{
+.fixed-round-btn{
   position: absolute;
   .btn-floating{
     width: 50px;
@@ -42,7 +42,7 @@
   }
 }
 
-#search-btn:hover .material-icons{
+.fixed-round-btn:hover .material-icons{
   background-color: black;
   color: white
 }

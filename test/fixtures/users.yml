@@ -1,0 +1,12 @@
+george:
+  email: "george@abitbol.com"
+  username: "George"
+  id: 1
+rudy:
+  email: "rudy@abitbol.com"
+  username: "Rudy"
+  id: 2
+emile:
+  email: "emile@abitbol.com"
+  username: "Emile"
+  id: 3

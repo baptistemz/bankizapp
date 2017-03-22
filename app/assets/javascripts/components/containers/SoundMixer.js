@@ -162,7 +162,7 @@ class SoundMixer extends React.Component {
     const visibilityClass = this.props.visible ? 'visible' : 'hidden'
     return (
       <div className={visibilityClass}>
-        <Link to={`/rooms/${this.props.room_slug}/search`} id="search-btn">
+        <Link to={`/rooms/${this.props.room_slug}/search`} className='fixed-round-btn' id='search-btn'>
           <div className="btn-floating waves-effect waves-light modal-trigger" data-target="modal2"><i className="material-icons">search</i></div>
         </Link>
         <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout= {500} transitionLeaveTimeout= {500}>

@@ -1,26 +1,56 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<div class="container">
+  <div class="back-to-app space-around align-items">
+    <a href="/">
+      <div class="btn-floating waves-effect waves-light modal-trigger"><i class="material-icons">keyboard_arrow_left</i></div>
+    </a>
+    <span class='text-left'>
+      <p>Back to<br>Bankiz app</p>
+    </span>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="lock-icon space-around align-items">
+    <span class='text-right'>
+      <p>Account<br>management</p>
+    </span>
+    <i class='material-icons'>account_circle</i>
   </div>
+  <div class="row">
+    <div class="vertical-align-container">
+      <div class="col s12 l10 offset-l1">
+        <div class="nice-container">
+          <h4 class="text-center">Bankiz account management</h4>
+          <br/>
+          <div class="row">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="input-field">
+                <i class="material-icons prefix">email</i>
+                <%= f.email_field :email, autofocus: true %>
+                <%= f.label :email %>
+              </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+              <div class="input-field">
+                <i class="material-icons prefix">lock_outline</i>
+                <%= f.password_field :password, autocomplete: "off" %>
+                <%= f.label :password %>
+              </div>
+
+              <% if devise_mapping.rememberable? -%>
+                <div class="input-field">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+              <% end -%>
+              <br>
+
+              <div class="actions">
+                <%= f.submit "Log in", class: 'btn full-width margin-top-20 margin-bottom-20' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="text-center margin-top-20 margin-bottom-20 text-20">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

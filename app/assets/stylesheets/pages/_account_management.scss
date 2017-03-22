@@ -1,0 +1,33 @@
+.lock-icon{
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  color: #ccc;
+  i{
+    font-size: 4em;
+  }
+}
+
+.back-to-app{
+  position: absolute;
+  top: 1%;
+  left: 5%;
+  width: 146px;
+  .btn-floating{
+    border: black;
+    width: 60px;
+    height: 60px;
+    i{
+      line-height: 60px;
+      font-size: 40px;
+      color: black;
+    }
+    i:hover{
+      background-color: black;
+      color: white;
+    }
+  }
+  // i{
+  //   font-size: 4em;
+  // }
+}

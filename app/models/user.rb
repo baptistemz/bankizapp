@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable
+#  , :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+
   validates :username, presence: true
   validates :email, presence: true
+  validates_uniqueness_of :email, :username
   has_many :rooms, dependent: :destroy
   has_many :musics, dependent: :nullify
   has_many :invitations

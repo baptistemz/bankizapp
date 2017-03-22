@@ -58,7 +58,11 @@ group :development, :test do
   gem 'letter_opener'
   gem 'binding_of_caller'
   gem 'better_errors'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'launchy'
+  gem 'minitest-reporters'
+  # gem 'rspec-rails', '~> 3.5'
 end
 
 group :test do

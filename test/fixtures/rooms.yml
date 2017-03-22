@@ -1,0 +1,19 @@
+new_year:
+  name: "New Year"
+  slug: "new-year"
+  user_id: 1
+  id: 1
+michels_birthday:
+  name: "Michel's birthday"
+  slug: "michels-birthday"
+  user_id: 2
+  id: 2
+rudys_room:
+  name: "Rudy's Room"
+  slug: "rudys-room"
+  user_id: 2
+emiles_room:
+  name: "Emile's Room"
+  slug: "emiles-room"
+  user_id: 3
+  id: 3

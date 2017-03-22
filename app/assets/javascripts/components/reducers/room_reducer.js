@@ -15,9 +15,6 @@ export default function(state = INITIAL_STATE, action){
       return {...state, users:[...state.users, action.payload]}
     }
   case DELETE_INVITATION:
-    console.log("state", state.users)
-    console.log("payload", action.payload)
-    console.log("condition", state.users.some(u => u.id === action.payload.id))
     if (state.users.some(u => u.id === action.payload.id)){
       return {...state, users: state.users.filter((i) => i.id !== action.payload.id)}
     }else{

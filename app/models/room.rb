@@ -8,6 +8,7 @@ class Room < ApplicationRecord
 
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug, :name
+  validates_numericality_of :strangers_number, greater_than_or_equal_to: 0
 
   def broadcast_modified_list(musics)
     ActionCable.server.broadcast(self.slug, {action: "sorted", musics: ActiveSupport::JSON.decode(render_musics(musics))})
