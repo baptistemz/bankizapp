@@ -271,7 +271,7 @@ class Prehome extends Component {
             <h2>Share with friends</h2>
           </div>
           <div className="subtitle-container" id="subtitle-4">
-            <h4><p>They can now search musics and enqueue them to the waiting list</p></h4>
+            <h4><p>They can now search musics and add them to the list</p></h4>
           </div>
         </div>
         <div id="footer"></div>
