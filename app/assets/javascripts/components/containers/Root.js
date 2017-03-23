@@ -7,9 +7,9 @@ import ReduxToastr from 'react-redux-toastr';
 import configureStore from '../store/configureStore';
 import ReactGA from 'react-ga';
 
+ReactGA.initialize('UA-000000-01');
 
 const store = configureStore();
-// ReactGA.initialize('UA-000000-01');
 
 export default class Root extends Component {
   render() {
@@ -21,7 +21,6 @@ export default class Root extends Component {
       console.log('fire')
       // ReactGA.pageview(window.location.pathname);
     }
-
     return (
       <Provider store={store}>
         <div>
