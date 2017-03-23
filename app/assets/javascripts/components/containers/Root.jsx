@@ -7,19 +7,21 @@ import ReduxToastr from 'react-redux-toastr';
 import configureStore from '../store/configureStore';
 import ReactGA from 'react-ga';
 
-// ReactGA.initialize('UA-000000-01');
-// require('dotenv').config()
-// console.log(process)
 
 const store = configureStore();
+// ReactGA.initialize('UA-000000-01');
 
 export default class Root extends Component {
   render() {
+    if(process.env.NODE_ENV = "production"){
+      console.log('dotenv', process.env)
+    }
+    console.log('process', process)
     function fireTracking() {
       console.log('fire')
       // ReactGA.pageview(window.location.pathname);
     }
-    console.log('DB host')
+
     return (
       <Provider store={store}>
         <div>

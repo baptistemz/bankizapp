@@ -59,7 +59,6 @@
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
     "browserify-incremental": "^3.1.1",
-    "dotenv": "^4.0.0",
     "halogen": "^0.2.0",
     "lodash": "^3.10.1",
     "materialize-css": "^0.97.8",

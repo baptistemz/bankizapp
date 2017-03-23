@@ -17,4 +17,3 @@
 //= require facebook-share
 //= require components
 //= require cable
-//= require utils

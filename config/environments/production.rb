@@ -84,6 +84,7 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
   # Do not dump schema after migrations.
-  config.browserify_rails.node_env = "production"
   config.active_record.dump_schema_after_migration = false
+  config.browserify_rails.node_env = "production"
+  config.browserify_rails.commandline_options ="-t [ babelify --presets [  es2015 stage-2 react ] ]"
 end

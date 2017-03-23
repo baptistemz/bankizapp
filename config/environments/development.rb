@@ -54,4 +54,6 @@ Rails.application.configure do
   config.serve_static_assets = false
   config.action_cable.url = 'ws://localhost:3000/cable'
   config.action_cable.allowed_request_origins = [ /.*/ ]
+  config.browserify_rails.node_env = "development"
+  config.browserify_rails.commandline_options ="-t [ babelify --presets [  es2015 stage-2 react ] ]"
 end
